@@ -269,3 +269,72 @@ Stack trace:
 REQUEST_URI=/yii/ePathway/index.php?r=gen/view
 HTTP_REFERER=http://localhost/yii/ePathway/index.php?r=site/index
 ---
+2013/08/29 03:24:16 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /srv/http/yii/framework/web/CController.php:336
+Stack trace:
+#0 /srv/http/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /srv/http/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /srv/http/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /srv/http/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /srv/http/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /srv/http/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /srv/http/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /srv/http/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /srv/http/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#9 /srv/http/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('gen/view/2')
+#10 /srv/http/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /srv/http/yii/ePathway/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/yii/ePathway/index.php?r=gen/view/2
+HTTP_REFERER=http://localhost/yii/ePathway/index.php?r=gen/index
+---
+2013/08/29 03:26:39 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /srv/http/yii/framework/web/CController.php:336
+Stack trace:
+#0 /srv/http/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /srv/http/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /srv/http/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /srv/http/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /srv/http/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /srv/http/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /srv/http/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /srv/http/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /srv/http/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#9 /srv/http/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('gen/view/2')
+#10 /srv/http/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /srv/http/yii/ePathway/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/yii/ePathway/index.php?r=gen/view/2
+HTTP_REFERER=http://localhost/yii/ePathway/index.php?r=gen/index
+---
+2013/08/29 03:29:58 [error] [php] Array to string conversion (/srv/http/yii/framework/web/helpers/CHtml.php:157)
+Stack trace:
+#0 /srv/http/yii/framework/web/CBaseController.php(130): require()
+#1 /srv/http/yii/framework/web/CBaseController.php(95): GenController->renderInternal()
+#2 /srv/http/yii/framework/zii/widgets/CListView.php(281): GenController->renderFile()
+#3 /srv/http/yii/framework/zii/widgets/CBaseListView.php(160): CListView->renderItems()
+#4 unknown(0): CListView->renderSection()
+#5 /srv/http/yii/framework/zii/widgets/CBaseListView.php(143): preg_replace_callback()
+#6 /srv/http/yii/framework/zii/widgets/CBaseListView.php(128): CListView->renderContent()
+#7 /srv/http/yii/framework/web/CBaseController.php(173): CListView->run()
+#8 /srv/http/yii/ePathway/protected/views/gen/index.php(20): GenController->widget()
+#9 /srv/http/yii/framework/web/CBaseController.php(126): require()
+#10 /srv/http/yii/framework/web/CBaseController.php(95): GenController->renderInternal()
+#11 /srv/http/yii/framework/web/CController.php(869): GenController->renderFile()
+#12 /srv/http/yii/framework/web/CController.php(782): GenController->renderPartial()
+#13 /srv/http/yii/ePathway/protected/controllers/GenController.php(128): GenController->render()
+#14 /srv/http/yii/framework/web/actions/CInlineAction.php(49): GenController->actionIndex()
+#15 /srv/http/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#16 /srv/http/yii/framework/web/filters/CFilterChain.php(133): GenController->runAction()
+#17 /srv/http/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#18 /srv/http/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#19 /srv/http/yii/framework/web/filters/CInlineFilter.php(58): GenController->filterAccessControl()
+#20 /srv/http/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#21 /srv/http/yii/framework/web/CController.php(291): CFilterChain->run()
+#22 /srv/http/yii/framework/web/CController.php(265): GenController->runActionWithFilters()
+#23 /srv/http/yii/framework/web/CWebApplication.php(282): GenController->run()
+#24 /srv/http/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#25 /srv/http/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#26 /srv/http/yii/ePathway/index.php(13): CWebApplication->run()
+REQUEST_URI=/yii/ePathway/index.php?r=gen/index
+in /srv/http/yii/ePathway/protected/views/gen/_view.php (6)
+in /srv/http/yii/ePathway/protected/views/gen/index.php (20)
+in /srv/http/yii/ePathway/protected/controllers/GenController.php (128)

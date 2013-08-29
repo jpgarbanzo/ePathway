@@ -20,6 +20,7 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cds')); ?>:</b>
 	<?php echo CHtml::encode($data->cds); ?>
 	<br />
+        <?php echo CHtml::link('View Details',array('gen/view','id'=>$data->idtbl_gen)) ?>
 
 
 </div>

@@ -3,7 +3,7 @@
 /* @var $model Gen */
 
 $this->breadcrumbs=array(
-	'Gens'=>array('index'),
+	'Genes'=>array('index'),
 	'Manage',
 );
 
