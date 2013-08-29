@@ -5,10 +5,6 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('idtbl_gen')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->idtbl_gen), array('view', 'id'=>$data->idtbl_gen)); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('codigoaccesion')); ?>:</b>
 	<?php echo CHtml::encode($data->codigoaccesion); ?>
 	<br />

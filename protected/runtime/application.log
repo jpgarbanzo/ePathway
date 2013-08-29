@@ -245,3 +245,9 @@ Stack trace:
 REQUEST_URI=/yii/ePathway/index.php?r=gii/crud
 HTTP_REFERER=http://localhost/yii/ePathway/index.php?r=gii/default/index
 ---
+2013/08/29 01:43:23 [warning] [application] Failed to set unsafe attribute "idtbl_gen" of "Gen".
+in /srv/http/yii/ePathway/protected/controllers/GenController.php (139)
+in /srv/http/yii/ePathway/index.php (13)
+2013/08/29 01:43:25 [warning] [application] Failed to set unsafe attribute "idtbl_gen" of "Gen".
+in /srv/http/yii/ePathway/protected/controllers/GenController.php (139)
+in /srv/http/yii/ePathway/index.php (13)

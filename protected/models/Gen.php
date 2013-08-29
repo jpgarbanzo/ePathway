@@ -50,7 +50,7 @@ class Gen extends CActiveRecord
 			array('cds', 'length', 'max'=>1500),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('idtbl_gen, codigoaccesion, organismoorigen, secuenciacompleta, cds', 'safe', 'on'=>'search'),
+			array('codigoaccesion, organismoorigen, secuenciacompleta, cds', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,11 +74,10 @@ class Gen extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'idtbl_gen' => 'Idtbl Gen',
-			'codigoaccesion' => 'Codigoaccesion',
-			'organismoorigen' => 'Organismoorigen',
-			'secuenciacompleta' => 'Secuenciacompleta',
-			'cds' => 'Cds',
+			'codigoaccesion' => 'Access Code',
+			'organismoorigen' => 'Organism',
+			'secuenciacompleta' => 'Complete Sequence',
+			'cds' => 'Coding Sequence (CDS)',
 		);
 	}
 
@@ -93,7 +92,6 @@ class Gen extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('idtbl_gen',$this->idtbl_gen,true);
 		$criteria->compare('codigoaccesion',$this->codigoaccesion,true);
 		$criteria->compare('organismoorigen',$this->organismoorigen,true);
 		$criteria->compare('secuenciacompleta',$this->secuenciacompleta,true);

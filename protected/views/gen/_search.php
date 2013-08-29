@@ -12,11 +12,6 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'idtbl_gen'); ?>
-		<?php echo $form->textField($model,'idtbl_gen'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'codigoaccesion'); ?>
 		<?php echo $form->textField($model,'codigoaccesion',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
