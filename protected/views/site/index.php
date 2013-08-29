@@ -2,7 +2,7 @@
 /* @var $this SiteController */
 $this->pageTitle=Yii::app()->name;
 ?>
-
+<!--
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
 <p>Congratulations! You have successfully created your Yii application.</p>
@@ -17,13 +17,12 @@ $this->pageTitle=Yii::app()->name;
 the <a href="http://www.yiiframework.com/doc/">documentation</a>.
 Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
 should you have any questions.</p>
+-->
 
+<h2>Main actions for Genes</h2>
 
-<h3>Choose an action:</h3>
-
-<ul>
+<ul class="big-menu">
 <li><?php echo CHtml::link('View Gene List',array('gen/index')) ?></li>
 <li><?php echo CHtml::link('Add a Gene',array('gen/create')) ?></li>
 <li><?php echo CHtml::link('Administrate Genes',array('gen/admin')) ?></li>
-<br/>
 </ul>
