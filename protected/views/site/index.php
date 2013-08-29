@@ -26,3 +26,9 @@ should you have any questions.</p>
 <li><?php echo CHtml::link('Add a Gene',array('gen/create')) ?></li>
 <li><?php echo CHtml::link('Administrate Genes',array('gen/admin')) ?></li>
 </ul>
+
+
+<ul class="big-menu">
+<li><?php echo CHtml::link('Primers',array('primer/index')) ?></li>
+
+</ul>
