@@ -73,9 +73,13 @@ class PrimerController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->idtbl_primer));
 		}
+                
+                $primer_status = $model->retrievePrimerStatusList();
+                $model->PrimerStatus = $primer_status;
 
 		$this->render('create',array(
 			'model'=>$model,
+                        'primer_status'=>$primer_status,
 		));
 	}
 
