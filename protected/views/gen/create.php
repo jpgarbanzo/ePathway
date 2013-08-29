@@ -3,16 +3,16 @@
 /* @var $model Gen */
 
 $this->breadcrumbs=array(
-	'Gens'=>array('index'),
+	'Genes'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List Gen', 'url'=>array('index')),
-	array('label'=>'Manage Gen', 'url'=>array('admin')),
+	array('label'=>'List Genes', 'url'=>array('index')),
+	array('label'=>'Manage Genes', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Gen</h1>
+<h1>Create Gene</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

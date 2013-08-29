@@ -3,19 +3,19 @@
 /* @var $model Gen */
 
 $this->breadcrumbs=array(
-	'Gens'=>array('index'),
+	'Genes'=>array('index'),
 	$model->idtbl_gen=>array('view','id'=>$model->idtbl_gen),
 	'Update',
 );
 
 $this->menu=array(
-	array('label'=>'List Gen', 'url'=>array('index')),
-	array('label'=>'Create Gen', 'url'=>array('create')),
-	array('label'=>'View Gen', 'url'=>array('view', 'id'=>$model->idtbl_gen)),
-	array('label'=>'Manage Gen', 'url'=>array('admin')),
+	array('label'=>'List Genes', 'url'=>array('index')),
+	array('label'=>'Create Gene', 'url'=>array('create')),
+	array('label'=>'View Gene', 'url'=>array('view', 'id'=>$model->idtbl_gen)),
+	array('label'=>'Manage Genes', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Gen <?php echo $model->idtbl_gen; ?></h1>
+<h1>Update Gene <?php echo $model->codigoaccesion; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

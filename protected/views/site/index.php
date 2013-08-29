@@ -1,6 +1,5 @@
 <?php
 /* @var $this SiteController */
-
 $this->pageTitle=Yii::app()->name;
 ?>
 
@@ -20,10 +19,11 @@ Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
 should you have any questions.</p>
 
 
-<h2>Menú Principal</h2>
-<h3>Elija una categoría:</h3>
+<h3>Choose an action:</h3>
 
 <ul>
-<li><?php echo CHtml::link('Administración de Genes',array('gen/admin')) ?></li>
+<li><?php echo CHtml::link('View Gene List',array('gen/index')) ?></li>
+<li><?php echo CHtml::link('Add a Gene',array('gen/create')) ?></li>
+<li><?php echo CHtml::link('Administrate Genes',array('gen/admin')) ?></li>
 <br/>
 </ul>

@@ -3,16 +3,16 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Gens',
+	'Genes',
 );
 
 $this->menu=array(
-	array('label'=>'Create Gen', 'url'=>array('create')),
-	array('label'=>'Manage Gen', 'url'=>array('admin')),
+	array('label'=>'Create Gene', 'url'=>array('create')),
+	array('label'=>'Manage Genes', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Gens</h1>
+<h1>Genes</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

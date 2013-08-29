@@ -23,7 +23,7 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+                <img id="image-logo" src='images/epathway_logo.png' alt=<?php echo "'" . CHtml::encode(Yii::app()->name) . "'"; ?>/>
 	</div><!-- header -->
 
 	<div id="mainmenu">

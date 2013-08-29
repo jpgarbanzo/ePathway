@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Gen', 'url'=>array('index')),
-	array('label'=>'Create Gen', 'url'=>array('create')),
-	array('label'=>'Update Gen', 'url'=>array('update', 'id'=>$model->idtbl_gen)),
-	array('label'=>'Delete Gen', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idtbl_gen),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Gen', 'url'=>array('admin')),
+	array('label'=>'List Genes', 'url'=>array('index')),
+	array('label'=>'Create Gene', 'url'=>array('create')),
+	array('label'=>'Update Gene', 'url'=>array('update', 'id'=>$model->idtbl_gen)),
+	array('label'=>'Delete Gene', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idtbl_gen),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage Genes', 'url'=>array('admin')),
 );
 ?>
 
