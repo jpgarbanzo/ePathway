@@ -23,10 +23,16 @@ $this->menu=array(
 	'attributes'=>array(
 		'primerrinicio',
 		'primerrlongitud',
+                array('name'=>'Primer R sequence', 'value'=>$model->SequenceR),
 		'primerfinicio',
 		'primerflongitud',
+                array('name'=>'Primer F sequence', 'value'=>$model->SequenceF),
 		'idtbl_gen',
 		'idtbl_estadoprimer',
                 'observaciones',
+                
+                
 	),
 )); ?>
+
+<?php //print_r($model->Gene); ?>

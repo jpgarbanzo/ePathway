@@ -21,7 +21,13 @@
  */
 class Primer extends CActiveRecord {
 
+    //used to pass the primer status to some views
     public $PrimerStatus;
+    //used to store a Gene's fields: access code, organism and complete sequence
+    public $Gene;
+    //the primer's nucleotide sequence
+    public $SequenceF;
+    public $SequenceR;
     
     // <editor-fold defaultstate="collapsed" desc="Yii functions">
     /**
@@ -109,7 +115,15 @@ class Primer extends CActiveRecord {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Persistence custom actions">
+    // <editor-fold defaultstate="collapsed" desc="DNA Actions">
+    public function setPrimerPairSequence($pModel){
+        $Gene = $pModel->Gene;
+        $pModel->SequenceF = substr($Gene['completesequence'], $pModel->primerfinicio, $pModel->primerflongitud);
+        $pModel->SequenceR = substr($Gene['completesequence'], $pModel->primerrinicio, $pModel->primerrlongitud);
+    }
+    // </editor-fold>
+        
+    // <editor-fold defaultstate="collapsed" desc="Persistence or DB custom actions">
     
     /**
      * Retrieves a list of posible status for a primer
@@ -139,6 +153,25 @@ class Primer extends CActiveRecord {
         $connection = Yii::app()->db;
         $command = $connection->createCommand($call);
         $command->bindParam(':pPrimerId', $pIdPrimer, PDO::PARAM_INT);
+        $result = $command->queryRow();
+
+        if ($result == false)
+            return null;
+        else {
+            return $result;
+        }
+    }
+    
+    /**
+     * Obtains fields access code, organism and complete sequence according to gene's id
+     * @param type $pGeneId
+     * @return 
+     */
+    public function getGeneInfo($pGeneId){
+        $call = 'SELECT * FROM getGeneInfo(:pGeneId)';
+        $connection = Yii::app()->db;
+        $command = $connection->createCommand($call);
+        $command->bindParam(':pGeneId', $pGeneId, PDO::PARAM_INT);
         $result = $command->queryRow();
 
         if ($result == false)
