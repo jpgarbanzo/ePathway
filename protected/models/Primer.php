@@ -80,11 +80,11 @@ class Primer extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'idtbl_primer' => 'Idtbl Primer',
-            'primerrinicio' => 'Primer R start',
-            'primerrlongitud' => 'Primer R length',
-            'primerfinicio' => 'Primer F start',
-            'primerflongitud' => 'Primer F length',
-            'observaciones' => 'Status observation',
+            'primerrinicio' => 'Primer R Start',
+            'primerrlongitud' => 'Primer R Length',
+            'primerfinicio' => 'Primer F Start',
+            'primerflongitud' => 'Primer F Length',
+            'observaciones' => 'Status Observations',
             'idtbl_gen' => 'Gene',
             'idtbl_estadoprimer' => 'Primer Status',
         );

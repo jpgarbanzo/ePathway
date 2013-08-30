@@ -3,7 +3,7 @@
 /* @var $model Areainteres */
 
 $this->breadcrumbs=array(
-	'Areainteres'=>array('index'),
+	'Relevant Areas'=>array('index'),
 	$model->idtbl_areainteres,
 );
 

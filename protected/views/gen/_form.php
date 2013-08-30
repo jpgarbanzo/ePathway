@@ -29,13 +29,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'secuenciacompleta'); ?>
-		<?php echo $form->textField($model,'secuenciacompleta',array('size'=>60,'maxlength'=>5000)); ?>
+		<?php echo $form->textArea($model,'secuenciacompleta',array('size'=>60,'maxlength'=>5000)); ?>
 		<?php echo $form->error($model,'secuenciacompleta'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'cds'); ?>
-		<?php echo $form->textField($model,'cds',array('size'=>60,'maxlength'=>1500)); ?>
+		<?php echo $form->textArea($model,'cds',array('size'=>60,'maxlength'=>1500)); ?>
 		<?php echo $form->error($model,'cds'); ?>
 	</div>
 

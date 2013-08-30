@@ -65,9 +65,9 @@ class Areainteres extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'idtbl_areainteres' => 'Idtbl Areainteres',
+			'idtbl_areainteres' => 'Relevant area ID',
 			'secuenciainteres' => 'Relevant area',
-			'idtbl_gen' => 'Idtbl Gen',
+			'idtbl_gen' => 'Gene ID',
 		);
 	}
 
