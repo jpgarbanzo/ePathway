@@ -4,7 +4,7 @@
 
 $this->breadcrumbs = array(
     'Gens' => array('index'),
-    $model->idtbl_gen,
+    $model->codigoaccesion,
 );
 
 $this->menu = array(

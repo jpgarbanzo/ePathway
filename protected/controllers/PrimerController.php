@@ -89,6 +89,7 @@ class PrimerController extends Controller
                 
                 $primer_status = $model->retrievePrimerStatusList();
                 $model->PrimerStatus = $primer_status;
+                $model->Gene = $model->getGeneInfo($id);
 
 		$this->render('create',array(
 			'model'=>$model,

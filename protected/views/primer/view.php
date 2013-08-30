@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Primer', 'url'=>array('index')),
-	array('label'=>'Create Primer', 'url'=>array('create')),
+	//array('label'=>'Create Primer', 'url'=>array('create')),
 	array('label'=>'Update Primer', 'url'=>array('update', 'id'=>$model->idtbl_primer)),
 	array('label'=>'Delete Primer', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idtbl_primer),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Primer', 'url'=>array('admin')),

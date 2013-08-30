@@ -38,6 +38,6 @@
 	<?php echo CHtml::encode($data->idtbl_estadoprimer); ?>
 	<br />
 
-	*/ ?>
+	*/ ?> 
 
 </div>
