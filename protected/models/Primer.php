@@ -74,13 +74,13 @@ class Primer extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'idtbl_primer' => 'Idtbl Primer',
-            'primerrinicio' => 'Primerrinicio',
-            'primerrlongitud' => 'Primerrlongitud',
-            'primerfinicio' => 'Primerfinicio',
-            'primerflongitud' => 'Primerflongitud',
-            'observaciones' => 'Observaciones',
-            'idtbl_gen' => 'Idtbl Gen',
-            'idtbl_estadoprimer' => 'Idtbl Estadoprimer',
+            'primerrinicio' => 'Primer R start',
+            'primerrlongitud' => 'Primer R length',
+            'primerfinicio' => 'Primer F start',
+            'primerflongitud' => 'Primer F length',
+            'observaciones' => 'Status observation',
+            'idtbl_gen' => 'Gene',
+            'idtbl_estadoprimer' => 'Primer Status',
         );
     }
 
@@ -109,7 +109,12 @@ class Primer extends CActiveRecord {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Database custom actions">
+    // <editor-fold defaultstate="collapsed" desc="Persistence custom actions">
+    
+    /**
+     * Retrieves a list of posible status for a primer
+     * @return $result an array analogue to tbl_EstadoPrimer
+     */
     public function retrievePrimerStatusList(){
         $call = 'SELECT * FROM getprimerstatuslist()';
         $connection = Yii::app()->db;
@@ -123,5 +128,26 @@ class Primer extends CActiveRecord {
             return $result;
         }
     }
+    
+    /**
+     * Obtains primer status string, corresponding to a primer status id
+     * @param type $pIdPrimer
+     * @return Primer status string, corresponding to a primer status id
+     */
+    public function getPrimerStatus($pIdPrimer){
+        $call = 'SELECT * FROM getPrimerStatus(:pPrimerId)';
+        $connection = Yii::app()->db;
+        $command = $connection->createCommand($call);
+        $command->bindParam(':pPrimerId', $pIdPrimer, PDO::PARAM_INT);
+        $result = $command->queryRow();
+
+        if ($result == false)
+            return null;
+        else {
+            return $result;
+        }
+    }
+    
+    
     // </editor-fold>
 }

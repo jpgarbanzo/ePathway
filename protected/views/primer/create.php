@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Primer</h1>
+<h1>Add a primer to Gene</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

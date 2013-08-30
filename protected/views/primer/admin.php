@@ -45,7 +45,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'idtbl_primer',
 		'primerrinicio',
 		'primerrlongitud',
 		'primerfinicio',
@@ -55,7 +54,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'idtbl_gen',
 		'idtbl_estadoprimer',
 		*/
-		array(
+                //array('name' => 'Status', 'value' => $model->getStatusFromStatusId($model->idtbl_estadoprimer)),
+                array(
 			'class'=>'CButtonColumn',
 		),
 	),

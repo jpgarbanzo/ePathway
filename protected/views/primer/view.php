@@ -21,13 +21,12 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'idtbl_primer',
 		'primerrinicio',
 		'primerrlongitud',
 		'primerfinicio',
 		'primerflongitud',
-		'observaciones',
 		'idtbl_gen',
 		'idtbl_estadoprimer',
+                'observaciones',
 	),
 )); ?>

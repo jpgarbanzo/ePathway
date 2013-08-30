@@ -51,8 +51,12 @@ class PrimerController extends Controller
 	 */
 	public function actionView($id)
 	{
+            $model = $this->loadModel($id);
+            $model->idtbl_estadoprimer = $model->getPrimerStatus($model->idtbl_estadoprimer);
+            $model->idtbl_estadoprimer = $model->idtbl_estadoprimer['getprimerstatus'];
+            
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
 	}
 
@@ -60,7 +64,7 @@ class PrimerController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($id)
 	{
 		$model=new Primer;
 
@@ -70,6 +74,7 @@ class PrimerController extends Controller
 		if(isset($_POST['Primer']))
 		{
 			$model->attributes=$_POST['Primer'];
+                        $model->idtbl_gen = $id;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->idtbl_primer));
 		}
@@ -101,7 +106,9 @@ class PrimerController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->idtbl_primer));
 		}
-
+                
+                $model->PrimerStatus = $model->retrievePrimerStatusList();
+                
 		$this->render('update',array(
 			'model'=>$model,
 		));
