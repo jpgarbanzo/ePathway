@@ -118,8 +118,11 @@ class Primer extends CActiveRecord {
     // <editor-fold defaultstate="collapsed" desc="DNA Actions">
     public function setPrimerPairSequence($pModel){
         $Gene = $pModel->Gene;
-        $pModel->SequenceF = substr($Gene['completesequence'], $pModel->primerfinicio, $pModel->primerflongitud);
-        $pModel->SequenceR = substr($Gene['completesequence'], $pModel->primerrinicio, $pModel->primerrlongitud);
+        $index_primerF = $pModel->primerfinicio - 1;
+        $index_PrimerR = $pModel->primerrinicio - 1;
+        
+        $pModel->SequenceF = substr($Gene['completesequence'], $index_primerF, $index_primerF + $pModel->primerflongitud);
+        $pModel->SequenceR = substr($Gene['completesequence'], $index_PrimerR, $index_PrimerR + $pModel->primerrlongitud);
     }
     // </editor-fold>
         
