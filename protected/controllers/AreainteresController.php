@@ -60,7 +60,7 @@ class AreainteresController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($pGen)
 	{
 		$model=new Areainteres;
 
@@ -70,6 +70,7 @@ class AreainteresController extends Controller
 		if(isset($_POST['Areainteres']))
 		{
 			$model->attributes=$_POST['Areainteres'];
+                        $model->idtbl_gen = $pGen;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->idtbl_areainteres));
 		}

@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Areainteres', 'url'=>array('index')),
-	array('label'=>'Create Areainteres', 'url'=>array('create')),
-	array('label'=>'Update Areainteres', 'url'=>array('update', 'id'=>$model->idtbl_areainteres)),
-	array('label'=>'Delete Areainteres', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idtbl_areainteres),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Areainteres', 'url'=>array('admin')),
+	array('label'=>'List Relevant Area', 'url'=>array('index')),
+	array('label'=>'Create Relevant Area', 'url'=>array('create')),
+	array('label'=>'Update Relevant Area', 'url'=>array('update', 'id'=>$model->idtbl_areainteres)),
+	array('label'=>'Delete Relevant Area', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idtbl_areainteres),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage Relevant Area', 'url'=>array('admin')),
 );
 ?>
 

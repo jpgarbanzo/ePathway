@@ -7,8 +7,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Areainteres', 'url'=>array('create')),
-	array('label'=>'Manage Areainteres', 'url'=>array('admin')),
+	array('label'=>'Manage Relevant Area', 'url'=>array('admin')),
 );
 ?>
 

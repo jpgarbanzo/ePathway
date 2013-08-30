@@ -66,7 +66,7 @@ class Areainteres extends CActiveRecord
 	{
 		return array(
 			'idtbl_areainteres' => 'Idtbl Areainteres',
-			'secuenciainteres' => 'Secuenciainteres',
+			'secuenciainteres' => 'Relevant areas',
 			'idtbl_gen' => 'Idtbl Gen',
 		);
 	}
