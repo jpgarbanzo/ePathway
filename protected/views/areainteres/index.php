@@ -3,15 +3,15 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Areainteres',
+	'Relevant Areas',
 );
 
 $this->menu=array(
-	array('label'=>'Manage Relevant Area', 'url'=>array('admin')),
+	array('label'=>'Manage Relevant Areas', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Areainteres</h1>
+<h1>Relevant Areas</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

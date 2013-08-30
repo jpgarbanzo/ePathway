@@ -21,12 +21,6 @@
 		<?php echo $form->error($model,'secuenciainteres'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'idtbl_gen'); ?>
-		<?php echo $form->textField($model,'idtbl_gen'); ?>
-		<?php echo $form->error($model,'idtbl_gen'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
