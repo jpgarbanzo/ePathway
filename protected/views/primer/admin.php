@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Primer', 'url'=>array('index')),
+	array('label'=>'List Primers', 'url'=>array('index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

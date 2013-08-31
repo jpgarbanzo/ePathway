@@ -124,7 +124,11 @@ class AreainteresController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Areainteres');
+		$dataProvider=new CActiveDataProvider('Areainteres', array(
+                    'criteria'=>array(
+                        'order'=>'idtbl_areainteres DESC',
+                    )
+                ));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

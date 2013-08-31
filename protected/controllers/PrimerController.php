@@ -52,17 +52,7 @@ class PrimerController extends Controller
 	public function actionView($id)
 	{
             $model = $this->loadModel($id);
-//            $model->idtbl_estadoprimer = $model->getPrimerStatus($model->idtbl_estadoprimer);
-//            $model->idtbl_estadoprimer = $model->idtbl_estadoprimer['getprimerstatus'];
-            
-            //$model->Gene = $model->getGeneInfo($model->idtbl_gen);
-            //$model->idtbl_gen = $model->Gene['accesscode'];
-            
             $model->setPrimerPairSequence($model);
-            
-            //$model->SequenceF = substr($model->Gene['completesequence'], $model->primerfinicio, $model->primerflongitud);
-            //$model->SequenceR = substr($model->Gene['completesequence'], $model->primerrinicio, $model->primerrlongitud);
-            
 		$this->render('view',array(
 			'model'=>$model,
 		));
@@ -142,7 +132,11 @@ class PrimerController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Primer');
+		$dataProvider=new CActiveDataProvider('Primer', array(
+                    'criteria'=>array(
+                        'order'=>'idtbl_primer DESC',
+                    )
+                ));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
