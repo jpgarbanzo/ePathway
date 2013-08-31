@@ -47,8 +47,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'codigoaccesion',
 		'organismoorigen',
-		'secuenciacompleta',
-		'cds',
+                'identificador',
 		array(
 			'class'=>'CButtonColumn',
 		),

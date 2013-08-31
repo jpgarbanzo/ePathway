@@ -5,6 +5,10 @@
 
 <div class="view">
 
+        <b><?php echo CHtml::encode($data->getAttributeLabel('identificador')); ?>:</b>
+	<?php echo CHtml::encode($data->identificador); ?>
+	<br />
+    
 	<b><?php echo CHtml::encode($data->getAttributeLabel('codigoaccesion')); ?>:</b>
 	<?php echo CHtml::encode($data->codigoaccesion); ?>
 	<br />

@@ -11,6 +11,11 @@
 	'method'=>'get',
 )); ?>
 
+        <div class="row">
+		<?php echo $form->label($model,'identificador'); ?>
+		<?php echo $form->textField($model,'identificador',array('size'=>60,'maxlength'=>500)); ?>
+	</div>
+        
 	<div class="row">
 		<?php echo $form->label($model,'codigoaccesion'); ?>
 		<?php echo $form->textField($model,'codigoaccesion',array('size'=>50,'maxlength'=>50)); ?>

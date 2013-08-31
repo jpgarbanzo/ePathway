@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Genes'=>array('index'),
-	$model->idtbl_gen=>array('view','id'=>$model->idtbl_gen),
+	$model->codigoaccesion,
 	'Update',
 );
 

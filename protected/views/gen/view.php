@@ -25,6 +25,7 @@ $this->widget('zii.widgets.CDetailView', array(
     'data' => $model,
     'attributes' => array(
         'codigoaccesion',
+        'identificador',
         'organismoorigen',
         'secuenciacompleta',
         'cds',

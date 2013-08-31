@@ -14,6 +14,12 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'identificador'); ?>
+		<?php echo $form->textField($model,'identificador',array('size'=>50,'maxlength'=>500)); ?>
+		<?php echo $form->error($model,'identificador'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'codigoaccesion'); ?>

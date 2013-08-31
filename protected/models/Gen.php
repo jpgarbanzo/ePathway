@@ -9,6 +9,7 @@
  * @property string $organismoorigen
  * @property string $secuenciacompleta
  * @property string $cds
+ * @property string $identificador
  *
  * The followings are the available model relations:
  * @property TblAreainteres[] $tblAreainteres
@@ -48,6 +49,7 @@ class Gen extends CActiveRecord
 			array('organismoorigen', 'length', 'max'=>300),
 			array('secuenciacompleta', 'length', 'max'=>5000),
 			array('cds', 'length', 'max'=>1500),
+                        array('identificador','length', 'max'=>500),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('codigoaccesion, organismoorigen, secuenciacompleta, cds', 'safe', 'on'=>'search'),
@@ -78,6 +80,7 @@ class Gen extends CActiveRecord
 			'organismoorigen' => 'Organism',
 			'secuenciacompleta' => 'Complete Sequence',
 			'cds' => 'Coding Sequence (CDS)',
+                        'identificador' => 'Identificator',
 		);
 	}
 
@@ -96,7 +99,7 @@ class Gen extends CActiveRecord
 		$criteria->compare('organismoorigen',$this->organismoorigen,true);
 		$criteria->compare('secuenciacompleta',$this->secuenciacompleta,true);
 		$criteria->compare('cds',$this->cds,true);
-
+                $criteria->compare('identificador',$this->identificador,true);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
