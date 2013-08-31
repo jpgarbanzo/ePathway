@@ -42,6 +42,10 @@ $('.search-form form').submit(function(){
 		'primerflongitud',
 		'observaciones',
                 //array('name' => 'Status', 'value' => $model->getStatusFromStatusId($model->idtbl_estadoprimer)),
+                array( 
+                    'name'=>'status', 
+                    'value'=> '$data->status->estado'
+                ),
                 array(
 			'class'=>'CButtonColumn',
 		),

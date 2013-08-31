@@ -27,8 +27,6 @@ class Primer extends CActiveRecord {
 
     //used to pass the primer status to some views
     public $PrimerStatus;
-    //used to store a Gene's fields: access code, organism and complete sequence
-    public $Gene;
     //the primer's nucleotide sequence
     public $SequenceF;
     public $SequenceR;
@@ -62,7 +60,7 @@ class Primer extends CActiveRecord {
             array('observaciones', 'length', 'max' => 500),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('primerrinicio, primerrlongitud, primerfinicio, primerflongitud, observaciones, accessCode', 'safe', 'on' => 'search'),
+            array('primerrinicio, primerrlongitud, primerfinicio, primerflongitud, observaciones, accessCode, status', 'safe', 'on' => 'search'),
         );
     }
 
@@ -117,8 +115,12 @@ class Primer extends CActiveRecord {
         $criteria->compare('primerflongitud', $this->primerflongitud);
         $criteria->compare('observaciones', $this->observaciones, true);
         
+        //added for searching by gene access code
         $criteria->with = array('accessCode');
         $criteria->compare('"accessCode".codigoaccesion', $this->accessCode, true);
+        //added for searching by primer status
+        $criteria->with = array('status');
+        $criteria->compare('"status".estado', $this->status, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -127,6 +129,10 @@ class Primer extends CActiveRecord {
                     'accessCode' => array(
                         'asc' => '"accessCode".codigoaccesion',
                         'desc' => '"accessCode".codigoaccesion DESC',
+                    ),
+                    'status' => array(
+                        'asc' => '"status".estado',
+                        'desc' => '"status".estado DESC',
                     ),
                     '*',
                 ),
@@ -191,47 +197,6 @@ class Primer extends CActiveRecord {
             return $result;
         }
     }
-    
-    /**
-     * THIS FUNCTION IS DEPRECATED,DON'T USE IT
-     * Obtains primer status string, corresponding to a primer status id
-     * @param type $pIdPrimer
-     * @return Primer status string, corresponding to a primer status id
-     */
-    /*public function getPrimerStatus($pIdPrimer){
-        $call = 'SELECT * FROM getPrimerStatus(:pPrimerId)';
-        $connection = Yii::app()->db;
-        $command = $connection->createCommand($call);
-        $command->bindParam(':pPrimerId', $pIdPrimer, PDO::PARAM_INT);
-        $result = $command->queryRow();
-
-        if ($result == false)
-            return null;
-        else {
-            return $result;
-        }
-    }*/
-    
-    /**
-     * THIS FUNCTION IS DEPRECATED,DON'T USE IT
-     * Obtains fields access code, organism and complete sequence according to gene's id
-     * @param type $pGeneId
-     * @return 
-     */
-    /*public function getGeneInfo($pGeneId){
-        $call = 'SELECT * FROM getGeneInfo(:pGeneId)';
-        $connection = Yii::app()->db;
-        $command = $connection->createCommand($call);
-        $command->bindParam(':pGeneId', $pGeneId, PDO::PARAM_INT);
-        $result = $command->queryRow();
-
-        if ($result == false)
-            return null;
-        else {
-            return $result;
-        }
-    }*/
-    
-    
+     
     // </editor-fold>
 }
