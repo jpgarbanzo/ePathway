@@ -20,8 +20,10 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'idtbl_areainteres',
 		'secuenciainteres',
-		'idtbl_gen',
+                array(
+                    'name' => $model->getAttributeLabel('AccessCode'),
+                    'value' => $model->getAccessCode(),
+                    ),
 	),
 )); ?>
