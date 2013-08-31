@@ -15,7 +15,6 @@ $this->menu=array(
 ?>
 
 <h1>Manage Relevant Areas</h1>
-<?php print_r($model->AccessCode); ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'areainteres-grid',
@@ -26,6 +25,7 @@ $this->menu=array(
                     'name'=>'AccessCode', 
                     'value'=>'$data->AccessCode->codigoaccesion'
                     ),
+                'identificador',
                 'secuenciainteres',
 		array(
 			'class'=>'CButtonColumn',

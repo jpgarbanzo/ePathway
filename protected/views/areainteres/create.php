@@ -13,6 +13,5 @@ $this->menu=array(
 );
 ?>
 
-<h1>Add Relevant Area</h1>
-
+<h1>Add Relevant Area to Gene <?php echo $access_code ?></h1>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

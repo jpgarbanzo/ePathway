@@ -3,7 +3,7 @@
 /* @var $model Gen */
 
 $this->breadcrumbs = array(
-    'Gens' => array('index'),
+    'Genes' => array('index'),
     $model->codigoaccesion,
 );
 
@@ -13,8 +13,8 @@ $this->menu = array(
     array('label' => 'Update Gene', 'url' => array('update', 'id' => $model->idtbl_gen)),
     array('label' => 'Delete Gene', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->idtbl_gen), 'confirm' => 'Are you sure you want to delete this item?')),
     array('label' => 'Manage Genes', 'url' => array('admin')),
-    array('label' => 'Add a primer', 'url' => array('primer/create','id' => $model->idtbl_gen,'accesscode'=>$model->codigoaccesion)),
-    array('label' => 'Add a relevant area', 'url' => array('areainteres/create','pGen' => $model->idtbl_gen,'accesscode'=>$model->codigoaccesion)),
+    array('label' => 'Add a primer', 'url' => array('primer/create','id' => $model->idtbl_gen,'pAccessCode'=>$model->codigoaccesion)),
+    array('label' => 'Add a relevant area', 'url' => array('areainteres/create','pGen' => $model->idtbl_gen,'pAccessCode'=>$model->codigoaccesion)),
 );
 ?>
 

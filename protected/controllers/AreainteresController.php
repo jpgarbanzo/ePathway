@@ -60,7 +60,7 @@ class AreainteresController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($pGen)
+	public function actionCreate($pGen,$pAccessCode)
 	{
 		$model=new Areainteres;
 
@@ -77,6 +77,7 @@ class AreainteresController extends Controller
 
 		$this->render('create',array(
 			'model'=>$model,
+                        'access_code'=> $pAccessCode,
 		));
 	}
 

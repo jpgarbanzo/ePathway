@@ -7,6 +7,7 @@
  * @property string $idtbl_areainteres
  * @property string $secuenciainteres
  * @property string $idtbl_gen
+ * @property string $identificador
  * 
  * The followings are the available model relations:
  * @property TblGen $idtblGen
@@ -40,9 +41,10 @@ class Areainteres extends CActiveRecord {
         return array(
             array('secuenciainteres, idtbl_gen', 'required'),
             array('secuenciainteres', 'length', 'max' => 1500),
+            array('identificador', 'length', 'max'=>500),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('secuenciainteres, AccessCode', 'safe', 'on' => 'search'),
+            array('secuenciainteres, AccessCode, identificador', 'safe', 'on' => 'search'),
         );
     }
 
@@ -68,6 +70,7 @@ class Areainteres extends CActiveRecord {
             'idtbl_gen' => 'Gene ID',
             'AccessCode' => 'Gene',
             'details' => 'View Details',
+            'identificador' => 'Function',
         );
     }
 
@@ -78,6 +81,7 @@ class Areainteres extends CActiveRecord {
     public function search() {
         $criteria = new CDbCriteria;
         $criteria->compare('secuenciainteres', $this->secuenciainteres, true);
+        $criteria->compare('identificador',$this->identificador,true);
         
         //criteria to search a relevant area using a gene's access code
         $criteria->with = array('AccessCode');

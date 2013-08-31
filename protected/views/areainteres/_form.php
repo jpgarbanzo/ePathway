@@ -15,6 +15,12 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
+        <div class="row">
+		<?php echo $form->labelEx($model,'identificador'); ?>
+		<?php echo $form->textField($model,'identificador',array('size'=>60,'maxlength'=>1500)); ?>
+		<?php echo $form->error($model,'identificador'); ?>
+	</div>
+        
 	<div class="row">
 		<?php echo $form->labelEx($model,'secuenciainteres'); ?>
 		<?php echo $form->textField($model,'secuenciainteres',array('size'=>60,'maxlength'=>1500)); ?>

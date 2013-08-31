@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Relevant Areas'=>array('index'),
-	$model->idtbl_areainteres=>array('view','id'=>$model->idtbl_areainteres),
+	$model->getAccessCode()=>array('view','id'=>$model->idtbl_areainteres),
 	'Update',
 );
 
@@ -15,6 +15,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Relevant Areas <?php echo $model->idtbl_areainteres; ?></h1>
+<h1>Update Relevant Area for Gene <?php echo $model->getAccessCode(); ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

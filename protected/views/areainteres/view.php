@@ -20,10 +20,12 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
+                'identificador',
 		'secuenciainteres',
                 array(
                     'name' => $model->getAttributeLabel('AccessCode'),
-                    'value' => $model->getAccessCode(),
+                    'value' => CHtml::link(CHtml::encode($model->getAccessCode()), array('Gen/view', 'id'=>$model->idtbl_gen)),
+                    'type' => 'html',
                     ),
 	),
 )); ?>

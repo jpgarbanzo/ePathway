@@ -12,8 +12,8 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'idtbl_areainteres'); ?>
-		<?php echo $form->textField($model,'idtbl_areainteres'); ?>
+		<?php echo $form->label($model,'identificador'); ?>
+		<?php echo $form->textField($model,'identificador'); ?>
 	</div>
 
 	<div class="row">
