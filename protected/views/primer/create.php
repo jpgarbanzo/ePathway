@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Add a primer to Gene <?php echo $model->Gene['accesscode']; ?></h1>
+<h1>Add a primer to Gene <?php echo $access_code; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

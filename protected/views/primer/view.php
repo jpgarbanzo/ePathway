@@ -21,18 +21,20 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
+                array(
+                    'name' => $model->getAttributeLabel('accessCode'),
+                    'value' => CHtml::link(CHtml::encode($model->getAccessCode()), array('Gen/view', 'id'=>$model->idtbl_gen)),
+                    'type' => 'html',
+                ),
 		'primerrinicio',
 		'primerrlongitud',
                 array('name'=>'Primer R sequence', 'value'=>$model->SequenceR),
 		'primerfinicio',
 		'primerflongitud',
                 array('name'=>'Primer F sequence', 'value'=>$model->SequenceF),
-		'idtbl_gen',
 		'idtbl_estadoprimer',
                 'observaciones',
                 
                 
 	),
 )); ?>
-
-<?php //print_r($model->Gene); ?>

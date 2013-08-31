@@ -146,7 +146,7 @@ class Primer extends CActiveRecord {
      * @return String
      */
     public function getAccessCode() {
-        //return $this->accessCode->codigoaccesion;
+        return $this->accessCode->codigoaccesion;
     }
     
     // </editor-fold>
@@ -191,11 +191,12 @@ class Primer extends CActiveRecord {
     }
     
     /**
+     * THIS FUNCTION IS DEPRECATED,DON'T USE IT
      * Obtains fields access code, organism and complete sequence according to gene's id
      * @param type $pGeneId
      * @return 
      */
-    public function getGeneInfo($pGeneId){
+    /*public function getGeneInfo($pGeneId){
         $call = 'SELECT * FROM getGeneInfo(:pGeneId)';
         $connection = Yii::app()->db;
         $command = $connection->createCommand($call);
@@ -207,7 +208,7 @@ class Primer extends CActiveRecord {
         else {
             return $result;
         }
-    }
+    }*/
     
     
     // </editor-fold>

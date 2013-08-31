@@ -55,8 +55,8 @@ class PrimerController extends Controller
             $model->idtbl_estadoprimer = $model->getPrimerStatus($model->idtbl_estadoprimer);
             $model->idtbl_estadoprimer = $model->idtbl_estadoprimer['getprimerstatus'];
             
-            $model->Gene = $model->getGeneInfo($model->idtbl_gen);
-            $model->idtbl_gen = $model->Gene['accesscode'];
+            //$model->Gene = $model->getGeneInfo($model->idtbl_gen);
+            //$model->idtbl_gen = $model->Gene['accesscode'];
             
             $model->setPrimerPairSequence($model);
             
@@ -72,7 +72,7 @@ class PrimerController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($id)
+	public function actionCreate($id, $pAccessCode)
 	{
 		$model=new Primer;
 
@@ -89,11 +89,11 @@ class PrimerController extends Controller
                 
                 $primer_status = $model->retrievePrimerStatusList();
                 $model->PrimerStatus = $primer_status;
-                $model->Gene = $model->getGeneInfo($id);
 
 		$this->render('create',array(
 			'model'=>$model,
                         'primer_status'=>$primer_status,
+                        'access_code'=> $pAccessCode
 		));
 	}
 

@@ -4,9 +4,9 @@
 ?>
 
 <div class="view">
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('idtbl_primer')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->idtbl_primer), array('view', 'id'=>$data->idtbl_primer)); ?>
+    
+        <b><?php echo CHtml::encode($data->getAttributeLabel('idtbl_gen')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->getAccessCode()), array('Gen/view', 'id'=>$data->idtbl_gen)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('primerrinicio')); ?>:</b>
@@ -28,9 +28,8 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('observaciones')); ?>:</b>
 	<?php echo CHtml::encode($data->observaciones); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('idtbl_gen')); ?>:</b>
-	<?php echo CHtml::encode($data->idtbl_gen); ?>
+        
+        <?php echo CHtml::link('See details', array('view', 'id'=>$data->idtbl_primer)); ?>
 	<br />
 
 	<?php /*
