@@ -9,7 +9,7 @@
         <br/>
     
         <b><?php echo CHtml::encode($data->getAttributeLabel('AccessCode')); ?>:</b>
-        <?php echo CHtml::link(CHtml::encode($data->AccessCode->codigoaccesion), array('Gen/view', 'id'=>$data->idtbl_gen)); ?>
+        <?php echo CHtml::link(CHtml::encode($data->getAccessCode()), array('Gen/view', 'id'=>$data->idtbl_gen)); ?>
         <br/>
     
 	<b><?php echo CHtml::encode($data->getAttributeLabel('secuenciainteres')); ?>:</b>

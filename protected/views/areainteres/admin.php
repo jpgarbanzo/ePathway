@@ -23,7 +23,7 @@ $this->menu=array(
 	'columns'=>array(
                 array( 
                     'name'=>'AccessCode', 
-                    'value'=>'$data->AccessCode->codigoaccesion'
+                    'value'=> '$data->AccessCode->codigoaccesion'
                     ),
                 'identificador',
                 'secuenciainteres',

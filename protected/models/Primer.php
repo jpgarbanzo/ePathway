@@ -16,6 +16,7 @@
  * The followings are the available model relations:
  * @property TblGen $idtblGen
  * @property TblEstadoprimer $idtblEstadoprimer
+ * @property TblGen $accessCode
  * 
  * @property $PrimerStatus Primer Status List
  */
@@ -58,7 +59,7 @@ class Primer extends CActiveRecord {
             array('observaciones', 'length', 'max' => 500),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('idtbl_primer, primerrinicio, primerrlongitud, primerfinicio, primerflongitud, observaciones, idtbl_gen, idtbl_estadoprimer', 'safe', 'on' => 'search'),
+            array('primerrinicio, primerrlongitud, primerfinicio, primerflongitud, observaciones, accessCode', 'safe', 'on' => 'search'),
         );
     }
 
@@ -71,6 +72,7 @@ class Primer extends CActiveRecord {
         return array(
             'idtblGen' => array(self::BELONGS_TO, 'TblGen', 'idtbl_gen'),
             'idtblEstadoprimer' => array(self::BELONGS_TO, 'TblEstadoprimer', 'idtbl_estadoprimer'),
+            'accessCode' => array(self::BELONGS_TO, 'Gen', 'idtbl_gen', 'select' => array('Gen.codigoaccesion')),
         );
     }
 
@@ -87,6 +89,7 @@ class Primer extends CActiveRecord {
             'observaciones' => 'Status Observations',
             'idtbl_gen' => 'Gene',
             'idtbl_estadoprimer' => 'Primer Status',
+            'accessCode' => 'Gene',
         );
     }
 
@@ -100,22 +103,35 @@ class Primer extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('idtbl_primer', $this->idtbl_primer, true);
         $criteria->compare('primerrinicio', $this->primerrinicio);
         $criteria->compare('primerrlongitud', $this->primerrlongitud);
         $criteria->compare('primerfinicio', $this->primerfinicio);
         $criteria->compare('primerflongitud', $this->primerflongitud);
         $criteria->compare('observaciones', $this->observaciones, true);
-        $criteria->compare('idtbl_gen', $this->idtbl_gen, true);
-        $criteria->compare('idtbl_estadoprimer', $this->idtbl_estadoprimer, true);
+        
+        $criteria->with = array('accessCode');
+        $criteria->compare('"accessCode".codigoaccesion', $this->accessCode, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort' => array(
+                'attributes' => array(
+                    'accessCode' => array(
+                        'asc' => '"accessCode".codigoaccesion',
+                        'desc' => '"accessCode".codigoaccesion DESC',
+                    ),
+                    '*',
+                ),
+            ),
         ));
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="DNA Actions">
+    /**
+     * Obtains a pair of sequences for primers, from a given start index and length
+     * @param type $pModel
+     */
     public function setPrimerPairSequence($pModel){
         $Gene = $pModel->Gene;
         $index_primerF = $pModel->primerfinicio - 1;
@@ -124,6 +140,15 @@ class Primer extends CActiveRecord {
         $pModel->SequenceF = substr($Gene['completesequence'], $index_primerF, $index_primerF + $pModel->primerflongitud);
         $pModel->SequenceR = substr($Gene['completesequence'], $index_PrimerR, $index_PrimerR + $pModel->primerrlongitud);
     }
+    
+    /**
+     * returns a string with the gene's access code for this relevant area
+     * @return String
+     */
+    public function getAccessCode() {
+        //return $this->accessCode->codigoaccesion;
+    }
+    
     // </editor-fold>
         
     // <editor-fold defaultstate="collapsed" desc="Persistence or DB custom actions">

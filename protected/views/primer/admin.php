@@ -33,15 +33,15 @@ $('.search-form form').submit(function(){
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
+                array( 
+                    'name'=>'accessCode', 
+                    'value'=> '$data->accessCode->codigoaccesion'
+                ),
 		'primerrinicio',
 		'primerrlongitud',
 		'primerfinicio',
 		'primerflongitud',
 		'observaciones',
-		/*
-		'idtbl_gen',
-		'idtbl_estadoprimer',
-		*/
                 //array('name' => 'Status', 'value' => $model->getStatusFromStatusId($model->idtbl_estadoprimer)),
                 array(
 			'class'=>'CButtonColumn',
