@@ -7,9 +7,10 @@
  * @property string $idtbl_areainteres
  * @property string $secuenciainteres
  * @property string $idtbl_gen
- *
+ * 
  * The followings are the available model relations:
  * @property TblGen $idtblGen
+ * @property TblGen $AccessCode
  */
 class Areainteres extends CActiveRecord
 {
@@ -56,6 +57,7 @@ class Areainteres extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'idtblGen' => array(self::BELONGS_TO, 'TblGen', 'idtbl_gen'),
+                        'AccessCode' => array(self::BELONGS_TO, 'Gen', 'idtbl_gen','select'=> array('Gen.codigoaccesion')),
 		);
 	}
 
@@ -68,6 +70,8 @@ class Areainteres extends CActiveRecord
 			'idtbl_areainteres' => 'Relevant area ID',
 			'secuenciainteres' => 'Relevant area',
 			'idtbl_gen' => 'Gene ID',
+                        'gene' => 'Gene',
+                        'details' => 'View Details',
 		);
 	}
 
