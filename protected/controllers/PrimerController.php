@@ -52,8 +52,8 @@ class PrimerController extends Controller
 	public function actionView($id)
 	{
             $model = $this->loadModel($id);
-            $model->idtbl_estadoprimer = $model->getPrimerStatus($model->idtbl_estadoprimer);
-            $model->idtbl_estadoprimer = $model->idtbl_estadoprimer['getprimerstatus'];
+//            $model->idtbl_estadoprimer = $model->getPrimerStatus($model->idtbl_estadoprimer);
+//            $model->idtbl_estadoprimer = $model->idtbl_estadoprimer['getprimerstatus'];
             
             //$model->Gene = $model->getGeneInfo($model->idtbl_gen);
             //$model->idtbl_gen = $model->Gene['accesscode'];

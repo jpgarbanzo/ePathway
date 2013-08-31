@@ -32,7 +32,10 @@ $this->menu=array(
 		'primerfinicio',
 		'primerflongitud',
                 array('name'=>'Primer F sequence', 'value'=>$model->SequenceF),
-		'idtbl_estadoprimer',
+                array(
+                    'name' => $model->getAttributeLabel('status'),
+                    'value' => CHtml::encode($model->getPrimerStatusText()),
+                ),
                 'observaciones',
                 
                 

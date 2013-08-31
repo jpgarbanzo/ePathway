@@ -15,8 +15,11 @@
  *
  * The followings are the available model relations:
  * @property TblGen $idtblGen
- * @property TblEstadoprimer $idtblEstadoprimer
  * @property TblGen $accessCode
+ * @property TblGen $completeSequence
+ * 
+ * @property TblEstadoprimer $idtblEstadoprimer
+ * @property TblEstadoprimer $status
  * 
  * @property $PrimerStatus Primer Status List
  */
@@ -71,8 +74,11 @@ class Primer extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'idtblGen' => array(self::BELONGS_TO, 'TblGen', 'idtbl_gen'),
-            'idtblEstadoprimer' => array(self::BELONGS_TO, 'TblEstadoprimer', 'idtbl_estadoprimer'),
             'accessCode' => array(self::BELONGS_TO, 'Gen', 'idtbl_gen', 'select' => array('Gen.codigoaccesion')),
+            'completeSequence' => array(self::BELONGS_TO, 'Gen', 'idtbl_gen', 'select' => array('Gen.secuenciacompleta')),
+            
+            'idtblEstadoprimer' => array(self::BELONGS_TO, 'TblEstadoprimer', 'idtbl_estadoprimer'),
+            'status' => array(self::BELONGS_TO, 'EstadosPrimer', 'idtbl_estadoprimer', 'select' => array('EstadosPrimer.estado')),
         );
     }
 
@@ -86,10 +92,12 @@ class Primer extends CActiveRecord {
             'primerrlongitud' => 'Primer R Length',
             'primerfinicio' => 'Primer F Start',
             'primerflongitud' => 'Primer F Length',
-            'observaciones' => 'Status Observations',
+            'observaciones' => 'Observations',
             'idtbl_gen' => 'Gene',
             'idtbl_estadoprimer' => 'Primer Status',
             'accessCode' => 'Gene',
+            'completeSequence' => 'Complete Sequence',
+            'status' => 'Primer Status',
         );
     }
 
@@ -133,12 +141,11 @@ class Primer extends CActiveRecord {
      * @param type $pModel
      */
     public function setPrimerPairSequence($pModel){
-        $Gene = $pModel->Gene;
         $index_primerF = $pModel->primerfinicio - 1;
         $index_PrimerR = $pModel->primerrinicio - 1;
         
-        $pModel->SequenceF = substr($Gene['completesequence'], $index_primerF, $index_primerF + $pModel->primerflongitud);
-        $pModel->SequenceR = substr($Gene['completesequence'], $index_PrimerR, $index_PrimerR + $pModel->primerrlongitud);
+        $pModel->SequenceF = substr($this->getCompleteSequence(), $index_primerF, $index_primerF + $pModel->primerflongitud);
+        $pModel->SequenceR = substr($this->getCompleteSequence(), $index_PrimerR, $index_PrimerR + $pModel->primerrlongitud);
     }
     
     /**
@@ -149,6 +156,20 @@ class Primer extends CActiveRecord {
         return $this->accessCode->codigoaccesion;
     }
     
+    /**
+     * returns a string with the gene's complete sequence
+     * @return String
+     */
+    public function getCompleteSequence(){
+        return $this->completeSequence->secuenciacompleta;
+    }
+    
+    /**
+     * returns the status of a primer, to display it
+     */
+    public function getPrimerStatusText(){
+        return $this->status->estado;
+    }
     // </editor-fold>
         
     // <editor-fold defaultstate="collapsed" desc="Persistence or DB custom actions">
@@ -172,11 +193,12 @@ class Primer extends CActiveRecord {
     }
     
     /**
+     * THIS FUNCTION IS DEPRECATED,DON'T USE IT
      * Obtains primer status string, corresponding to a primer status id
      * @param type $pIdPrimer
      * @return Primer status string, corresponding to a primer status id
      */
-    public function getPrimerStatus($pIdPrimer){
+    /*public function getPrimerStatus($pIdPrimer){
         $call = 'SELECT * FROM getPrimerStatus(:pPrimerId)';
         $connection = Yii::app()->db;
         $command = $connection->createCommand($call);
@@ -188,7 +210,7 @@ class Primer extends CActiveRecord {
         else {
             return $result;
         }
-    }
+    }*/
     
     /**
      * THIS FUNCTION IS DEPRECATED,DON'T USE IT
