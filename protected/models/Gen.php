@@ -65,7 +65,7 @@ class Gen extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'tblAreainteres' => array(self::HAS_MANY, 'TblAreainteres', 'idtbl_gen'),
-			'tblPrimers' => array(self::HAS_MANY, 'TblPrimer', 'idtbl_gen'),
+			'tblPrimers' => array(self::HAS_MANY, 'Primer', 'idtbl_gen'),
 			'tblGenporrutametabolicas' => array(self::HAS_MANY, 'TblGenporrutametabolica', 'idtbl_gen'),
 		);
 	}

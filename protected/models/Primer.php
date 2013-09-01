@@ -115,11 +115,10 @@ class Primer extends CActiveRecord {
         $criteria->compare('primerflongitud', $this->primerflongitud);
         $criteria->compare('observaciones', $this->observaciones, true);
         
-        //added for searching by gene access code
-        $criteria->with = array('accessCode');
+        //added for searching by gene access code and primer status
+        $criteria->with = array('accessCode','status');
         $criteria->compare('"accessCode".codigoaccesion', $this->accessCode, true);
         //added for searching by primer status
-        $criteria->with = array('status');
         $criteria->compare('"status".estado', $this->status, true);
 
         return new CActiveDataProvider($this, array(
@@ -130,6 +129,34 @@ class Primer extends CActiveRecord {
                         'asc' => '"accessCode".codigoaccesion',
                         'desc' => '"accessCode".codigoaccesion DESC',
                     ),
+                    'status' => array(
+                        'asc' => '"status".estado',
+                        'desc' => '"status".estado DESC',
+                    ),
+                    '*',
+                ),
+            ),
+        ));
+    }
+    
+    public function searchByGene($pGeneId){
+        $criteria = new CDbCriteria;
+        $criteria->compare('idtbl_gen',$pGeneId); 
+
+        $criteria->compare('primerrinicio', $this->primerrinicio);
+        $criteria->compare('primerrlongitud', $this->primerrlongitud);
+        $criteria->compare('primerfinicio', $this->primerfinicio);
+        $criteria->compare('primerflongitud', $this->primerflongitud);
+        $criteria->compare('observaciones', $this->observaciones, true);
+        
+        //added for searching by primer status
+        $criteria->with = array('status');
+        $criteria->compare('"status".estado', $this->status, true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'sort' => array(
+                'attributes' => array(
                     'status' => array(
                         'asc' => '"status".estado',
                         'desc' => '"status".estado DESC',

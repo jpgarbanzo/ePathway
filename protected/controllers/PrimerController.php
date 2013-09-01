@@ -32,7 +32,7 @@ class PrimerController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','filter'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -157,6 +157,20 @@ class PrimerController extends Controller
 		));
 	}
 
+        
+        public function actionFilter($pGeneId, $pAccessCode){
+            	$model=new Primer();
+		//$model->unsetAttributes();  // clear any default values
+                if(isset($_GET['Primer']))
+			$model->attributes=$_GET['Primer'];
+		
+
+		$this->render('filter',array(
+			'model'=>$model,
+                        'geneId' => $pGeneId,
+                        'accessCode' => $pAccessCode,
+		));
+        }
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

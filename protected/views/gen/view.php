@@ -32,3 +32,14 @@ $this->widget('zii.widgets.CDetailView', array(
     ),
 ));
 ?>
+<br/>
+<ul class="big-menu">
+    <li>
+        <?php echo CHtml::link(
+            'View Primers',array(
+                'primer/filter',
+                'pGeneId'=>$model->idtbl_gen,
+                'pAccessCode'=>$model->codigoaccesion
+            )) ?>
+    </li>
+</ul>

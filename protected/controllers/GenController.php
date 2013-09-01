@@ -128,7 +128,7 @@ class GenController extends Controller
 		));
 	}
 
-	/**
+        /**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
