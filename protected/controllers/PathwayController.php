@@ -122,7 +122,11 @@ class PathwayController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Pathway');
+		$dataProvider=new CActiveDataProvider('Pathway', array(
+                    'criteria'=>array(
+                        'order'=>'idtbl_rutametabolica DESC',
+                    )
+                ));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
