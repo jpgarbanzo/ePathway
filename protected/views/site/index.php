@@ -31,4 +31,5 @@ should you have any questions.</p>
 <ul class="big-menu">
 <li><?php echo CHtml::link('Primers',array('primer/index')) ?></li>
 <li><?php echo CHtml::link('Relevant areas',array('areainteres/index')) ?></li>
+<li><?php echo CHtml::link('Metabolic Pathways',array('pathway/index')) ?></li>
 </ul>
