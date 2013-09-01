@@ -32,7 +32,7 @@ class AreainteresController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'filter'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -148,6 +148,23 @@ class AreainteresController extends Controller
 			'model'=>$model,
 		));
 	}
+        
+        /**
+         * Filters by gene's id
+         */
+        public function actionFilter($pGene, $pAccessCode){
+                $model = new Areainteres();
+                
+                if(isset($_GET['Areainteres']))
+			$model->attributes=$_GET['Areainteres'];
+		
+
+		$this->render('filter',array(
+			'model'=>$model,
+                        'geneId' => $pGene,
+                        'accessCode' => $pAccessCode,
+		));
+        }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

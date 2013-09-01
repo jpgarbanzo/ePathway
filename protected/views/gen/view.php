@@ -42,4 +42,12 @@ $this->widget('zii.widgets.CDetailView', array(
                 'pAccessCode'=>$model->codigoaccesion
             )) ?>
     </li>
+    <li>
+        <?php echo CHtml::link(
+            'View Relevant Areas',array(
+                'areainteres/filter',
+                'pGene'=>$model->idtbl_gen,
+                'pAccessCode'=>$model->codigoaccesion
+            )) ?>
+    </li>
 </ul>

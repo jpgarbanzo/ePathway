@@ -104,6 +104,20 @@ class Areainteres extends CActiveRecord {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Custom functions">
+        
+    public function searchByGene($pGeneId) {
+        $criteria = new CDbCriteria;
+        $criteria->compare('idtbl_gen',$pGeneId);
+        
+        $criteria->compare('secuenciainteres', $this->secuenciainteres, true);
+        $criteria->compare('identificador',$this->identificador,true);
+        
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+    
+    
     /**
      * returns a string with the gene's access code for this relevant area
      * @return String
