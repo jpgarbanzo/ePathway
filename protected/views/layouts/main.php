@@ -14,6 +14,7 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo yii::app()->request->baseUrl; ?>/css/custom.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -48,6 +49,7 @@
 	<div class="clear"></div>
 
 	<div id="footer">
+                ePathway V1.0 <br/>
 		Copyright &copy; <?php echo date('Y'); ?> by ePathway Team.<br/>
 		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>

@@ -28,16 +28,22 @@ $this->menu=array(
                 ),
 		'primerrinicio',
 		'primerrlongitud',
-                array('name'=>'Primer R sequence', 'value'=>$model->SequenceR),
+                array(
+                    'name'=>'Primer R sequence',
+                    'value'=>'<textarea readonly="readonly" class="dna" id="primerr">'.$model->SequenceR . '</textarea>',
+                    'type'=>'raw',
+                ),
 		'primerfinicio',
 		'primerflongitud',
-                array('name'=>'Primer F sequence', 'value'=>$model->SequenceF),
+                array(
+                    'name'=>'Primer F sequence', 
+                    'value'=>'<textarea readonly="readonly" class="dna" id="primerr">' . $model->SequenceF . '</textarea>',
+                    'type'=>'raw',
+                ),
                 array(
                     'name' => $model->getAttributeLabel('status'),
                     'value' => CHtml::encode($model->getPrimerStatusText()),
                 ),
-                'observaciones',
-                
-                
+                'observaciones',    
 	),
 )); ?>

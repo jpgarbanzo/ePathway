@@ -104,4 +104,30 @@ class Gen extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        
+        /**
+         * THIS FUNCTION IS DEPRECATED
+         * Gives format to a DNA sequence, to be properly displayed on view
+         * i.e. adds a space each 50 characters
+         * @param type $pSequenceToFormat
+         * @return string
+         */
+        /*
+        public function formatSequence($pSequenceToFormat){
+            if(strlen($pSequenceToFormat) > 50){
+                $temp_sequence = $pSequenceToFormat;
+                $result = '';
+                
+                while(strlen($temp_sequence) >= 50){
+                    $result .= ' ' . substr($temp_sequence,0,50);
+                    $temp_sequence = substr($temp_sequence,50);
+                }
+                
+                $result .= ' ' . $temp_sequence;
+                return $result;
+            }
+            else
+                return $pSequenceToFormat;
+        }*/
 }

@@ -27,16 +27,25 @@ $this->widget('zii.widgets.CDetailView', array(
         'codigoaccesion',
         'identificador',
         'organismoorigen',
-        'secuenciacompleta',
-        'cds',
+        //'secuenciacompleta',
+        array(
+            'label'=>$model->getAttributeLabel('secuenciacompleta'),
+            'type'=>'raw',
+            'value'=>'<textarea readonly="readonly" class="dna" id="sequence">' . $model->secuenciacompleta . '</textarea>',
+        ),
+        array(
+            'label'=>$model->getAttributeLabel('cds'),
+            'type'=>'raw',
+            'value'=>'<textarea readonly="readonly" class="dna" id="cds">' . $model->cds . '</textarea>',
+        ),
     ),
 ));
 ?>
-<br/>
+<br/><br/>
 <ul class="big-menu">
     <li>
         <?php echo CHtml::link(
-            'View Primers',array(
+            'Primers',array(
                 'primer/filter',
                 'pGeneId'=>$model->idtbl_gen,
                 'pAccessCode'=>$model->codigoaccesion
@@ -44,7 +53,7 @@ $this->widget('zii.widgets.CDetailView', array(
     </li>
     <li>
         <?php echo CHtml::link(
-            'View Relevant Areas',array(
+            'Relevant Areas',array(
                 'areainteres/filter',
                 'pGene'=>$model->idtbl_gen,
                 'pAccessCode'=>$model->codigoaccesion

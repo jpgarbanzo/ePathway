@@ -1,0 +1,24 @@
+/* 
+    Document   : custom
+    Created on : 01/09/2013, 02:56:30 PM
+    Author     : jpablo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+div.view{
+    overflow-x: auto
+}
+
+textarea.dna{
+    width: 100%;
+    max-width: 550px;
+    transition-duration: 0.5s;
+    transition-delay: 0.2s;
+}
+
+textarea.dna:hover{
+    min-height: 150px;
+    transition-duration: 0.8s;
+    transition-delay: 0.1s;
+}

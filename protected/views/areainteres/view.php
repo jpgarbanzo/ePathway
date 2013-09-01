@@ -21,7 +21,11 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
                 'identificador',
-		'secuenciainteres',
+                        array(
+                        'label'=>$model->getAttributeLabel('secuenciainteres'),
+                        'type'=>'raw',
+                        'value'=>'<textarea readonly="readonly" class="dna" id="area">' . $model->secuenciainteres . '</textarea>',
+                    ),
                 array(
                     'name' => $model->getAttributeLabel('AccessCode'),
                     'value' => CHtml::link(CHtml::encode($model->getAccessCode()), array('Gen/view', 'id'=>$model->idtbl_gen)),
