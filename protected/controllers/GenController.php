@@ -122,7 +122,11 @@ class GenController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Gen');
+		$dataProvider=new CActiveDataProvider('Gen', array(
+                    'criteria'=>array(
+                        'order'=>'idtbl_gen DESC',
+                        )
+                    ));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
