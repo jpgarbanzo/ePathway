@@ -28,7 +28,10 @@ class DefaultController extends Controller {
         $collection = new MongoCollection($db_instance, $pCollection); //ESTE VALOR DEBER PASARSE COMO PARAMETRO
         $model->setCollection($collection);
         $criteria = new EMongoCriteria();
-	$dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
+	$dataProvider=new EMongoDocumentDataProvider('MongoModel', array(
+            'criteria'=>$criteria,
+            'pagination'=>array('PageSize'=>20),
+        ));
         $dataProvider->setCriteria($criteria);
         $data = MongoModel::model()->find();
         $this->render('view', array(

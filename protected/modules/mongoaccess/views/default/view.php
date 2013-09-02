@@ -16,24 +16,35 @@
 
 
 <h2>View a local information</h2>
-
+COG_ONTOLOGY
 <?php
 $algo = $data->getSoftAttributeNames();
-    $this->widget('zii.widgets.grid.CGridView', array(
-        'dataProvider' => $dataProvider,
-        'columns' => array(
-            array(
-                'name' => $algo[0],
-                'type' => 'raw',
-                'value' => 'CHtml::encode($data->ID)'
-            ),
-            array(
-                'name' => $algo[2],
-                'type' => 'raw',
-                'value' => 'CHtml::encode($data->Species)'
-            ),
-        ),
-    ));
+
+        $this->widget('zii.widgets.grid.CGridView', array(
+            'dataProvider' => $dataProvider,
+         'columns' => array(
+	        array(
+	            'name' => 'ID',
+	            'type' => 'raw',
+	            'value' => 'CHtml::encode($data->ID)'
+	        ),
+                   array(
+	            'name' => 'Species',
+	            'type' => 'raw',
+	            'value' => 'CHtml::encode($data->Species)'
+	        ),
+              array(
+	            'name' => 'COG_ONTOLOGY',
+	            'type' => 'raw',
+	            'value' => 'CHtml::encode($data->COG_ONTOLOGY)'
+	        ),
+              array(
+	            'name' => 'GOTERM_BP_FAT',
+	            'type' => 'raw',
+	            'value' => 'CHtml::encode($data->GOTERM_BP_FAT)'
+	        ),
+	    ),
+        ));
 ?>
 
 
