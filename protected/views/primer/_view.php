@@ -1,11 +1,12 @@
 <?php
-/* @var $this PrimerController */
-/* @var $data Primer */
+/* @var $this DefaultController */
+/* @var $data MongoModel */
 ?>
 
 <div class="view">
     
-        <b><?php echo CHtml::encode($data->getAttributeLabel('idtbl_gen')); ?>:</b>
+        
+    <b><?php  echo CHtml::encode($data->getAttributeLabel('idtbl_gen')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->getAccessCode()), array('Gen/view', 'id'=>$data->idtbl_gen)); ?>
 	<br />
 

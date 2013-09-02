@@ -8,22 +8,18 @@
 
     <?php
     $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'primer-form',
+        'id' => 'collection-form',
         'enableAjaxValidation' => false,
     ));
     ?>
-    
-        
-        <?php echo $form->errorSummary($model); ?>
-
-
-
+            
+    <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php
-        
-        $algo = $model->CollectionsNames;
-        echo $form->dropDownList($model, "CollectionsNames",$algo, array('empty' => 'Select a collections'));
+        <?php        
+        echo $form->labelEx($model, 'collection_name');
+        echo $form->dropDownList($model, 'collection_name',$model->CollectionsNames, array('empty' => 'Select a collections'));
+        echo $form->error($model, 'collection_name');
         ?>
     </div>
 

@@ -1,126 +1,109 @@
 <?php
 
-class DefaultController extends Controller
-{
+class DefaultController extends Controller {
+    
+    /**
+     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
+     * using two-column layout. See 'protected/views/layouts/column2.php'.
+     */
     public $layout='//layouts/column2';
     
-    public function actionIndex()
-    {
-        $model = new MongoModel;
+    //List all collections
+    public function actionIndex() {
+        $model = new MongoModel; 
+        if(isset($_POST['MongoModel'])) {
+            $this->redirect(array('view','pCollection'=>'a')); //Enviar la constante de la coleccion
+        }
         $collection_names = $model->retrieveCollectionsNames();
-        
-        
-        
-        $model->CollectionsNames = $this->split($collection_names);
-        $criteria = new EMongoCriteria();
-        //$criteria->ID = 'At5g14950';
-	$dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
-        $dataProvider->setCriteria($criteria);
-            $this->render('index', array(
-                
-                'model'=>$model,
-            'collection_names'=>$collection_names,
-                'dataProvider'=>$dataProvider
-            ));       
-    }
-    
-    
- /*   public function actionIndex() {
-        $model = new MongoModel;
-          
-        $collection_names = $model->retrieveCollectionsNames();
-        $model->CollectionsNames = $collection_names;
-        $criteria = new EMongoCriteria();
-        //$criteria->ID = 'At5g14950';
-	$dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
-        $dataProvider->setCriteria($criteria);
-        $this->render('index',array(
+        $model->CollectionsNames = $this->splitString($collection_names);
+        $this->render('index', array(
             'model'=>$model,
-            'collection_names'=>$collection_names,
-		));
+        ));
     }
-  * 
-  */
     
-      public function actionBadImport()
-    {
+    //List collection data
+    public function actionView($pCollection) {
+        $model = new MongoModel; 
+        $db_instance = MongoModel::model()->getDb();
+        $collection = new MongoCollection($db_instance, $pCollection); //ESTE VALOR DEBER PASARSE COMO PARAMETRO
+        $model->setCollection($collection);
+        $criteria = new EMongoCriteria();
+	$dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
+        $dataProvider->setCriteria($criteria);
+        $data = MongoModel::model()->find();
+        $this->render('view', array(
+            'model'=>$model,
+            'data' =>$data,
+            'dataProvider'=>$dataProvider
+        ));       
+    }
+   
+    public function actionBadImport() {
         $this->render('badimport');
     }
-    
-     public function actionImport()
-    {
-        $model = new CSVFile();
         
-        if (isset($_POST['CSVFile']))
-        {            
+    public function actionImport() {
+        $model = new CSVFile();
+        if (isset($_POST['CSVFile'])) {
             if (file_exists($_FILES['filename']['tmp_name'])) {
                 $this->saveFile($_FILES['filename']['tmp_name'], $_POST['species']);
-                $this->render('goodimport');
-                
-            } else {
+                $this->render('goodimport');    
+            }
+            else {
                 $this->render('badimport');
             }
         }
         else {
-            $this->render('import', array(
-                'model' => $model,
-            ));
+            $this->render('import', array('model' => $model,));
         }
     }
-    
-    public function saveFile($pFile, $pCollectionName)
-    {
+        
+    /**
+     * Save the file into MongoDB
+     * @param type $pFile
+     * @param type $pCollectionName
+     */
+    private function saveFile($pFile, $pCollectionName) {
         $db_instance = MongoModel::model()->getDb();
         $collection = new MongoCollection($db_instance, $pCollectionName);
-                
         if (($handle = fopen($pFile, 'r')) !== FALSE) {
-            $i = 0;
-            
-            while (($lineArray = fgetcsv($handle,',')) !== FALSE) {
-                for ($j = 0; $j < count($lineArray); $j++) {
-                    $data[$i][$j] = $lineArray[$j];
+            $line_index = 0;
+            while (($line_Array = fgetcsv($handle,',')) !== FALSE) {
+                for ($index = 0; $index < count($line_Array); $index++) {
+                    $data[$line_index][$index] = $line_Array[$index];
                 }
-            
-                $i++;
+                $line_index++;
             }
             fclose($handle);
-        }
-        $count = count($data) - 1;
-        
-        $labels = array_shift($data);
- 
-        foreach ($labels as $label) {
-            $keys[] = $label;
-        }        
-        $ii = 0;
-        $jj = 0;
-        
-        for($jj = 0; $jj < count($data); $jj++)
-        {
-            $model = new MongoModel();
-            $model->setCollection($collection);
-            $model->initSoftAttributes($keys); //Ingresa la llave como valor
-            
-            for ($ii = 0; $ii < count($keys); $ii++) {
-                 $model->$keys[$ii] =  $data[$jj][$ii];
+            $count = count($data) - 1;
+            $labels = array_shift($data);
+            foreach ($labels as $label) {
+                $keys[] = $label;
+            }        
+            for($j_index = 0; $j_index < count($data); $j_index++) {
+                $model = new MongoModel();
+                $model->setCollection($collection);
+                $model->initSoftAttributes($keys);
+                for ($i_index = 0; $i_index < count($keys); $i_index++) {
+                     $model->$keys[$i_index] =  $data[$j_index][$i_index];
+                }
+                $model->save();
             }
-            $model->save();
         }
     }
     
-    
-    
-    private function split($pCollection) {
-        foreach($pCollection as $collection)
-        {
+    /**
+     * Split the collection names
+     * @param ArrayObject $pCollection
+     * @return ArrayObject Only the collection names
+     */
+    private function splitString($pCollection) {
+        foreach($pCollection as $collection) {
             $collection_name = explode(".", $collection);
             $names[] = $collection_name[1];
         }
         return $names;
     }
-    
-    
-    
 }
 
 ?>
