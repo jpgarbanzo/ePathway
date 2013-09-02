@@ -13,6 +13,7 @@ return array(
     'import' => array(
         'application.models.*',
         'application.components.*',
+        'ext.YiiMongoDbSuite.*',
     ),
     'modules' => array(
         // uncomment the following to enable the Gii tool
@@ -23,7 +24,7 @@ return array(
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
             'ipFilters' => array('127.0.0.1', '::1'),
         ),
-        'mongodoc',
+        'mongoaccess',
     ),
     
     
@@ -61,10 +62,18 @@ return array(
          */
         'db' => array(
             'tablePrefix' => '',
-            'connectionString' => 'pgsql:host=localhost;port=5432;dbname=epathway',
+            'connectionString' => 'pgsql:dbname=epathway',
             'username' => 'ePathway',
             'password' => 'dVvRhN23UQzX99f',
             'charset' => 'UTF8',
+        ),
+        'mongodb' => array(
+            'class'             => 'EMongoDB',
+            'connectionString'  => 'mongodb://localhost',
+            'dbName'            => 'eMongodb',
+            'fsyncFlag'         => false,
+            'safeFlag'          => false,
+            'useCursor'         => false,
         ),
         'errorHandler' => array(
             // use 'site/error' action to display errors
