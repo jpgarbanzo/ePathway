@@ -2,6 +2,7 @@
     /* @var $this DefaultController */
     /* @var $model MongoModel */
     /* @var $dataProvider EMongoDocumentDataProvider */
+    /* @var $data EMongoDocumentDataProvider */
 
     $this->breadcrumbs = array('MongoData');
 
@@ -10,11 +11,11 @@
 ?>
 
 
-<h2>View a local information</h2>
+<h2>Available Databases</h2>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
-	'itemView'=>'_form',
+	'itemView'=>'_view',
 )); ?>
 
 

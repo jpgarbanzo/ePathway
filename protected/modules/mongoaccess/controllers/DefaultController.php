@@ -11,25 +11,16 @@ class DefaultController extends Controller {
     //List all collections
     public function actionIndex() {
         $model = new MongoModel; 
-      //  if(isset($_POST['MongoModel'])) {
-//            $this->redirect(array('view','pCollection'=>'a')); //Enviar la constante de la coleccion
-//        }       
         $collection_names = $model->retrieveCollectionsNames();
         //$model->CollectionsNames = $this->splitString($collection_names);
         
+ 
         
-        $dataProvider=new EMongoDocumentDataProvider('MongoModel', array(
-            'pagination'=>array('PageSize'=>20),
-        ));
-        
+        $dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
         $dataProvider->setData($collection_names);
-        $array[0] = 'Hola';
         
-       
-//        $dataProvider->setData(array("Hola" => "Hola",));
-  
         
-        print_r($dataProvider->getData()[0]->getName());
+        //print_r($dataProvider->getData()[0]->findOne());
         
         $this->render('index', array(
            'dataProvider'=>$dataProvider,
