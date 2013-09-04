@@ -7,7 +7,7 @@ class MongoModel extends EMongoSoftDocument {
      
     //used to pass the collection names to some views
     public $CollectionsNames;
-    public $collection_name;
+    //public $collection_name;
         
     /**
      * @return string the default database collection name
