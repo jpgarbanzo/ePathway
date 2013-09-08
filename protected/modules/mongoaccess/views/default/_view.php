@@ -1,7 +1,6 @@
 <?php
 /* @var $this DefaultController */
 /* @var $data MongoModel */
-/* @var $form CActiveForm */
 ?>
 
 

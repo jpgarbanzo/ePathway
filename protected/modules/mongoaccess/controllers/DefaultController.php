@@ -14,38 +14,39 @@ class DefaultController extends Controller {
         $collection_names = $model->retrieveCollectionsNames();
         $db_instance = MongoModel::model()->getDb();
         $dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
-        
-        //En caso de que no exista ninguna coleccion en la base de datos
         if($collection_names != null) {
             //Por cada coleccion que exista 
-            foreach ($collection_names as $col) {
+           foreach ($collection_names as $col) {
                 $Objeto = new CollectionMongo();
                 $Objeto->setCollectionName($col->getName());
+                
                 $collection = new MongoCollection($db_instance, $col->getName());
                 $model->setCollection($collection);
                 $results = MongoModel::model()->findAll();
-                $string[];
+                
+                $string[] = '';
+                
                 foreach($results as $result)
                 {
-                    $columns = $result->getSoftAttributeNames();
-                    print_r($columns);
-                    //Por cada columna en el grupo de columnas
-                    
+                    $columns = $result->getSoftAttributeNames();                   
                     
                     foreach ($columns as $column) {
                         if(!in_array($column, $string))
                             $string[] = $column;
                     }
-                    
                 }
-                $Objeto->setCollectionColumns(arrayToString($string));
+            
+                $Objeto->setCollectionColumns($this->arrayToString($string));
                 $array[] = $Objeto;
+                unset($string);
             }
+            
             $dataProvider->setData($array);
        }
-//        $this->render('index', array(
-//           'dataProvider'=>$dataProvider,
-//        ));
+
+        $this->render('index', array(
+           'dataProvider'=>$dataProvider,
+        ));
     }
     
     //List collection data
@@ -60,8 +61,16 @@ class DefaultController extends Controller {
             'pagination'=>array('PageSize'=>10),
         ));
         $dataProvider->setCriteria($criteria);
-        $attributes = MongoModel::model()->find();
-        $columns = $attributes->getSoftAttributeNames();
+        $results = MongoModel::model()->findAll();
+        $string[] = '';                
+        foreach($results as $result) {
+            $columns = $result->getSoftAttributeNames();                   
+                foreach ($columns as $column) {
+                    if(!in_array($column, $string))
+                        $string[] = $column;
+                }
+        }
+        $columns = $string;
         foreach ($columns as $column) {
             $data[] = array('name'=> $column);
         }
@@ -134,12 +143,10 @@ class DefaultController extends Controller {
     private function arrayToString($pColumn) {
         $string = "";
         foreach($pColumn as $column) {
-            $string = $string . $column;
+            $string = $string . " " .$column;
         }
         return $string;
-    }
-    
-    
+    }   
 }
 
 ?>
