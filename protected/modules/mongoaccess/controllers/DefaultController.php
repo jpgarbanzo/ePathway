@@ -40,22 +40,26 @@ class DefaultController extends Controller {
     }
     
     //List collection data
-    public function actionView($pCollection) {
+    public function actionView($id) {
         $model = new MongoModel; 
         $db_instance = MongoModel::model()->getDb();
-        $collection = new MongoCollection($db_instance, $pCollection); //ESTE VALOR DEBER PASARSE COMO PARAMETRO
+        $collection = new MongoCollection($db_instance, $id); //ESTE VALOR DEBER PASARSE COMO PARAMETRO
         $model->setCollection($collection);
         $criteria = new EMongoCriteria();
 	$dataProvider=new EMongoDocumentDataProvider('MongoModel', array(
             'criteria'=>$criteria,
-            'pagination'=>array('PageSize'=>20),
+            'pagination'=>array('PageSize'=>10),
         ));
         $dataProvider->setCriteria($criteria);
-        $data = MongoModel::model()->find();
+        $attributes = MongoModel::model()->find();
+        $columns = $attributes->getSoftAttributeNames();
+        foreach ($columns as $column) {
+            $data[] = array('name'=> $column);
+        }            
         $this->render('view', array(
             'model'=>$model,
-            'data' =>$data,
-            'dataProvider'=>$dataProvider
+            'dataProvider'=>$dataProvider,
+            'data' => $data,
         ));       
     }
    
