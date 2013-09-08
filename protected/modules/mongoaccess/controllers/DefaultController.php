@@ -13,30 +13,39 @@ class DefaultController extends Controller {
         $model = new MongoModel; 
         $collection_names = $model->retrieveCollectionsNames();
         $db_instance = MongoModel::model()->getDb();
-       
-        foreach ($collection_names as $col){
-            $Objeto = new CollectionMongo();
-            $Objeto->setCollectionName($col->getName());
-            
-            $collection = new MongoCollection($db_instance, $col->getName());
-            $model->setCollection($collection);
-            $attributes = MongoModel::model()->find();
-            $columns = $attributes->getSoftAttributeNames();
-            $string = "";
-            foreach ($columns as $column) {
-                $string = $string ." ".$column;
-            }            
-            $Objeto->setCollectionColumns($string);
-            $array[] = $Objeto;
-        }
+        $dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
         
-       $dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
-       $dataProvider->setData($array);        
-       //print_r($dataProvider->getData()[1]->getName());
-        
-        $this->render('index', array(
-           'dataProvider'=>$dataProvider,
-        ));
+        //En caso de que no exista ninguna coleccion en la base de datos
+        if($collection_names != null) {
+            //Por cada coleccion que exista 
+            foreach ($collection_names as $col) {
+                $Objeto = new CollectionMongo();
+                $Objeto->setCollectionName($col->getName());
+                $collection = new MongoCollection($db_instance, $col->getName());
+                $model->setCollection($collection);
+                $results = MongoModel::model()->findAll();
+                $string[];
+                foreach($results as $result)
+                {
+                    $columns = $result->getSoftAttributeNames();
+                    print_r($columns);
+                    //Por cada columna en el grupo de columnas
+                    
+                    
+                    foreach ($columns as $column) {
+                        if(!in_array($column, $string))
+                            $string[] = $column;
+                    }
+                    
+                }
+                $Objeto->setCollectionColumns(arrayToString($string));
+                $array[] = $Objeto;
+            }
+            $dataProvider->setData($array);
+       }
+//        $this->render('index', array(
+//           'dataProvider'=>$dataProvider,
+//        ));
     }
     
     //List collection data
@@ -55,7 +64,7 @@ class DefaultController extends Controller {
         $columns = $attributes->getSoftAttributeNames();
         foreach ($columns as $column) {
             $data[] = array('name'=> $column);
-        }            
+        }
         $this->render('view', array(
             'model'=>$model,
             'dataProvider'=>$dataProvider,
@@ -122,13 +131,15 @@ class DefaultController extends Controller {
      * @param ArrayObject $pCollection
      * @return ArrayObject Only the collection names
      */
-    private function splitString($pCollection) {
-        foreach($pCollection as $collection) {
-            $collection_name = explode(".", $collection);
-            $names[] = $collection_name[1];
+    private function arrayToString($pColumn) {
+        $string = "";
+        foreach($pColumn as $column) {
+            $string = $string . $column;
         }
-        return $names;
+        return $string;
     }
+    
+    
 }
 
 ?>
