@@ -17,5 +17,3 @@
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 )); ?>
-
-

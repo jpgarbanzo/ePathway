@@ -1,5 +1,5 @@
 <?php
-
+include('CollectionMongo.php');
 class DefaultController extends Controller {
     
     /**
@@ -12,15 +12,27 @@ class DefaultController extends Controller {
     public function actionIndex() {
         $model = new MongoModel; 
         $collection_names = $model->retrieveCollectionsNames();
-        //$model->CollectionsNames = $this->splitString($collection_names);
+        $db_instance = MongoModel::model()->getDb();
+       
+        foreach ($collection_names as $col){
+            $Objeto = new CollectionMongo();
+            $Objeto->setCollectionName($col->getName());
+            
+            $collection = new MongoCollection($db_instance, $col->getName());
+            $model->setCollection($collection);
+            $attributes = MongoModel::model()->find();
+            $columns = $attributes->getSoftAttributeNames();
+            $string = "";
+            foreach ($columns as $column) {
+                $string = $string ." ".$column;
+            }            
+            $Objeto->setCollectionColumns($string);
+            $array[] = $Objeto;
+        }
         
- 
-        
-        $dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
-        $dataProvider->setData($collection_names);
-        
-        
-        //print_r($dataProvider->getData()[0]->findOne());
+       $dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
+       $dataProvider->setData($array);        
+       //print_r($dataProvider->getData()[1]->getName());
         
         $this->render('index', array(
            'dataProvider'=>$dataProvider,

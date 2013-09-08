@@ -8,12 +8,13 @@
 /**
  * Description of CollectionMongo
  *
- * @author ofernandez
  */
 class CollectionMongo {
     private $CollectionName;
     private $CollectionColumns;
-    
+    public $_id;
+
+
     public function getCollectionName() {
         return $this->CollectionName;
     }
