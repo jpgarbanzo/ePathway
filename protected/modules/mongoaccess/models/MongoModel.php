@@ -29,7 +29,7 @@ class MongoModel extends EMongoSoftDocument {
      * Return an array of all the collections that exist in the database
      * @return ArrayObject The available database collections
      */
-    public function retrieveCollectionsNames(){
+    public function retrieveCollectionsNames() {
         $db_instance = $this->getDb();
         $result = $db_instance->listCollections();
         if ($result == false)

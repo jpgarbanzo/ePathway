@@ -3,7 +3,6 @@
 /* @var $data MongoModel */
 ?>
 
-
 <div class="view">
 
         <b><?php echo CHtml::encode('Database Name'); ?>:</b>
@@ -15,6 +14,4 @@
 	<br />
     
         <?php echo CHtml::link('View Details',array('view','id'=>$data->getCollectionName())) ?>
-
-
 </div>

@@ -16,9 +16,7 @@
 <h2>View a local information</h2>
 
 <?php
-
     $this->widget('zii.widgets.grid.CGridView', array(
-            'id'=>'components-grid',
             'dataProvider'=>$dataProvider,
             'columns'=>  $data,
         )); 

@@ -11,45 +11,21 @@ class DefaultController extends Controller {
     //List all collections
     public function actionIndex() {
         $model = new MongoModel; 
-        $collection_names = $model->retrieveCollectionsNames();
-        $db_instance = MongoModel::model()->getDb();
         $dataProvider=new EMongoDocumentDataProvider('MongoModel', array());
+        $collection_names = $model->retrieveCollectionsNames();
         if($collection_names != null) {
-            //Por cada coleccion que exista 
-           foreach ($collection_names as $col) {
-                $Objeto = new CollectionMongo();
-                $Objeto->setCollectionName($col->getName());
-                
-                $collection = new MongoCollection($db_instance, $col->getName());
-                $model->setCollection($collection);
-                $results = MongoModel::model()->findAll();
-                
-                $string[] = '';
-                
-                foreach($results as $result)
-                {
-                    $columns = $result->getSoftAttributeNames();                   
-                    
-                    foreach ($columns as $column) {
-                        if(!in_array($column, $string))
-                            $string[] = $column;
-                    }
-                }
-            
-                $Objeto->setCollectionColumns($this->arrayToString($string));
-                $array[] = $Objeto;
-                unset($string);
-            }
-            
-            $dataProvider->setData($array);
-       }
-
+            $collection_array = $this->createArrayCollectionObject($collection_names,$model);
+            $dataProvider->setData($collection_array);
+        }
         $this->render('index', array(
-           'dataProvider'=>$dataProvider,
+            'dataProvider'=>$dataProvider,
         ));
     }
     
-    //List collection data
+    /**
+     * List the collection data
+     * @param String $id Collection Name
+     */
     public function actionView($id) {
         $model = new MongoModel; 
         $db_instance = MongoModel::model()->getDb();
@@ -57,25 +33,15 @@ class DefaultController extends Controller {
         $model->setCollection($collection);
         $criteria = new EMongoCriteria();
 	$dataProvider=new EMongoDocumentDataProvider('MongoModel', array(
-            'criteria'=>$criteria,
-            'pagination'=>array('PageSize'=>10),
+            'pagination'=>array('PageSize'=>20),
         ));
         $dataProvider->setCriteria($criteria);
         $results = MongoModel::model()->findAll();
-        $string[] = '';                
-        foreach($results as $result) {
-            $columns = $result->getSoftAttributeNames();                   
-                foreach ($columns as $column) {
-                    if(!in_array($column, $string))
-                        $string[] = $column;
-                }
-        }
-        $columns = $string;
+        $columns = $this->createArrayColumns($results);
         foreach ($columns as $column) {
             $data[] = array('name'=> $column);
         }
         $this->render('view', array(
-            'model'=>$model,
             'dataProvider'=>$dataProvider,
             'data' => $data,
         ));       
@@ -136,9 +102,9 @@ class DefaultController extends Controller {
     }
     
     /**
-     * Split the collection names
-     * @param ArrayObject $pCollection
-     * @return ArrayObject Only the collection names
+     * Create string from array
+     * @param ArrayObject $pColumn
+     * @return String With all the columns
      */
     private function arrayToString($pColumn) {
         $string = "";
@@ -147,6 +113,44 @@ class DefaultController extends Controller {
         }
         return $string;
     }   
+    
+    /**
+     * Create an array with collection object from all the collections in mongobd
+     * @param Array $pCollections
+     * @param MongoModel $pModel
+     * @return Array With CollectionObject
+     */
+    private function createArrayCollectionObject($pCollections,$pModel) {
+        $db_instance = MongoModel::model()->getDb();
+        foreach ($pCollections as $col) {
+                $Objeto = new CollectionMongo();
+                $Objeto->setCollectionName($col->getName());
+                $collection = new MongoCollection($db_instance, $col->getName());
+                $pModel->setCollection($collection);
+                $results = MongoModel::model()->findAll();
+                $columns = $this->createArrayColumns($results);
+                $Objeto->setCollectionColumns($this->arrayToString($columns));
+                $array[] = $Objeto;
+        }
+        return $array;
+    }
+    
+    /**
+     * Create an array with all the columns in a specific collection
+     * @param Array $pResults
+     * @return Array With column names
+     */
+    private function createArrayColumns($pResults) {
+        $array_names[] = '';
+        foreach($pResults as $result) {
+            $columns = $result->getSoftAttributeNames();                   
+            foreach ($columns as $column) {
+                if(!in_array($column, $array_names))
+                    $array_names[] = $column;
+            }
+        }
+        return $array_names;
+    }
 }
 
 ?>

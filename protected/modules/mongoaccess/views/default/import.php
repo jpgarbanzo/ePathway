@@ -8,7 +8,7 @@ $this->breadcrumbs = array(
 );
 
 $this->menu=array(
-	array('label'=>'List Excel', 'url'=>array('index')),
+	array('label'=>'View Local Data', 'url'=>array('index')),
 );
 
 ?>
