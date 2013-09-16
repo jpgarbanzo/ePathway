@@ -38,7 +38,7 @@ textarea.dna:hover{
 
 .grid-view table.items tr.odd
 {
-	background: #E5F1F4;
+	background: #eee;
 }
 
 .grid-view table.items tr.selected
@@ -56,3 +56,18 @@ textarea.dna:hover{
 	background: #ECFBD4;
 }
 
+
+/* big grid stuff */
+.extended-grid{
+    overflow-x: auto;
+}
+
+ td{
+    max-height: 10px;
+    overflow: auto;
+}
+
+ tr{
+    max-height: 10px;
+    overflow: auto;
+}

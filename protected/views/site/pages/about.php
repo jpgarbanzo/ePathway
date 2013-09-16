@@ -10,3 +10,6 @@ $this->breadcrumbs=array(
 
 <p>The team:</p>
 <p>Oscar Fern&aacute;ndez - Jose Pablo Garbanzo - Jose Zheng</p>
+<br/>
+<br/>
+<a href="http://www.epathway.wikia.com/" target='blank'>Visit the ePathway's Wiki</a>

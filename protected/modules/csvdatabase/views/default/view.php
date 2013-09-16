@@ -42,6 +42,7 @@ $('.search-form form').submit(function(){
 ?>
 </div><!-- search-form -->
 
+<div class="extended-grid">
 <?php
     $this->widget('zii.widgets.grid.CGridView', array(
         'id' => 'csv-grid',
@@ -49,3 +50,4 @@ $('.search-form form').submit(function(){
         'columns' =>  $data,
     )); 
 ?>
+</div>

@@ -13,6 +13,6 @@
 	<?php echo CHtml::encode($data->getCollectionColumns()); ?>
 	<br />
     
-        <?php echo CHtml::link('View Details',array('view','id'=>$data->getCollectionName())) ?>
+        <?php echo CHtml::link('View Data',array('view','id'=>$data->getCollectionName())) ?>
         
 </div>
