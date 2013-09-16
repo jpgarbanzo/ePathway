@@ -22,3 +22,37 @@ textarea.dna:hover{
     transition-duration: 0.8s;
     transition-delay: 0.1s;
 }
+
+/* grid table */
+.grid-view table.items th
+{
+	color: white;
+        background: #006400;
+	text-align: center;
+}
+
+.grid-view table.items tr.even
+{
+	background: #F8F8F8;
+}
+
+.grid-view table.items tr.odd
+{
+	background: #E5F1F4;
+}
+
+.grid-view table.items tr.selected
+{
+	background: #BCE774;
+}
+
+.grid-view table.items tr:hover.selected
+{
+	background: #CCFF66;
+}
+
+.grid-view table.items tbody tr:hover
+{
+	background: #ECFBD4;
+}
+
