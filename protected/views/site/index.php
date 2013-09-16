@@ -35,5 +35,5 @@ should you have any questions.</p>
 </ul>
 
 <ul class="big-menu">
-<li><?php echo CHtml::link('Mongo',array('//mongoaccess')) ?></li>
+<li><?php echo CHtml::link('CSV Database',array('//csvdatabase')) ?></li>
 </ul>
