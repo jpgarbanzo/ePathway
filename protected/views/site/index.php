@@ -36,4 +36,5 @@ should you have any questions.</p>
 
 <ul class="big-menu">
 <li><?php echo CHtml::link('CSV Database',array('//csvdatabase')) ?></li>
+<li><?php echo CHtml::link('User Administration',array('user/admin')) ?></li>
 </ul>

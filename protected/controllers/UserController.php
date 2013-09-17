@@ -27,15 +27,15 @@ class UserController extends Controller {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view'),
-                'users' => array('*'),
+                'users' => array('epa_master'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update'),
-                'users' => array('@'),
+                'users' => array('epa_master'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
                 'actions' => array('admin', 'delete'),
-                'users' => array('admin'),
+                'users' => array('epa_master'),
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -65,7 +65,7 @@ class UserController extends Controller {
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
-$model->password = crypt($model->password, self::blowfishSalt());
+            $model->password = crypt($model->password, self::blowfishSalt());
 
             
             if ($model->save())
@@ -90,6 +90,7 @@ $model->password = crypt($model->password, self::blowfishSalt());
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
+            $model->password = crypt($model->password, self::blowfishSalt());
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->idtbl_user));
         }

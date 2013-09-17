@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Users'=>array('index'),
-	$model->idtbl_user,
+	$model->username,
 );
 
 $this->menu=array(
@@ -16,12 +16,11 @@ $this->menu=array(
 );
 ?>
 
-<h1>View User #<?php echo $model->idtbl_user; ?></h1>
+<h1>View User <?php echo $model->username; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'idtbl_user',
 		'username',
 		'password',
 		'email',
