@@ -46,7 +46,7 @@ $('.search-form form').submit(function(){
 <?php
     $this->widget('zii.widgets.grid.CGridView', array(
         'id' => 'csv-grid',
-        'dataProvider' => $dataProvider,
+        'dataProvider' => $model->searchData(),
         'columns' =>  $data,
     )); 
 ?>
