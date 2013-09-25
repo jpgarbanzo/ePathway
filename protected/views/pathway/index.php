@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Create Pathway', 'url'=>array('create')),
 	array('label'=>'Manage Pathway', 'url'=>array('admin')),
+        array('label'=>'Search in KEGG', 'url'=>array('/kegg')),
 );
 ?>
 
