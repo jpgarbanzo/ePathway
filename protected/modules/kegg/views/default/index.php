@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
     /* @var $model KEGGCompound */
     /* @var $dataProvider CArrayDataProvider */
 
@@ -8,14 +11,14 @@
         array('label'=>'View local pathways', 'url'=>array('/pathway')),
     );
     
-    /*Yii::app()->clientScript->registerScript('search', "
+    Yii::app()->clientScript->registerScript('search', "
     $('.search-form form').submit(function(){
-            $('#kegg-list').yiiListView('update', {
+            $('#kegg-list').yiiGridView('update', {
                     data: $(this).serialize()
             });
             return false;
     });
-    ");*/
+    ");
 ?>
 
 <h2>Search in KEGG</h2>
@@ -28,13 +31,11 @@
     ?>
 </div><!-- search-form -->
 
-<!--div class="extended-grid"-->
-    <?php
-        $this->widget('zii.widgets.CListView', array(
-            'id' => 'kegg-list',
-            'dataProvider' => $model->search(),
-            'itemView' => '_view',
-            'ajaxUpdate' => true,
-        ));
-    ?>
-<!--/div-->
+<?php
+    $this->widget('zii.widgets.CListView', array(
+        'id' => 'kegg-list',
+        'dataProvider' => $model->search(),
+        'itemView' => '_view',
+        'ajaxUpdate' => true,
+    ));
+?>

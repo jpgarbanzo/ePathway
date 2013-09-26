@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 class DefaultController extends Controller 
 {
@@ -17,7 +19,9 @@ class DefaultController extends Controller
     }
     
     public function actionView($id) {
-        $pathway = $this->getPathway($id);
+        $model = new KEGGCompound;
+        
+        $pathway = $model->getPathway($id);
         $this->render('view', array(
             'pathway' => $pathway,
         ));
