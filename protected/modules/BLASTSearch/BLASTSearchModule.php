@@ -11,6 +11,7 @@ class BLASTSearchModule extends CWebModule
 		$this->setImport(array(
 			'BLASTSearch.models.*',
 			'BLASTSearch.components.*',
+                        'BLASTSearch.libs.*',
 		));
 	}
 

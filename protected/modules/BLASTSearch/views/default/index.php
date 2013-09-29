@@ -78,7 +78,7 @@ You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
     
     
     function getJob($pJobId){
-        $service_url = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/'; //. $pJobId . '/xml';  //'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/';
+        $service_url = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/' . $pJobId . '/xml';  //'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/';
         $curl = curl_init($service_url);
         $curl_post_data = array(
             "jobId" => 'ncbiblast-R20130929-064438-0746-16156928-pg',
@@ -87,13 +87,13 @@ You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
             );
        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
        curl_setopt($curl, CURLOPT_HTTPGET, true);
-       curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
+       //curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
        $curl_response = curl_exec($curl);
        curl_close($curl);
        
-       //$xml = new SimpleXMLElement($curl_response);
+       $xml = new SimpleXMLElement($curl_response);
         
-       print_r($curl_response);
+       print_r($xml);
     }
     
     
