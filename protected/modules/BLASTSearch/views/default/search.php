@@ -1,13 +1,15 @@
 <?php
 /* @var $this DefaultController */
+$this->menu=array(
+        array('label'=>'BLAST index', 'url'=>array('index')));
 
 $this->breadcrumbs=array(
         $this->module->id => array('index'),
 	'Search'
 );
 ?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
-
+<h1>BLASTSearch</h1>
+<div class="form">
 <?php
         $form = $this->beginWidget(
             'CActiveForm',
@@ -85,3 +87,4 @@ $this->breadcrumbs=array(
 	</div>
 
 <?php $this->endWidget(); ?>
+</div>
