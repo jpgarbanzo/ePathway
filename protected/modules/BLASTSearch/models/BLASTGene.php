@@ -97,7 +97,7 @@ class BLASTGene extends CModel {
         return $curl_response;
     }
 
-    function getParameterDetails() {
+    public function getParameterDetails() {
         $service_url = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/run/';
         $curl = curl_init($service_url);
         $curl_post_data = array(
@@ -115,7 +115,7 @@ class BLASTGene extends CModel {
         print_r($xml);
     }
 
-    function getJobStatus($pJobId) {
+    public function getJobStatus($pJobId) {
         $service_url = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/status/' . $pJobId;  //'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/';
         $curl = curl_init($service_url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -126,8 +126,8 @@ class BLASTGene extends CModel {
         return $curl_response;
     }
 
-    function getXMLJobResult($pJobId) {
-        if (getJobStatus($pJobId) === 'FINISHED') {
+    public function getXMLJobResult($pJobId) {
+        if ($this->getJobStatus($pJobId) === 'FINISHED') {
             $service_url = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/' . $pJobId . '/xml';  //'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/';
             $curl = curl_init($service_url);
             $curl_post_data = array(

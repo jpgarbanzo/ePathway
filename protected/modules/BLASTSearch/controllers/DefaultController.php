@@ -37,9 +37,13 @@ class DefaultController extends Controller
             
             $job_status = $model->getJobStatus($pJobId);
             
+            $job_result = $model->getXMLJobResult($pJobId);
+            
             $this->render('viewjob', array(
                 'model' => $model,
                 'job_status' => $job_status,
+                'job_id' => $pJobId,
+                'job_result' => $job_result,
             ));
             
         }
