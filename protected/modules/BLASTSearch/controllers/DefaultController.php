@@ -9,7 +9,11 @@ class DefaultController extends Controller
 		$this->render('index');
 	}
         
-        public function actionSearch()
+        /**
+         * Render the form used to request a BLAST search, using the fields 
+         * in the model BlastGene
+         */
+        public function actionBLASTSearch()
         {
             $model = new BLASTGene();
             
@@ -24,7 +28,20 @@ class DefaultController extends Controller
             }
             
             
-            $this->render('search', array('model'=>$model));
+            $this->render('blastsearch', array('model'=>$model));
+        }
+        
+        
+        public function actionViewJob($pJobId){
+            $model = new BLASTGene();
+            
+            $job_status = $model->getJobStatus($pJobId);
+            
+            $this->render('viewjob', array(
+                'model' => $model,
+                'job_status' => $job_status,
+            ));
+            
         }
         
         
