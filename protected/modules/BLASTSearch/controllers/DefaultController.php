@@ -45,14 +45,26 @@ class DefaultController extends Controller
             $job_xml_result = $model->getXMLJobResult($pJobId);
             $BLASTResult_items = $BLASTResult->getBLASTResultItemFromXMLRawResult($job_xml_result);
             
+            
+            $blast_data_provider = new CArrayDataProvider('BLASTResultItems',
+                    array(
+                        'data'=>$BLASTResult_items,
+                        'id'=>'blast-search-result',
+                        'keyField' => 'ID',
+                        'pagination'=>array(
+                            'pageSize'=>10,
+                            ),
+                        )
+                    );
+            
             $this->render('viewjob', array(
                 'model' => $model,
                 'job_status' => $job_status,
                 'job_id' => $pJobId,
-                'job_result' => $job_xml_result,
-                'blasted' => $BLASTResult_items,
+                'result_columns' => $BLASTResult->getAttributes(),
+                //'job_result' => $job_xml_result,
+                'blast_data_provider' => $blast_data_provider,
             ));
-            
         }
         
         
