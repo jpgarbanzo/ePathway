@@ -37,16 +37,20 @@ class DefaultController extends Controller
         
         public function actionViewJob($pJobId){
             $model = new BLASTGene();
+            $BLASTResult = new BLASTResultItem();
             
             $job_status = $model->getJobStatus($pJobId);
             
-            $job_result = $model->getXMLJobResult($pJobId);
+            
+            $job_xml_result = $model->getXMLJobResult($pJobId);
+            $BLASTResult_items = $BLASTResult->getBLASTResultItemFromXMLRawResult($job_xml_result);
             
             $this->render('viewjob', array(
                 'model' => $model,
                 'job_status' => $job_status,
                 'job_id' => $pJobId,
-                'job_result' => $job_result,
+                'job_result' => $job_xml_result,
+                'blasted' => $BLASTResult_items,
             ));
             
         }

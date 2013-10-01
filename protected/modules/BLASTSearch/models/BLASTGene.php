@@ -17,6 +17,7 @@ class BLASTGene extends CModel {
     public $Scores;
     public $Alignments;
     public $ExpectValThreshold;
+    
 
     /**
      * Returns the static model of the specified AR class.
@@ -75,7 +76,6 @@ class BLASTGene extends CModel {
 
     // <editor-fold defaultstate="collapsed" desc="EBI interaction functions">
     public function requestBLASTSearchO($pEmail, $pProgram, $pDatabase, $pSequence, $pSequenceType, $pOutput) {
-
         $service_url = BLASTGene::$BLAST_SEARCH_SERVICE_URL; 
         $curl = curl_init($service_url);
         $curl_post_data = array(

@@ -56,6 +56,38 @@ $this->breadcrumbs=array(
         
         //print_r((array)$job_result->SequenceSimilaritySearchResult->hits);
         //print_r(array_keys($header));
+    
+    
+    
+    
+    
+    echo 'LOLZ <br/>';
+    
+    
+        foreach ($job_result->SequenceSimilaritySearchResult->hits->children() as $hit){
+            print_r($hit);
+            
+            foreach($hit->children() as $data){
+                echo '<br/>->';
+                print_r($data);
+                echo '<-<br/>';
+            }
+            
+                echo 'Database: ' . $hit->attributes()->{'database'} . '<br/>';
+                echo 'ID: ' . $hit->attributes()->{'id'} . '<br/>';
+                echo 'AC: ' . $hit->attributes()->{'ac'} . '<br/>';
+                echo 'Length: ' . $hit->attributes()->{'length'} . '<br/>';
+                echo 'Description: ' . $hit->attributes()->{'description'} . '<br/>';
+            
+        }
+    
+    
+    
+    
+    
+    
+    
+    
     }
 
 ?>
