@@ -176,7 +176,7 @@ class BLASTGene extends CModel {
     
     // <editor-fold defaultstate="collapsed" desc="Constants (service URLs, parameter names...)">
     public static $REQUEST_TYPE_XML = 'xml';
-    
+    public static $JOB_STATUS_FINISHED = 'FINISHED';
     
     private static $BLAST_SEARCH_SERVICE_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/run/';
     

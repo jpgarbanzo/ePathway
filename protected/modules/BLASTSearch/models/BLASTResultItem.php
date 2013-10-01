@@ -23,11 +23,21 @@ class BLASTResultItem extends CModel {
     public $QuerySeq;
     public $Pattern;
     public $MatchSeq;
-    
-    public $id;
-    
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Methods">
+    
+    /**
+     * Singleton pattern implementation
+     */
+    public static function getInstance(){
+        if(!isset(BLASTResultItem::$_Instance))
+            BLASTResultItem::$_Instance = new BLASTResultItem();
+        
+        return BLASTResultItem::$_Instance;
+    }
+    
+    
     public function attributeNames() {
         array(
             'Database' => 'Database',
@@ -64,8 +74,6 @@ class BLASTResultItem extends CModel {
             'Pattern',
             'MatchSeq',
         );
-        
-        
     }
 
     /**
@@ -103,6 +111,13 @@ class BLASTResultItem extends CModel {
         }
         return $result;
     }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Private Attributes">
+    private static $_Instance;
+    // </editor-fold>
+
+ 
 }
 
 ?>

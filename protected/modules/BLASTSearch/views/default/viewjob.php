@@ -14,35 +14,13 @@ $this->breadcrumbs=array(
 
 
 <?php
-$this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'blast-result-grid',
-    'dataProvider' => $blast_data_provider,
-    'columns'=> $result_columns,
-));
 
-print_r($blasted);
+if($job_status === BLASTGene::$JOB_STATUS_FINISHED && $blast_data_provider != null){
+    $this->widget('zii.widgets.grid.CGridView', array(
+        'id' => 'blast-result-grid',
+        'dataProvider' => $blast_data_provider,
+        'columns'=> $result_columns,
+    ));
+}
 
-//    if($job_status === 'FINISHED'){
-//
-//        
-//        foreach ($blasted as $b) {
-//            echo 'Database: ' . $b->Database . '<br/>';
-//            echo 'ID: ' . $b->ID . '<br/>';
-//            echo 'AC: ' . $b->AC . '<br/>';
-//            echo 'Length: ' . $b->Length . '<br/>';
-//            echo 'Description: ' . $b->Description . '<br/>';
-//
-//            echo 'Score: ' . $b->Score . '<br/>';
-//            echo 'Expectation: ' . $b->Expectation . '<br/>';
-//            echo 'Identity: ' . $b->Identity . '<br/>';
-//            echo 'Gaps: ' . $b->Gaps . '<br/>';
-//            echo 'Strand: ' . $b->Strand . '<br/>';
-//            echo 'Bits: ' . $b->Bits . '<br/>';
-//            echo 'QuerySeq: ' . $b->QuerySeq . '<br/>';
-//            echo 'Pattern: ' . $b->Pattern . '<br/>';
-//            echo 'MatchSeq: ' . $b->MatchSeq . '<br/>';
-//
-//            echo '<br/><br/>';
-//        }
-//    }
 ?>
