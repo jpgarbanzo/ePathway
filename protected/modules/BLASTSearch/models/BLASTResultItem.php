@@ -6,29 +6,24 @@
 class BLASTResultItem extends CModel {
 
     // <editor-fold defaultstate="collapsed" desc="Properties">
+    //Main attributes returned from EBI search
     public $Database;
     public $ID;
     public $AC;
     public $Length;
     public $Description;
-
+    
+    //Nested Attributes, correponding to the "alignments" section of the result
+    public $Score;
+    public $Expectation;
+    public $Identity;
+    public $Gaps;
+    public $Strand;
+    public $QuerySeq;
+    public $Pattern;
+    public $MatchSeq;
+    
     // </editor-fold>
-
-    /**
-     * Constructor to get a new instance with all the attributes returned from a search
-     * @param type $pDatabase
-     * @param type $pId
-     * @param type $pAc
-     * @param type $pLength
-     * @param type $pDescription
-     */
-    public function __construct($pDatabase, $pId, $pAc, $pLength, $pDescription) {
-        $this->Database = $pDatabase;
-        $this->ID = $pId;
-        $this->AC = $pAc;
-        $this->Length = $pLength;
-        $this->Description = $pDescription;
-    }
 
     public function attributeNames() {
         array(
@@ -49,19 +44,31 @@ class BLASTResultItem extends CModel {
     public function getBLASTResultItemFromXMLRawResult($pXmlResult) {
         foreach ($pXmlResult->SequenceSimilaritySearchResult->hits->children() as $hit){
             
-            foreach($hit->children() as $data){
-                $result[] = new BLASTResultItem(
-                                $hit->attributes()->{'database'}, 
-                                $hit->attributes()->{'id'}, 
-                                $hit->attributes()->{'ac'}, 
-                                $hit->attributes()->{'length'}, 
-                                $hit->attributes()->{'description'}
-                                );
+            foreach($hit->children()->children() as $alignment){
+                $blast_result_item = new BLASTResultItem();
+                
+                //basic attributes set
+                $blast_result_item->Database = $hit->attributes()->{'database'};
+                $blast_result_item->ID = $hit->attributes()->{'id'};
+                $blast_result_item->AC = $hit->attributes()->{'ac'};
+                $blast_result_item->Length = $hit->attributes()->{'length'};
+                $blast_result_item->Description = $hit->attributes()->{'length'};
+                
+                //alignment attributes set
+                $blast_result_item->Score = $alignment->score;//->attributes()->{'score'};
+                $blast_result_item->Expectation = $alignment->expectation; //attributes()->{'expectation'};
+                $blast_result_item->Identity = $alignment->identity; //attributes()->{'identity'};
+                $blast_result_item->Gaps = $alignment->gaps; //attributes()->{'gaps'};
+                $blast_result_item->Strand = $alignment->strand; //attributes()->{'strand'};
+                $blast_result_item->QuerySeq = $alignment->querySeq; //attributes()->{'querySeq'};
+                $blast_result_item->Pattern = $alignment->pattern; //attributes()->{'pattern'};
+                $blast_result_item->MatchSeq = $alignment->matchSeq; //attributes()->{'matchSeq'};
+                
+                $result[] = $blast_result_item;
             }
         }
         return $result;
     }
-
 }
 
 ?>
