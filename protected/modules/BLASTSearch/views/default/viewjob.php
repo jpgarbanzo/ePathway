@@ -32,6 +32,7 @@ $this->breadcrumbs=array(
             echo 'Identity: ' . $b->Identity . '<br/>';
             echo 'Gaps: ' . $b->Gaps . '<br/>';
             echo 'Strand: ' . $b->Strand . '<br/>';
+            echo 'Bits: ' . $b->Bits . '<br/>';
             echo 'QuerySeq: ' . $b->QuerySeq . '<br/>';
             echo 'Pattern: ' . $b->Pattern . '<br/>';
             echo 'MatchSeq: ' . $b->MatchSeq . '<br/>';

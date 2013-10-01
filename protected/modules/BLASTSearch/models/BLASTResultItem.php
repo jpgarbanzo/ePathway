@@ -19,6 +19,7 @@ class BLASTResultItem extends CModel {
     public $Identity;
     public $Gaps;
     public $Strand;
+    public $Bits;
     public $QuerySeq;
     public $Pattern;
     public $MatchSeq;
@@ -60,6 +61,7 @@ class BLASTResultItem extends CModel {
                 $blast_result_item->Identity = $alignment->identity; //attributes()->{'identity'};
                 $blast_result_item->Gaps = $alignment->gaps; //attributes()->{'gaps'};
                 $blast_result_item->Strand = $alignment->strand; //attributes()->{'strand'};
+                $blast_result_item->Bits = $alignment->bits;
                 $blast_result_item->QuerySeq = $alignment->querySeq; //attributes()->{'querySeq'};
                 $blast_result_item->Pattern = $alignment->pattern; //attributes()->{'pattern'};
                 $blast_result_item->MatchSeq = $alignment->matchSeq; //attributes()->{'matchSeq'};
