@@ -4,6 +4,12 @@
 $this->breadcrumbs=array(
 	$this->module->id,
 );
+
+$this->menu=array(
+        array('label'=>'BLAST search', 'url'=>array('blastsearch')),
+        array('label'=>'Check Jobs', 'url'=>array('index'))
+    );
+
 ?>
 <h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
 
@@ -15,14 +21,3 @@ in the "<?php echo $this->module->id; ?>" module.
 <p>
 You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
 </p>
-
-<?php
- 
-    
-    
-
-    //getBLASTSearch('AC');
-    //getJob('ncbiblast-R20130929-064438-0746-16156928-pg');
-
-?>
-

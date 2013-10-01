@@ -17,9 +17,12 @@ class DefaultController extends Controller
         {
             $model = new BLASTGene();
             
-            if(isset($_POST['blast-search-form'])){
-			$model->attributes = $_POST['blast-search-form'];
+            if(isset($_POST['BLASTGene'])){
+			$model->attributes = $_POST['BLASTGene'];
                         if($model->validate()){
+                            $blast_job_result = $model->requestBLASTSearch($model, BLASTGene::$REQUEST_TYPE_XML);
+                            $this->redirect($this->createUrl('ViewJob', array('pJobId'=> $blast_job_result)));
+                        }else{
                             $this->redirect('index');
                         }
                         

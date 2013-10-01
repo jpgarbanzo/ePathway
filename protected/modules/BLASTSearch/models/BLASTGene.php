@@ -35,7 +35,7 @@ class BLASTGene extends CModel {
         // will receive user inputs.
         return array(
             array('Email,SequenceType,Sequence,Program,Database', 'required'),
-            array('email', 'length', 'max' => 500),
+            array('Email', 'length', 'max' => 500),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('Email,SequenceType,Sequence,Program,Database', 'safe', 'on' => 'search'),
@@ -74,9 +74,9 @@ class BLASTGene extends CModel {
     }
 
     // <editor-fold defaultstate="collapsed" desc="EBI interaction functions">
-    public function requestBLASTSearch($pEmail, $pProgram, $pDatabase, $pSequence, $pSequenceType, $pOutput) {
+    public function requestBLASTSearchO($pEmail, $pProgram, $pDatabase, $pSequence, $pSequenceType, $pOutput) {
 
-        $service_url = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/run/';
+        $service_url = BLASTGene::$BLAST_SEARCH_SERVICE_URL; 
         $curl = curl_init($service_url);
         $curl_post_data = array(
             "email" => $pEmail,
@@ -95,6 +95,29 @@ class BLASTGene extends CModel {
         //print_r($curl_response);
 
         return $curl_response;
+    }
+    
+    
+    public function requestBLASTSearch($pBlastGene,$pOutput){
+        $service_url = BLASTGene::$BLAST_SEARCH_SERVICE_URL; 
+        $curl = curl_init($service_url);
+        $curl_post_data = array(
+            "email" => $pBlastGene->Email,
+            "program" => $pBlastGene->Program, //'blastn',
+            "database" => $pBlastGene->Database, //'em_rel_pln',
+            "sequence" => $pBlastGene->Sequence, //"AATCGATCGATGCTAGCTAGCTGACCACACACTGTTGCTGATCGATCGTAGCTAGCTGTGTGTACTACACCACACTGACTATCG",
+            "stype" => $pBlastGene->SequenceType, //'dna',
+            "output" => $pOutput //'xml'
+        );
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
+        $ebi_response = curl_exec($curl);
+        curl_close($curl);
+        //$xml = new SimpleXMLElement($curl_response);
+        //print_r($curl_response);
+
+        return $ebi_response;
     }
 
     public function getParameterDetails() {
@@ -149,6 +172,21 @@ class BLASTGene extends CModel {
     }
 
     // </editor-fold>
+    
+    
+    // <editor-fold defaultstate="collapsed" desc="Constants (service URLs, parameter names...)">
+    public static $REQUEST_TYPE_XML = 'xml';
+    
+    
+    private static $BLAST_SEARCH_SERVICE_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/run/';
+    
+    
+    
+
+    // </editor-fold>
+
+    
+    
 }
 
 ?>

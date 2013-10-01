@@ -1,7 +1,9 @@
 <?php
 /* @var $this DefaultController */
 $this->menu=array(
-        array('label'=>'BLAST index', 'url'=>array('index')));
+        array('label'=>'BLAST index', 'url'=>array('index')),
+        array('label'=>'Check Jobs', 'url'=>array('index'))
+    );
 
 $this->breadcrumbs=array(
         $this->module->id => array('index'),
@@ -16,7 +18,7 @@ $this->breadcrumbs=array(
             array(
                 'id' => 'blast-search-form',
                 'enableClientValidation' => true,
-                'enableAjaxValidation' => true,
+                'enableAjaxValidation' => false,
                 'clientOptions' => array(
                     'validateOnSubmit' => true),
                 'htmlOptions' => array('enctype' => 'multipart/form-data'),
