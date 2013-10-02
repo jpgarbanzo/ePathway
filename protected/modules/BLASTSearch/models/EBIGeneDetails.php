@@ -174,9 +174,10 @@ class EBIGeneDetails extends CModel {
     private static $_Instance; //for singleton
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Constants (service URLs, parameter names...)">
-    private static $EBI_GENE_DETAILS_URL = 'http://www.ebi.ac.uk/ena/data/view/';
+    public static $EBI_GENE_DETAILS_URL = 'http://www.ebi.ac.uk/ena/data/view/';
+    public static $NCBI_GENE_DETAILS_URL = 'http://www.ncbi.nlm.nih.gov/nucest/';
+    
     private static $EBI_TAXON_URL = 'http://www.ebi.ac.uk/ena/data/view/Taxon:';
-
     // </editor-fold>
 }
 
