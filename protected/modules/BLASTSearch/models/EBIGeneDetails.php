@@ -98,7 +98,13 @@ class EBIGeneDetails extends CModel {
         curl_close($curl);
 
         $xml = new SimpleXMLElement($curl_response);
-        return $xml;
+        
+        if(@count($xml->children()) > 0){
+            //obtains an object that maps the xml response
+            return $this->getEBIGeneDetailsFromSimpleXMLElement($xml);
+        }else{
+            return null;
+        }
     }
 
     public function getEBIGeneDetailsFromSimpleXMLElement($pSimpleXMLElement) {
