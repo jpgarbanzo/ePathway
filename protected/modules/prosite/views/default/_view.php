@@ -16,5 +16,9 @@
     <b><?php echo CHtml::encode('Signature_ac'); ?>:</b>
         <?php echo CHtml::encode($data->signature_ac); ?>
     <br />    
+    
+    <b><?php echo CHtml::encode('Score'); ?>:</b>
+        <?php echo CHtml::encode($data->score); ?>
+    <br />    
         
 </div>

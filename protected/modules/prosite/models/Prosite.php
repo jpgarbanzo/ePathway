@@ -6,6 +6,7 @@ class Prosite extends CModel {
     public $sequence;
     public $start;
     public $stop;
+    public $score;
     public $signature_ac;
     public $id;
 
@@ -63,6 +64,8 @@ class Prosite extends CModel {
                 $obj->start = $key['start'];
                 $obj->stop = $key['stop'];
                 $obj->signature_ac =  $key['signature_ac'];
+                if(array_key_exists('score',$key))
+                    $obj->score = $key['score'];
                 $array[] = $obj;
             }        
             return $array;
