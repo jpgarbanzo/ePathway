@@ -5,7 +5,6 @@ class EBIGeneDetails extends CModel {
     /**
      *
      * @property string $Keyword
-     * @property string $Feature
      * @property string $Sequence
      * 
      */
@@ -24,8 +23,6 @@ class EBIGeneDetails extends CModel {
     public $Sequence;
 
     // <editor-fold defaultstate="collapsed" desc="Methods">
-    // </editor-fold>
-
     /**
      * Singleton pattern implementation
      */
@@ -66,8 +63,12 @@ class EBIGeneDetails extends CModel {
     public function attributeLabels() {
         return array(
             'Keyword' => 'Keyword',
-            'Reference' => 'Reference',
-            'Feature' => 'Feature',
+            'Title' => 'Title',
+            'Author' => 'Author(s)',
+            'Organism' => 'Organism',
+            'TaxonLineage' => 'Lineage',
+            'OrganismLink' => 'Organism',
+            'TaxonLineageLinks'=> 'TaxonLineage',
             'Sequence' => 'Sequence',
         );
     }
@@ -75,8 +76,12 @@ class EBIGeneDetails extends CModel {
     public function attributeNames() {
         return array(
             'Keyword' => 'Keyword',
-            'Reference' => 'Reference',
-            'Feature' => 'Feature',
+            'Title' => 'Title',
+            'Author' => 'Author',
+            'Organism' => 'Organism',
+            'TaxonLineage' => 'Lineage',
+            'OrganismLink' => 'OrganismL',
+            'TaxonLineageLinks'=> 'LineageL',
             'Sequence' => 'Sequence',
         );
     }
@@ -117,8 +122,8 @@ class EBIGeneDetails extends CModel {
         foreach($feature_taxon->lineage->taxon as $lineage)
             $taxon_lineage[] = $lineage->attributes()->{'scientificName'};   
         $gene_details->TaxonLineage = $taxon_lineage; //implode(', ', $taxon_lineage);
-        //and the sequence
-        $gene_details->Sequence = $xml_details->sequence;
+        //and the sequence (without spaces)
+        $gene_details->Sequence = preg_replace('/\s+/', '', $xml_details->sequence);
         
         
         //adds the taxon links (for organism and lineage)
@@ -148,7 +153,8 @@ class EBIGeneDetails extends CModel {
     }
     
     // </editor-fold>
-
+    // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Private Attributes">
     private static $_Instance; //for singleton
     // </editor-fold>

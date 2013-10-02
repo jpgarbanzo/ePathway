@@ -43,4 +43,25 @@ echo 'TaxonLineage: ' . $gene_details->TaxonLineageLinks . '<br/>';
 echo '<br/><br/>';
 echo '$Sequence:' . $gene_details->Sequence . '<br/>';
 
+
+
+$this->widget('zii.widgets.CDetailView', array(
+    'data'=>$gene_details,
+    'attributes'=>array(
+        'Keyword',
+        'Title',
+        'Author',
+        'OrganismLink:html',
+        'TaxonLineageLinks:html',
+        
+        array(
+            'label' => 'Sequence',
+            'type' => 'raw',
+            'value' => '<textarea readonly="readonly" class="dna" id="sequence">' . $gene_details->Sequence . '</textarea>'
+        ),
+    ),
+));
+
+
+
 ?>
