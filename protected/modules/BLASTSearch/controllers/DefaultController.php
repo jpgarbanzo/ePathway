@@ -58,6 +58,17 @@ class DefaultController extends Controller {
             'blast_data_provider' => $blast_data_provider,
         ));
     }
+    
+    
+    public function actionViewGeneDetails($pGeneAccessCode){
+        $model = new BLASTGene();
+        $gene_details = $model->getGeneDetails($pGeneAccessCode);
+        
+        $this->render('genedetails', array(
+                'gene_details' => $gene_details,
+                'access_code' => $pGeneAccessCode,
+                ));
+    }
 
     /**
      * Performs the AJAX validation.

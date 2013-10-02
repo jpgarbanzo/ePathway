@@ -1,7 +1,15 @@
 <?php
-/* @var $this DefaultController */
+/* 
+ * @var $this DefaultController
+ * @var $job_status The status for the current job, provided by EBI service
+ * @var $job_id
+ * @var $blast_data_provider
+ * @var $result_columns
+ */
 $this->menu=array(
-        array('label'=>'BLAST index', 'url'=>array('index')));
+        array('label'=>'BLAST index', 'url'=>array('index')),
+        array('label'=>'BLAST search', 'url'=>array('blastsearch'))
+    );
 
 $this->breadcrumbs=array(
         $this->module->id => array('index'),
