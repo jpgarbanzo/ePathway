@@ -16,5 +16,5 @@ $this->breadcrumbs=array(
 <h1>Details for gene <?php echo $access_code ?> </h1>
 
 <?php
-$this->renderPartial('_genedetails',array('gene_details'=>$gene_details));
+$this->renderPartial('_genedetails',array('gene_details'=>$gene_details, 'raw'=>$raw));
 ?>

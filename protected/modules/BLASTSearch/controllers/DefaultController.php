@@ -61,10 +61,13 @@ class DefaultController extends Controller {
     
     
     public function actionViewGeneDetails($pGeneAccessCode){
-        $gene_details = EBIGeneDetails::getInstance()->getEBIGeneDetails($pGeneAccessCode);
+        $raw_gene_details = EBIGeneDetails::getInstance()->getEBIGeneDetails($pGeneAccessCode);
+        $gene_details = EBIGeneDetails::getInstance()->getEBIGeneDetailsFromSimpleXMLElement($raw_gene_details);
+        
         
         $this->render('genedetails', array(
                 'gene_details' => $gene_details,
+                'raw' => $raw_gene_details,
                 'access_code' => $pGeneAccessCode,
                 ));
     }
