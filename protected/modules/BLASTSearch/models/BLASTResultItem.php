@@ -93,7 +93,7 @@ class BLASTResultItem extends CModel {
                 $blast_result_item->ID = (string)$hit->attributes()->{'id'};
                 $blast_result_item->AC = (string)$hit->attributes()->{'ac'};
                 $blast_result_item->Length = (string)$hit->attributes()->{'length'};
-                $blast_result_item->Description = (string)$hit->attributes()->{'length'};
+                $blast_result_item->Description = (string)$hit->attributes()->{'description'};
                 
                 //alignment attributes set
                 $blast_result_item->Score = (string)$alignment->score;//->attributes()->{'score'};

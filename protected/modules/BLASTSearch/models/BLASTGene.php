@@ -74,31 +74,8 @@ class BLASTGene extends CModel {
         );
     }
 
-    // <editor-fold defaultstate="collapsed" desc="EBI interaction functions">
-    public function requestBLASTSearchO($pEmail, $pProgram, $pDatabase, $pSequence, $pSequenceType, $pOutput) {
-        $service_url = BLASTGene::$BLAST_SEARCH_SERVICE_URL; 
-        $curl = curl_init($service_url);
-        $curl_post_data = array(
-            "email" => $pEmail,
-            "program" => $pProgram, //'blastn',
-            "database" => $pDatabase, //'em_rel_pln',
-            "sequence" => $pSequence, //"AATCGATCGATGCTAGCTAGCTGACCACACACTGTTGCTGATCGATCGTAGCTAGCTGTGTGTACTACACCACACTGACTATCG",
-            "stype" => $pSequenceType, //'dna',
-            "output" => $pOutput //'xml'
-        );
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
-        $curl_response = curl_exec($curl);
-        curl_close($curl);
-        //$xml = new SimpleXMLElement($curl_response);
-        //print_r($curl_response);
-
-        return $curl_response;
-    }
-    
-    
-    public function requestBLASTSearch($pBlastGene,$pOutput){
+    // <editor-fold defaultstate="collapsed" desc="EBI API interaction functions">
+    public function requestBLASTSearch($pBlastGene){
         $service_url = BLASTGene::$BLAST_SEARCH_SERVICE_URL; 
         $curl = curl_init($service_url);
         $curl_post_data = array(
@@ -107,16 +84,12 @@ class BLASTGene extends CModel {
             "database" => $pBlastGene->Database, //'em_rel_pln',
             "sequence" => $pBlastGene->Sequence, //"AATCGATCGATGCTAGCTAGCTGACCACACACTGTTGCTGATCGATCGTAGCTAGCTGTGTGTACTACACCACACTGACTATCG",
             "stype" => $pBlastGene->SequenceType, //'dna',
-            "output" => $pOutput //'xml'
         );
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
         $ebi_response = curl_exec($curl);
         curl_close($curl);
-        //$xml = new SimpleXMLElement($curl_response);
-        //print_r($curl_response);
-
         return $ebi_response;
     }
 
@@ -139,7 +112,7 @@ class BLASTGene extends CModel {
     }
 
     public function getJobStatus($pJobId) {
-        $service_url = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/status/' . $pJobId;  //'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/';
+        $service_url = BLASTGene::$BLAST_SEARCH_JOB_STATUS_URL . $pJobId;
         $curl = curl_init($service_url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPGET, true);
@@ -150,16 +123,13 @@ class BLASTGene extends CModel {
     }
 
     public function getXMLJobResult($pJobId) {
-        if ($this->getJobStatus($pJobId) === 'FINISHED') {
-            $service_url = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/' . $pJobId . '/xml';  //'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/';
+        if ($this->getJobStatus($pJobId) === BLASTGene::$JOB_STATUS_FINISHED) {
+            $service_url = BLASTGene::$BLAST_SEARCH_RESULT_URL . $pJobId . '/xml';
             $curl = curl_init($service_url);
-            $curl_post_data = array(
-                "jobId" => 'ncbiblast-R20130929-064438-0746-16156928-pg',
-                'resultType' => 'xml',
-            );
+
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_HTTPGET, true);
-            //curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
+            
             $curl_response = curl_exec($curl);
             curl_close($curl);
 
@@ -168,7 +138,23 @@ class BLASTGene extends CModel {
         }else{
             return null;
         }
-//        print_r($xml);
+    }
+    
+    public function getPNGJobResult($pJobId){
+        if ($this->getJobStatus($pJobId) === BLASTGene::$JOB_STATUS_FINISHED) {
+            $service_url = BLASTGene::$BLAST_SEARCH_RESULT_URL . $pJobId . '/complete-visual-svg';
+            $curl = curl_init($service_url);
+
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_HTTPGET, true);
+            
+            $curl_response = curl_exec($curl);
+            curl_close($curl);
+            
+            return $curl_response;
+        }else{
+            return null;
+        }
     }
 
     // </editor-fold>
@@ -179,10 +165,8 @@ class BLASTGene extends CModel {
     public static $JOB_STATUS_FINISHED = 'FINISHED';
     
     private static $BLAST_SEARCH_SERVICE_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/run/';
-    
-    
-    
-
+    private static $BLAST_SEARCH_RESULT_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/';
+    private static $BLAST_SEARCH_JOB_STATUS_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/status/';
     // </editor-fold>
 
     

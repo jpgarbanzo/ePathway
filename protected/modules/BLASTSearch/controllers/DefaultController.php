@@ -18,17 +18,10 @@ class DefaultController extends Controller {
         if (isset($_POST['BLASTGene'])) {
             $model->attributes = $_POST['BLASTGene'];
             if ($model->validate()) {
-                $blast_job_result = $model->requestBLASTSearch($model, BLASTGene::$REQUEST_TYPE_XML);
+                $blast_job_result = $model->requestBLASTSearch($model);
                 $this->redirect($this->createUrl('ViewJob', array('pJobId' => $blast_job_result)));
-            } else {
-                $this->redirect('index');
             }
-
-            //if($model->save())
-            //	$this->redirect(array('view','id'=>$model->idtbl_gen));
         }
-
-
         $this->render('blastsearch', array('model' => $model));
     }
 
@@ -38,6 +31,7 @@ class DefaultController extends Controller {
         $job_status = $model->getJobStatus($pJobId);
 
         if ($job_status === BLASTGene::$JOB_STATUS_FINISHED) {
+            //$job_image_result = $model->getPNGJobResult($pJobId);
             $job_xml_result = $model->getXMLJobResult($pJobId);
             $BLASTResult_items = BLASTResultItem::getInstance()->getBLASTResultItemFromXMLRawResult($job_xml_result);
             
@@ -48,20 +42,19 @@ class DefaultController extends Controller {
                 'pagination' => array(
                     'pageSize' => 10,
                 ),
-                    )
-            );
+                //'sort'=>array(
+                //    'attributes'=> BLASTResultItem::getInstance()->getAttributes()),
+            ));
         }else{
             $blast_data_provider = null;
         }
-
-
-
+        
         $this->render('viewjob', array(
             'model' => $model,
             'job_status' => $job_status,
             'job_id' => $pJobId,
             'result_columns' => BLASTResultItem::getInstance()->getAttributes(),
-            //'job_result' => $job_xml_result,
+            //'job_image_result' => $job_image_result,
             'blast_data_provider' => $blast_data_provider,
         ));
     }
