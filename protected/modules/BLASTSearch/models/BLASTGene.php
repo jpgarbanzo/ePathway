@@ -156,22 +156,6 @@ class BLASTGene extends CModel {
             return null;
         }
     }
-
-    
-    
-    public function getGeneDetails($pGeneAccessCode){
-        $service_url = BLASTGene::$EBI_GENE_DETAILS_URL . $pGeneAccessCode . '&display=xml';
-        $curl = curl_init($service_url);
-
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPGET, true);
-            
-        $curl_response = curl_exec($curl);
-        curl_close($curl);
-            
-        return $curl_response;
-    }
-    
     // </editor-fold>
     
     
@@ -182,13 +166,7 @@ class BLASTGene extends CModel {
     private static $BLAST_SEARCH_SERVICE_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/run/';
     private static $BLAST_SEARCH_RESULT_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/';
     private static $BLAST_SEARCH_JOB_STATUS_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/status/';
-    
-    
-    private static $EBI_GENE_DETAILS_URL = 'http://www.ebi.ac.uk/ena/data/view/';
     // </editor-fold>
-
-    
-    
 }
 
 ?>

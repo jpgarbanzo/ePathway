@@ -61,8 +61,7 @@ class DefaultController extends Controller {
     
     
     public function actionViewGeneDetails($pGeneAccessCode){
-        $model = new BLASTGene();
-        $gene_details = $model->getGeneDetails($pGeneAccessCode);
+        $gene_details = EBIGeneDetails::getInstance()->getEBIGeneDetails($pGeneAccessCode);
         
         $this->render('genedetails', array(
                 'gene_details' => $gene_details,
