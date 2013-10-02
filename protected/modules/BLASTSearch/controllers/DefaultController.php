@@ -47,6 +47,7 @@ class DefaultController extends Controller {
             ));
         }else{
             $blast_data_provider = null;
+            $BLASTResult_items = null;
         }
         
         $this->render('viewjob', array(
@@ -54,6 +55,7 @@ class DefaultController extends Controller {
             'job_status' => $job_status,
             'job_id' => $pJobId,
             'result_columns' => BLASTResultItem::getInstance()->getAttributes(),
+            'blast_result_items' => $BLASTResult_items,
             //'job_image_result' => $job_image_result,
             'blast_data_provider' => $blast_data_provider,
         ));

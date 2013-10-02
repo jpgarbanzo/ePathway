@@ -62,6 +62,10 @@ textarea.dna:hover{
     overflow-x: auto;
 }
 
+.extended-grid:hover{
+    overflow-x: visible;
+}
+
  td{
     max-height: 10px;
     overflow: auto;
@@ -70,4 +74,8 @@ textarea.dna:hover{
  tr{
     max-height: 10px;
     overflow: auto;
+}
+
+select{
+    min-width: 150px;
 }

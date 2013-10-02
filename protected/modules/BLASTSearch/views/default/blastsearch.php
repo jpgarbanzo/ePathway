@@ -44,7 +44,9 @@ $this->breadcrumbs=array(
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'SequenceType'); ?>
-		<?php echo $form->textField($model,'SequenceType',array('size'=>50,'maxlength'=>500)); ?>
+                <?php echo $form->ListBox($model,'SequenceType', 
+                    array('dna' => 'dna')); ?>
+		<?php /*echo $form->textField($model,'SequenceType',array('size'=>50,'maxlength'=>500));*/ ?>
 		<?php echo $form->error($model,'SequenceType'); ?>
 	</div>
 
@@ -56,13 +58,17 @@ $this->breadcrumbs=array(
         
         <div class="row">
 		<?php echo $form->labelEx($model,'Program'); ?>
-		<?php echo $form->textField($model,'Program',array('size'=>60,'maxlength'=>5000)); ?>
+                <?php echo $form->ListBox($model,'Program', 
+                    array('blastn' => 'blastn')); ?>
+		<?php /*echo $form->textField($model,'Program',array('size'=>60,'maxlength'=>5000));*/ ?>
 		<?php echo $form->error($model,'Program'); ?>
 	</div>
     
         <div class="row">
 		<?php echo $form->labelEx($model,'Database'); ?>
-		<?php echo $form->textField($model,'Database',array('size'=>60,'maxlength'=>5000)); ?>
+                <?php echo $form->ListBox($model,'Database', 
+                    array('em_rel_pln' => 'em_rel_pln')); ?>
+		<?php /*echo $form->textField($model,'Database',array('size'=>60,'maxlength'=>5000)); */?>
 		<?php echo $form->error($model,'Database'); ?>
 	</div>
     

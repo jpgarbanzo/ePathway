@@ -83,6 +83,7 @@ class BLASTResultItem extends CModel {
      * @return array \BLASTResultItem
      */
     public function getBLASTResultItemFromXMLRawResult($pXmlResult) {
+        $result = array();
         foreach ($pXmlResult->SequenceSimilaritySearchResult->hits->children() as $hit){
             
             foreach($hit->children()->children() as $alignment){
