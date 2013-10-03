@@ -18,6 +18,7 @@ return array(
     'modules' => array(
         'csvdatabase',
         'BLASTSearch',
+        'prosite',
         /*'gii'=>array(
             'class'=>'system.gii.GiiModule',
             'password'=>'CIC',
