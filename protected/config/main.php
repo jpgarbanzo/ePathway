@@ -19,6 +19,7 @@ return array(
         'csvdatabase',
         'BLASTSearch',
         'prosite',
+        'kegg',
         /*'gii'=>array(
             'class'=>'system.gii.GiiModule',
             'password'=>'CIC',

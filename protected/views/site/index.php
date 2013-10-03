@@ -41,6 +41,7 @@ should you have any questions.</p>
 
 <h2>Tools and Databases</h2>
 <ul class="big-menu">
-    <li><?php echo CHtml::link('EBI BLAST Search',array('//BLASTSearch/default/blastsearch')) ?></li>
-    <li><?php echo CHtml::link('Prosite Database',array('//prosite')) ?></li>
+    <li><?php echo CHtml::link('EBI BLAST Search',array('//BLASTSearch/')) ?></li>
+    <li><?php echo CHtml::link('KEGG Metabolic Pathways',array('//kegg/')) ?></li>
+    <li><?php echo CHtml::link('ExPASy Genes Info',array('//prosite')) ?></li>
 </ul>
