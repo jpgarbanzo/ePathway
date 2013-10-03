@@ -31,7 +31,6 @@ class DefaultController extends Controller {
     public function actionView($id) {
         $data = array();
         $model = new MongoModel();
-        //$model->unsetAttributes();
         $db_instance = MongoModel::model()->getDb();
         
         $collection = new MongoCollection($db_instance, $id); //ESTE VALOR DEBER PASARSE COMO PARAMETRO
@@ -47,24 +46,8 @@ class DefaultController extends Controller {
         
         $model->initSoftAttributes($columns); //Se lo lleva candanga si no inicializo los atributos
         
-        if (isset($_GET['MongoModel']))
-        {
-            foreach ($model->getSoftAttributeNames() as $attribute) {
-                $model->__set($attribute, $_GET['MongoModel'][$attribute]);
-            }
-            $dataProvider = $model->searchData();
-        }
-        else 
-        {
-            $dataProvider = new EMongoDocumentDataProvider('MongoModel', array(
-                'pagination' => array('PageSize'=>20),
-                'sort'=>array(
-                    'attributes'=> $columns, 
-            )));
-            $dataProvider->setCriteria(new EMongoCriteria());
-        }
         $this->render('view', array(
-            'dataProvider' => $dataProvider,
+            //'dataProvider' => $dataProvider,
             'data' => $data,
             'model' => $model,
             'attributes' => $columns,

@@ -40,21 +40,28 @@ class MongoModel extends EMongoSoftDocument {
     }
     
     public function searchData() {
-        $columns = $this->getSoftAttributeNames();
-        $criteria = new EMongoCriteria();
+        $attributes = $this->getSoftAttributeNames();
         
-        foreach ($columns as $fieldname) {
-            $expression = '/.*' . preg_quote($this->__get($fieldname), '/') . '.*/';
-            $criteria->__set($fieldname, new MongoRegex($expression));
+        $dataProvider = new EMongoDocumentDataProvider('MongoModel', array(
+                'pagination' => array('PageSize'=>20),
+                'sort'=>array(
+                    'attributes'=> $attributes, 
+            )));
+        
+        if (isset($_GET['MongoModel'])) {
+            $criteria = new EMongoCriteria();
+            
+            foreach ($attributes as $attribute) {
+                $this->__set($attribute, $_GET['MongoModel'][$attribute]);
+                $expression = '/.*' . preg_quote($this->__get($attribute), '/') . '.*/';
+                $criteria->__set($attribute, new MongoRegex($expression));
+            }
+
+            $dataProvider->setCriteria($criteria);
+        } else {
+            $dataProvider->setCriteria(new EMongoCriteria());
         }
-               
-        $dataProvider = new EMongoDocumentDataProvider($this, array(
-            'pagination' => array('PageSize'=>20),
-            'sort'=>array(
-                'attributes'=> $columns,
-        )));
-        $dataProvider->setCriteria($criteria);
-        
+
         return $dataProvider;
     }
 }
