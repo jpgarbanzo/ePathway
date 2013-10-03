@@ -52,7 +52,7 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-                ePathway V1.0 <br/>
+                ePathway V0.2 <br/>
 		Copyright &copy; <?php echo date('Y'); ?> by ePathway Team.<br/>
 		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
