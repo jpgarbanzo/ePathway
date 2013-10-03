@@ -11,13 +11,8 @@ $this->menu=array(
     );
 
 ?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
+<h1>EBI Powered BLAST Search</h1>
 
 <p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
+With this tool, you can perform BLAST searches, using the same databases provided by EBI, and also see the information of a gene, using its accession code.
 </p>
