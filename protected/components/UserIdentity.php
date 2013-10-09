@@ -38,7 +38,7 @@ class UserIdentity extends CUserIdentity {
      */
     public function authenticate() {
         $user = new User;
-        
+        /*
         $record = User::model()->getUserFromUserName($this->username); //User::model()->findByAttributes(array('username' => $this->username));
         $user->setAttributes($record);
         //Yii::log(print_r($record,true),"info", "system.user");
@@ -56,12 +56,11 @@ class UserIdentity extends CUserIdentity {
             $this->errorCode = self::ERROR_NONE;
         }
         return !$this->errorCode;
+        */
 
-
-        /* 	$users=array(
+         	$users=array(
           // username => password
-          'demo'=>'demo',
-          'admin'=>'admin',
+          'epa_master'=>';J7bb6xp4SRQ0',
           );
           if(!isset($users[$this->username]))
           $this->errorCode=self::ERROR_USERNAME_INVALID;
@@ -69,7 +68,7 @@ class UserIdentity extends CUserIdentity {
           $this->errorCode=self::ERROR_PASSWORD_INVALID;
           else
           $this->errorCode=self::ERROR_NONE;
-          return !$this->errorCode; */
+          return !$this->errorCode; 
     }
 
 
