@@ -64,8 +64,8 @@ return array(
         'db' => array(
             'tablePrefix' => '',
             'connectionString' => 'pgsql:dbname=epathway',
-            //'username' => 'ePathway',
-            'username' => 'researcher',
+            'username' => 'ePathway',
+            //'username' => 'researcher', //production db
             'password' => 'dVvRhN23UQzX99f',
             'charset' => 'UTF8',
         ),

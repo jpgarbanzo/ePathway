@@ -97,8 +97,6 @@ class User extends CActiveRecord
             $command = $connection->createCommand($call);
             $command->bindParam(':pusername', $pUserName, PDO::PARAM_STR);
             $result = $command->queryRow();
-            print_r($result);
-            print_r("DobleMORALLLLLLLLLLLLLLLLLLLl");
              if ($result == false)
                  return null;
               else {
