@@ -27,7 +27,7 @@
 <div class="container" id="page">
 
 	<div id="header">
-                <img id="image-logo" src='images/epathway_logo.png' alt=<?php echo "'" . CHtml::encode(Yii::app()->name) . "'"; ?>/>
+                <img id="image-logo" src="<?php echo Yii::app()->request->baseUrl; ?>/images/epathway_logo.png" alt=<?php echo "'" . CHtml::encode(Yii::app()->name) . "'"; ?>/>
 	</div><!-- header -->
 
 	<div id="mainmenu">
