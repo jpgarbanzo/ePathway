@@ -8,6 +8,35 @@ class DefaultController extends Controller {
      */
     public $layout='//layouts/column2';
     
+        // <editor-fold defaultstate="collapsed" desc="Framework related functions">
+    	/**
+         * @return array action filters
+         */
+        public function filters()
+        {
+                return array(
+                        'accessControl', // perform access control for CRUD operations
+                );
+        }
+        /**
+         * Specifies the access control rules.
+         * This method is used by the 'accessControl' filter.
+         * @return array access control rules
+         */
+        public function accessRules()
+        {
+                return array(
+                        array('allow', // allow admin user to perform 'admin' and 'delete' actions
+                                'actions'=>array('index','view','error','import'),
+                                'users'=>array('@'),
+                        ),
+                        array('deny',  // deny all users
+                                'users'=>array('*'),
+                        ),
+                );
+        }
+    // </editor-fold>
+    
     //List all collections
     public function actionIndex() {
         $model = new MongoModel; 
@@ -114,20 +143,7 @@ class DefaultController extends Controller {
             }
         }
     }
-    
-    /**
-     * Create string from array
-     * @param ArrayObject $pColumn
-     * @return String With all the columns
-     */
-    private function arrayToString($pColumn) {
-        $string = "";
-        foreach($pColumn as $column) {
-            $string = $string . " " .$column;
-        }
-        return $string;
-    }   
-    
+       
     /**
      * Create an array with collection object from all the collections in mongobd
      * @param Array $pCollections
@@ -146,7 +162,7 @@ class DefaultController extends Controller {
                 $results = MongoModel::model()->findAll();
                 $columns = $this->createArrayColumns($results);
                 
-                $obj_collection->setCollectionColumns($this->arrayToString($columns));
+                $obj_collection->setCollectionColumns(implode($columns, ' '));
                 $array[] = $obj_collection;
         }
         return $array;
