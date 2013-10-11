@@ -46,25 +46,30 @@ class DefaultController extends Controller {
     public function actionIndex() {
         $model = new Prosite();
         if(isset($_POST['Prosite'])) {
-            $model->sequence = $_POST['Prosite']['sequence'];
-            $json = $model->accessToProsite($_POST['Prosite']['sequence']);
-            if($json == []) {
-                $this->render('badsequence');
-            }
-            else {
-                $dataProvider=new CArrayDataProvider($model, array());
-                $dataProvider->setData($json);
-                $this->render('view',array(
-                    'model' =>$model,
-                    'dataProvider'=>$dataProvider,
-                ));
+            $model->attributes = $_POST['Prosite'];
+             if ($model->validate()) {
+                $json_result = $model->requestPrositeSearch($model);
+                $json_result_decode = json_decode($json_result,true);
+                 if($json_result_decode['n_match'] == 0) {
+                     $this->render('badsequence');
+                 }
+                 else {
+                     $prosite_result_items = PrositeResultItem::getInstance()->getPrositeResultItemFromJSONResult($json_result_decode,$model->Sequence);
+                     $prosite_data_provider = new CArrayDataProvider('PrositeResultItem', array(
+                         'data' => $prosite_result_items,
+                         'id' => 'prosite-search-result',
+                         'keyField' => 'ID',
+                         'pagination' => array(
+                             'pageSize' => 10,
+                             )));
+                     $this->render('view',array('model' =>$model,
+                         'dataProvider'=>$prosite_data_provider,));
+                 }
             }
         }
-        else {
-        $this->render('index',array(
-            'model' => $model,
-            ));
-        }        
+        else
+            $this->render('index',array('model' => $model,));
     }
 }
+
 ?>
