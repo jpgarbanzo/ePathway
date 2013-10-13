@@ -8,7 +8,7 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-form',
-	'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -25,6 +25,12 @@
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>64)); ?>
 		<?php echo $form->error($model,'password'); ?>
+	</div>
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'PasswordCheck'); ?>
+		<?php echo $form->passwordField($model,'PasswordCheck',array('size'=>60,'maxlength'=>64)); ?>
+		<?php echo $form->error($model,'PasswordCheck'); ?>
 	</div>
 
 	<div class="row">

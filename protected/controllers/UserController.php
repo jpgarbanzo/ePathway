@@ -61,15 +61,16 @@ class UserController extends Controller {
         $model = new User;
 
         // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        $this->performAjaxValidation($model);
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
-            $model->password = crypt($model->password, self::blowfishSalt());
-
-            
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idtbl_user));
+            if ($model->validate()) {
+                $model->password = crypt($model->password, self::blowfishSalt());
+                $model->PasswordCheck = $model->password;
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->idtbl_user));
+            }
         }
 
         $this->render('create', array(
@@ -84,15 +85,18 @@ class UserController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
-
+        unset($model->password);
         // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        $this->performAjaxValidation($model);
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
-            $model->password = crypt($model->password, self::blowfishSalt());
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idtbl_user));
+            if($model->validate()){
+                $model->password = crypt($model->password, self::blowfishSalt());
+                $model->PasswordCheck = $model->password;
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->idtbl_user));
+            }
         }
 
         $this->render('update', array(
