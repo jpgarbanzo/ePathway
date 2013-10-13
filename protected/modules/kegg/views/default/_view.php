@@ -22,7 +22,7 @@
     </b>
     <?php
         foreach ($data['pathways'] as $pathway) {
-            if (strpos($pathway, 'path:map') !== false) {
+            if (strpos($pathway, 'path:ec') !== false) {
                 echo "<br />";
                 echo "&nbsp&nbsp&nbsp&nbsp";
                 echo CHtml::link($pathway, array(
