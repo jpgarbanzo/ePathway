@@ -7,6 +7,7 @@
         <!-- epathway custom css -->
 	<link rel="stylesheet" type="text/css" href="<?php echo yii::app()->request->baseUrl; ?>/css/custom.css" />
         <?php Yii::app()->getClientScript()->registerCssFile(yii::app()->request->baseUrl .'/css/custom.css'); ?>
+        <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/eico.png" type="image/png" />
         
         <!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
