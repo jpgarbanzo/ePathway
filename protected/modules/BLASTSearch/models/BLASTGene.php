@@ -73,6 +73,25 @@ class BLASTGene extends CModel {
             'ExpectValThreshold' => 'Expectation Value Threshold',
         );
     }
+    
+//    public function search(){
+//        $data_provider = new CArrayDataProvider(array());
+//        $var = Yii::app()->getSession()->get('blast_result');
+//        $var2 = Yii::app()->getSession()->get('blast_dataprovider');
+//        
+//        if(isset($var2)){
+//            return $var2;
+//        }elseif(isset($var)){
+//            $data_provider = new CArrayDataProvider($var, array(
+//                    'keyField'=> 'ID',
+//                    'pagination' => array(
+//                        'pageSize' => 20,
+//                        ),
+//                ));
+//            Yii::app()->getSession()->add('blast_dataprovider', $data_provider);
+//        }
+//        return $data_provider;
+//    }
 
     // <editor-fold defaultstate="collapsed" desc="EBI API interaction functions">
     public function requestBLASTSearch($pBlastGene){

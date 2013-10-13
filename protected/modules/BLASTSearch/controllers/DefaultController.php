@@ -67,15 +67,14 @@ class DefaultController extends Controller {
             $job_xml_result = $model->getXMLJobResult($pJobId);
             $BLASTResult_items = BLASTResultItem::getInstance()->getBLASTResultItemFromXMLRawResult($job_xml_result);
             
-            $blast_data_provider = new CArrayDataProvider('BLASTResultItems', array(
-                'data' => $BLASTResult_items,
+            $blast_data_provider = new CArrayDataProvider($BLASTResult_items, array(
                 'id' => 'blast-search-result',
                 'keyField' => 'ID',
                 'pagination' => array(
-                    'pageSize' => 10,
+                    'pageSize' => 500,
                 ),
-                //'sort'=>array(
-                //    'attributes'=> BLASTResultItem::getInstance()->getAttributes()),
+                'sort'=>array(
+                    'attributes'=> BLASTResultItem::getInstance()->getAttributes()),
             ));
         }else{
             $blast_data_provider = null;
