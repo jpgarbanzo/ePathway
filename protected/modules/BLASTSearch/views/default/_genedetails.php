@@ -18,6 +18,18 @@ $this->widget('zii.widgets.CDetailView', array(
             'type' => 'raw',
             'value' => '<textarea readonly="readonly" class="dna" id="sequence">' . $gene_details->Sequence . '</textarea>'
         ),
+        array(
+            'label' => 'BLAST Search',
+            'type' => 'raw',
+            'value' => CHtml::link(
+                    "BLAST Complete Sequence",
+                    $this->createUrl("AutomaticBLAST"),
+                    array(
+                        "submit" => $this->createUrl("AutomaticBLAST"),
+                        "params" => array("Sequence" => $gene_details->Sequence)
+                        )
+                    ),
+        )
     ),
 ));
 

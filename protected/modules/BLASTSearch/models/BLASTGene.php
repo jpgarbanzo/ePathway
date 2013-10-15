@@ -94,6 +94,11 @@ class BLASTGene extends CModel {
 //    }
 
     // <editor-fold defaultstate="collapsed" desc="EBI API interaction functions">
+    /**
+     * Requests a BLAST search from the EBI service
+     * @param BLASTGene $pBlastGene
+     * @return String the job id if successful
+     */
     public function requestBLASTSearch($pBlastGene){
         $service_url = BLASTGene::$BLAST_SEARCH_SERVICE_URL; 
         $curl = curl_init($service_url);
@@ -111,7 +116,7 @@ class BLASTGene extends CModel {
         curl_close($curl);
         return $ebi_response;
     }
-
+    
     public function getParameterDetails() {
         $service_url = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/run/';
         $curl = curl_init($service_url);
@@ -130,6 +135,11 @@ class BLASTGene extends CModel {
         print_r($xml);
     }
 
+    /**
+     * Obtains the status for a submitted job, from the EBI service
+     * @param String $pJobId
+     * @return String the job status
+     */
     public function getJobStatus($pJobId) {
         $service_url = BLASTGene::$BLAST_SEARCH_JOB_STATUS_URL . $pJobId;
         $curl = curl_init($service_url);
@@ -175,6 +185,7 @@ class BLASTGene extends CModel {
             return null;
         }
     }
+    
     // </editor-fold>
     
     

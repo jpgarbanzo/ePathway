@@ -16,3 +16,16 @@ $this->menu=array(
 <p>
 With this tool, you can perform BLAST searches, using the same databases provided by EBI, and also see the information of a gene, using its accession code.
 </p>
+
+
+<?php
+    $url = array('AutomaticBLAST');
+    echo CHtml::link(
+        'AutomaticBLAST!',
+        $url,
+        array(
+                'submit' => $url,
+                'params' => array('Sequence' => 'AATCGATCGATGCTAGCTAGCTGACCACACACTGTTGCTGATCGATCGTAGCTAGCTGTGTGTACTACACCACACTGACTATCG'),
+        )
+    );
+?>
