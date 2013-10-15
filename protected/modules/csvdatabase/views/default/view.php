@@ -13,6 +13,7 @@
     $this->menu=array(
         array('label'=>'Import CSV', 'url'=>array('import')),
         array('label'=>'List CSV Databases', 'url'=>array('index')),
+        array('label' => 'Delete Database', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->_id), 'confirm' => 'Are you sure you want to delete this database?')),
     );
 
     Yii::app()->clientScript->registerScript('search', "
@@ -31,7 +32,8 @@
 
 <h2>View a local information</h2>
 
-<?php echo CHtml::link('Advanced Search','#', array('class'=>'search-button')); ?>
+<?php 
+echo CHtml::link('Advanced Search','#', array('class'=>'search-button')); ?>
 
 <div class="search-form" style="display:none">
 <?php 

@@ -24,15 +24,14 @@ class PrimerController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	public function accessRules()
-	{
+	public function accessRules() {
 		return array(
 //			array('allow',  // allow all users to perform 'index' and 'view' actions
 //				'actions'=>array(),
 //				'users'=>array('*'),
 //			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update', 'admin', 'filter'),
+				'actions'=>array('index','view','create','update', 'admin', 'filter','exportFile'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -49,8 +48,7 @@ class PrimerController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
-	{
+	public function actionView($id) {
             $model = $this->loadModel($id);
             $model->setPrimerPairSequence($model);
 		$this->render('view',array(
@@ -62,9 +60,8 @@ class PrimerController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($id, $pAccessCode)
-	{
-		$model=new Primer;
+	public function actionCreate($id, $pAccessCode) {
+                $model=new Primer;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -92,8 +89,7 @@ class PrimerController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
-	{
+	public function actionUpdate($id) {
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -118,8 +114,7 @@ class PrimerController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
-	{
+	public function actionDelete($id) {
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -130,18 +125,66 @@ class PrimerController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Primer', array(
+	public function actionIndex() {
+            if(Yii::app()->request->getParam('export')) {
+                $this->actionExport();
+                Yii::app()->end();
+            }
+             $dataProvider=new CActiveDataProvider('Primer', array(
                     'criteria'=>array(
                         'order'=>'idtbl_primer DESC',
-                    )
+                        )
                 ));
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+            $this->render('index',array(
+                'dataProvider'=>$dataProvider,
 		));
 	}
 
+        
+        public function actionExport() {
+            $fp = fopen('php://temp', 'w');
+            $headers = array(
+                'idtbl_gen',
+                'primerrinicio',
+                'primerrlongitud',
+                'primerfinicio',
+                'primerflongitud',
+                'observaciones',
+                'idtbl_estadoprimer',
+            );
+            $row = array();
+            foreach($headers as $header) {
+                $row[] = Primer::model()->getAttributeLabel($header);
+            }
+            fputcsv($fp,$row);
+            $model=new Primer('search');
+            foreach ($model->findAll() as $data) {
+                $row = array();
+                $model_keys = new Primer();
+                foreach($headers as $head) {
+                    if($head == 'idtbl_gen') {
+                        $model_keys->idtbl_gen = CHtml::value($data,$head);
+                        $row[] = $model_keys->getAccessCode();
+                    }
+                    else if ($head == 'idtbl_estadoprimer') {
+                        $model_keys->idtbl_estadoprimer = CHtml::value($data,$head);
+                        $row[] = $model_keys->getPrimerStatusText();
+                    }
+                    else
+                        $row[] = CHtml::value($data,$head);
+                }
+                fputcsv($fp,$row);        
+            }
+            rewind($fp);
+            Yii::app()->user->setState('export',stream_get_contents($fp));
+            fclose($fp);
+	}
+        
+        public function actionExportFile() {
+            Yii::app()->request->sendFile('primers.csv',Yii::app()->user->getState('export'));
+            Yii::app()->user->clearState('export');
+        }
+        
 	/**
 	 * Manages all models.
 	 */

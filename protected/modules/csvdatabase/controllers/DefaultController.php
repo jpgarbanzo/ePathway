@@ -30,6 +30,10 @@ class DefaultController extends Controller {
                                 'actions'=>array('index','view','error','import'),
                                 'users'=>array('@'),
                         ),
+                    array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('delete'),
+				'users'=>array('epa_master','research_master'),
+			),
                         array('deny',  // deny all users
                                 'users'=>array('*'),
                         ),
@@ -64,7 +68,7 @@ class DefaultController extends Controller {
         
         $collection = new MongoCollection($db_instance, $id); //ESTE VALOR DEBER PASARSE COMO PARAMETRO
         $model->setCollection($collection);
-        
+        $model->_id = $id;
         $results = MongoModel::model()->findAll();
         $columns = $this->createArrayColumns($results);
         array_shift($columns);  //Elimino la primera posicion
@@ -82,6 +86,18 @@ class DefaultController extends Controller {
             'attributes' => $columns,
         ));
     }
+    
+    /**
+    * Deletes a particular model.
+    * If deletion is successful, the browser will be redirected to the 'admin' page.
+    * @param integer $id the ID of the model to be deleted
+    */
+    public function actionDelete($id) {
+        MongoModel::model()->getDb()->dropCollection($id);
+        if(!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+    }
+    
     
     public function actionError() {
         $this->render('error');
