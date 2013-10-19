@@ -20,6 +20,7 @@ return array(
         'BLASTSearch',
         'prosite',
         'kegg',
+        'format',
         /*'gii'=>array(
             'class'=>'system.gii.GiiModule',
             'password'=>'CIC',

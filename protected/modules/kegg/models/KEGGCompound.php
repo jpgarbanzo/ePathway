@@ -112,49 +112,6 @@ class KEGGCompound extends CModel
     }
     
     /**
-     * Searchs for a specific pathway and retrieves all information
-     * @param type $pPathwayId
-     * @return array with all details of such pathway
-     */
-    public function getPathway($pPathwayId) {
-        $kegg_url = "http://rest.kegg.jp/get/".$pPathwayId;
-        $curl = $this->openCURLConnection($kegg_url);
-        $result = curl_exec($curl);
-        $result = preg_replace('/\n/', '<br />&nbsp&nbsp&nbsp&nbsp', $result);
-        curl_close($curl);
-        
-        $relevant_info = '(DESCRIPTION)|(ENTRY)|(NAME)|(PATHWAY_MAP)|(COMPOUND)|(ORTHOLOGY)|';
-        $other_info = '(CLASS)|(REFERENCE)|(DBLINKS)|(KO_PATHWAY)|(MODULE)|(DISEASE)';
-        $pattern = '/'.$relevant_info.$other_info.'/';
-        $result = preg_split($pattern, $result, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-        
-        $data['important'] = array();
-        $data['other'] = array();
-        for ($index = 0; $index < count($result); $index = $index + 2) {
-            if (strpos( $relevant_info, $result[$index]) !== false) {
-                if ($result[$index] == 'ENTRY') {
-                    $map = preg_split('/\s+/', $result[$index + 1]);
-                    
-                    array_push($data['important'], array(
-                        $result[$index] => 
-                            "<a href=\"http://rest.kegg.jp/get/".$map[1]."/image"."\">Go to Image</a><br />",
-                    ));
-                } else {
-                    array_push($data['important'], array(
-                        $result[$index] => $result[$index + 1],
-                    ));       
-                }
-            } else {
-                array_push($data['other'], array(
-                    $result[$index] => $result[$index + 1],
-                ));
-            }
-        }
-        
-        return $data;
-    }
-    
-    /**
      * Opens a connection with the specified URL
      * @param type $pURL
      * @return type curl object

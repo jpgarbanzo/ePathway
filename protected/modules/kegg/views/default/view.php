@@ -1,6 +1,6 @@
 <?php
     /* @var $this DefaultController */
-    /* @var $pathway array*/
+    /* @var $model KEGGPathway*/
 
     $this->breadcrumbs = array('Pathway Information');
     
@@ -20,25 +20,25 @@
 ?>
 
 <?php
-    foreach($pathway['important'] as $entry) {
-        foreach ($entry as $key => $value) {
-            echo "<b>";
-            echo CHtml::encode($key);
-            echo "</b><br /><br />&nbsp&nbsp&nbsp&nbsp";
-            if ($key == 'ENTRY') {
-                echo $value."<br />";
-            } else {
-                echo $value."<br />";
-            }
-        }
-    }
+    $this->widget('zii.widgets.CDetailView', array(
+        'data'=>$model->search(),
+        'attributes'=>array(
+            'Entry',
+            'Name',
+            'Description',
+            'Class',
+            'Compound',
+            'Enzyme',
+            'Pathway',
+        ),
+    ));
 ?>
 
 <?php echo CHtml::link('See More Information','#', array('class'=>'info-button')); ?>
 
 <div class="other-info" style="display:none">
 <?php
-    echo "<br />";
+    /*echo "<br />";
     
     foreach($pathway['other'] as $entry) {
         foreach ($entry as $key => $value) {
@@ -47,6 +47,6 @@
             echo "</b><br />&nbsp&nbsp&nbsp&nbsp";
             echo $value."<br />";
         }
-    }
+    }*/
 ?>
 </div>
