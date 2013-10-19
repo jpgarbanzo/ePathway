@@ -9,7 +9,8 @@ class KEGGPathway extends CModel{
     public $Class;
     public $Compound;
     public $Enzyme;
-    public $Pathway;
+    public $Orthology;
+    private $Result;
     
     public function attributeNames()
     {
@@ -20,7 +21,8 @@ class KEGGPathway extends CModel{
             'Class'=>'Class',
             'Compound'=>'Compound',
             'Enzyme'=>'Enzyme',
-            'Pathway'=>'Pathway'
+            'Orthology' => 'Orthology',
+            'Other'=>'Other'
         );
     }
     
@@ -34,18 +36,29 @@ class KEGGPathway extends CModel{
         $model =  new KEGGPathway;
         $result = $this->getPathway($this->Id);
         
-        //Yii::log(print_r($result, true), 'info', 'System.web');
-        
         $model->Entry = $result['important']['ENTRY'];
         $model->Name = $result['important']['NAME'];
-        //$model->Description = $result['important']['DESCRIPTION'];
+        if (isset($result['important']['DESCRIPTION'])) {
+            $model->Description = $result['important']['DESCRIPTION'];
+        }
         $model->Class = $result['important']['CLASS'];
-        $model->Compound = $result['important']['COMPOUND'];
-        $model->Enzyme = $result['important']['ENZYME'];
-        $model->Pathway = $result['important']['PATHWAY_MAP'];
+        if (isset($result['important']['COMPOUND'])) {
+            $model->Compound = $result['important']['COMPOUND'];
+        }
+        if (isset($result['important']['ENZYME'])) {
+            $model->Enzyme = $result['important']['ENZYME'];
+        }
+        if (isset($result['important']['ORTHOLOGY'])) {
+            $model->Orthology = $result['important']['ORTHOLOGY'];
+        }
         
-        ///return array($model, $result['other']);
+        Yii::app()->session['pathway_info'] = $result['other'];
+        
         return $model;
+    }
+    
+    public function searchOtherInfo() {
+        return Yii::app()->session['pathway_info'];
     }
     
     /**
@@ -56,7 +69,7 @@ class KEGGPathway extends CModel{
     private function getPathway($pPathwayId) {
         $curl = $this->openCURLConnection(KEGGPathway::$KEGG_GET . $pPathwayId);
         $result = curl_exec($curl);
-        $result = preg_replace('/\n/', '<br />&nbsp&nbsp&nbsp&nbsp', $result);
+        $result = preg_replace('/\n/', '<br />', $result);
         curl_close($curl);
         
         $pattern = '/' . KEGGPathway::$RELEVANT_INFO . KEGGPathway::$OTHER_INFO . '/';
@@ -96,8 +109,8 @@ class KEGGPathway extends CModel{
     }
     
     private static $KEGG_GET = "http://rest.kegg.jp/get/";
-    private static $RELEVANT_INFO = '(DESCRIPTION)|(ENTRY)|(NAME)|(ENZYME)|(PATHWAY_MAP)|(COMPOUND)|(CLASS)|';
-    private static $OTHER_INFO = '(ORTHOLOGY)|(REFERENCE)|(DBLINKS)|(KO_PATHWAY)|(MODULE)|(DISEASE)';
+    private static $RELEVANT_INFO = '(DESCRIPTION)|(ENTRY)|(NAME)|(ENZYME)|(COMPOUND)|(CLASS)|(ORTHOLOGY)|';
+    private static $OTHER_INFO = '(PATHWAY_MAP)|(REFERENCE)|(DBLINKS)|(KO_PATHWAY)|(MODULE)|(DISEASE)';
 }
     
 ?> 

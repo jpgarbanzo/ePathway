@@ -1,7 +1,6 @@
 <?php
     /* @var $this DefaultController */
     /* @var $data array */
-    //Yii::log(print_r($data, true), 'info', 'system.web.kegg');
 ?>
 
 <div class="view">
@@ -23,7 +22,7 @@
     <?php
         foreach ($data['pathways'] as $pathway) {
             if (strpos($pathway, 'path:ec') !== false ||
-                    strpos($pathway, 'path:ko' !== false)) {
+                    strpos($pathway, 'path:ko') !== false) {
                 echo "<br />";
                 echo "&nbsp&nbsp&nbsp&nbsp";
                 echo CHtml::link($pathway, array(

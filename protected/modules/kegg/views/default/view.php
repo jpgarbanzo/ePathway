@@ -23,30 +23,28 @@
     $this->widget('zii.widgets.CDetailView', array(
         'data'=>$model->search(),
         'attributes'=>array(
-            'Entry',
-            'Name',
+            'Entry:html',
+            'Name:html',
             'Description',
-            'Class',
-            'Compound',
-            'Enzyme',
-            'Pathway',
+            'Class:html',
+            'Compound:html',
+            'Enzyme:html',
+            'Orthology:html',
         ),
     ));
 ?>
 
 <?php echo CHtml::link('See More Information','#', array('class'=>'info-button')); ?>
-
+<br />
 <div class="other-info" style="display:none">
 <?php
-    /*echo "<br />";
+    echo "<br />";
     
-    foreach($pathway['other'] as $entry) {
-        foreach ($entry as $key => $value) {
-            echo "<b>";
+    foreach($model->searchOtherInfo() as $key => $value) {
+        echo "<b>";
             echo CHtml::encode($key);
-            echo "</b><br />&nbsp&nbsp&nbsp&nbsp";
+            echo "<br /></b><br />";
             echo $value."<br />";
-        }
-    }*/
+    }
 ?>
 </div>
