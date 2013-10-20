@@ -17,7 +17,7 @@ class Sequence extends CModel
         return array(
             'Sequence'=>'Sequence',
             'Format'=>'Format',
-            'Comment'=>'Description',
+            'Description'=>'Description',
         );
     }
 
@@ -39,8 +39,8 @@ class Sequence extends CModel
     {
         $model = new Sequence;
         
-        if (isset($_GET['Sequence'])) {
-            $model->attributes = $_GET['Sequence'];
+        if (isset($_POST['Sequence'])) {
+            $model->attributes = $_POST['Sequence'];
 
             if ($model->Format == "FASTA") {
                 $model = $this->formatFASTA($model);
@@ -56,7 +56,22 @@ class Sequence extends CModel
     {
         $model = new Sequence;
         $model->Format = $pModel->Format;
+        $description = "";
+        $line_lenght = 50;
+        Yii::log(print_r($pModel, true), 'info', 'System.web');
+        if (isset($pModel->Description)) {
+            $description = ">" . $pModel->Description;
+            $line_lenght = len($description);
+        } else {
+            srand(floor(time() / (60*60*24)));
+            $description = ">sequence_" . rand();
+        }
         
+        $sequence = chunk_split($pModel->Sequence, 50, "\n");
+        $lines = explode("\n", $sequence);
+        array_unshift($lines, $description);
+        $new_sequence = implode("\n", $lines);
+        $model->Sequence = '<textarea id="sequence" class="dna" readonly="readonly">' . $new_sequence . '</textarea>';
         
         return $model;
     }
@@ -67,13 +82,18 @@ class Sequence extends CModel
         $model->Format = $pModel->Format;
         
         $lines = preg_split("/\n/", $pModel->Sequence);
-        array_shift($lines);
+        if (strpos($lines[0], ">") !== false ||
+            (strpos($lines[0], ";")) !== false) {
+            array_shift($lines);
+        }
         $sequence = implode("", $lines);
         $new_sequence = preg_replace("/\s*/", "", $sequence);
         
         $model->Sequence = '<textarea id="sequence" class="dna" readonly="readonly">' . $new_sequence . '</textarea>';
         return $model;
     }
+    
+    private static $ALLOWED_LETTERS = "ACGTURYKMSWBDHVNX";
 }
 
 ?>

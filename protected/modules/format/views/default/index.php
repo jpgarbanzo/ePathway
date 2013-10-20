@@ -3,21 +3,14 @@
     /* @var $model Sequence */
 
     $this->breadcrumbs = array('Format Sequence');
-    
-    Yii::app()->clientScript->registerScript('search', "
-    $('#format form').submit(function(){
-            $('#format-detail').yiiDetailView('update', {
-                    data: $(this).serialize()
-            });
-            return false;
-    });
-    ");
 ?>
 
 <h2>Format Sequence</h2>
 
 <div class="search-form">
+    
     <div class="wide form" id="format">
+        
         <p class="note">Fields with <span class="required">*</span> are required.</p>
 
         <?php
@@ -28,7 +21,7 @@
                     'enableClientValidation' => true,
                     'clientOptions' => array(
                         'validateOnSubmit' => true),
-                    'method'=>'get',
+                    'method'=>'post',
                 )
             );
         ?>
@@ -62,11 +55,12 @@
 
         <?php $this->endWidget(); ?>
     </div>
+    
 </div>
 
 <h3>Resulting Sequence</h3>
 
-<div class="extended-grid">
+<div class="detail-view">
 
 <?php
     $this->widget('zii.widgets.CDetailView', array(
