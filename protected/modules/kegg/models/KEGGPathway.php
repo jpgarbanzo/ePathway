@@ -102,8 +102,8 @@ class KEGGPathway extends CModel
         $data['other'] = array();       // stores other information
         for ($index = 0; $index < count($array_info); $index = $index + 2) {
             // checks if token is relevant
-            if (strpos(KEGGPathway::$RELEVANT_INFO, $result[$index]) !== false) {
-                if ($result[$index] == 'ENTRY') {
+            if (strpos(KEGGPathway::$RELEVANT_INFO, $array_info[$index]) !== false) {
+                if ($array_info[$index] == 'ENTRY') {
                     // extracts id for the pathway image
                     $map = preg_split('/\s+/', $array_info[$index + 1]);
                     
@@ -138,8 +138,8 @@ class KEGGPathway extends CModel
     // <editor-fold defaultstate="collapsed" desc="Constants">
     
     private static $KEGG_GET = "http://rest.kegg.jp/get/";
-    private static $RELEVANT_INFO = '(DESCRIPTION)|(ENTRY)|(NAME)|(ENZYME)|(COMPOUND)|(CLASS)|(ORTHOLOGY)|';
-    private static $OTHER_INFO = '(PATHWAY_MAP)|(REFERENCE)|(DBLINKS)|(KO_PATHWAY)|(MODULE)|(DISEASE)';
+    private static $RELEVANT_INFO = "(DESCRIPTION)|(ENTRY)|(NAME)|(ENZYME)|(COMPOUND)|(CLASS)|(ORTHOLOGY)|";
+    private static $OTHER_INFO = "(PATHWAY_MAP)|(REFERENCE)|(DBLINKS)|(KO_PATHWAY)|(MODULE)|(DISEASE)";
     
     // </editor-fold>
 }
