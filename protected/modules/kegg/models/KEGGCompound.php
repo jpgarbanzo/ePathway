@@ -139,7 +139,7 @@ class KEGGCompound extends CModel
         return $curl;
     }
     
-    // <editor-fold>
+    // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Constants">
     private static $FIND_KEGG = "http://rest.kegg.jp/find/compound/";
