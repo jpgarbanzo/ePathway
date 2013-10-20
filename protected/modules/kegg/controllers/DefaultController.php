@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 
 class DefaultController extends Controller 
 {
@@ -11,6 +9,7 @@ class DefaultController extends Controller
     public $layout='//layouts/column2';
     
     // <editor-fold defaultstate="collapsed" desc="Framework related functions">
+    
     /**
      * @return array action filters
      */
@@ -20,6 +19,7 @@ class DefaultController extends Controller
             'accessControl', // perform access control for CRUD operations
         );
     }
+    
     /**
      * Specifies the access control rules.
      * This method is used by the 'accessControl' filter.
@@ -37,6 +37,7 @@ class DefaultController extends Controller
             ),
         );
     }
+    
     // </editor-fold>
     
     public function actionIndex()

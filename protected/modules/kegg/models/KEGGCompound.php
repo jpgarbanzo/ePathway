@@ -1,11 +1,16 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 
 class KEGGCompound extends CModel 
 {
+    
+    // <editor-fold defaultstate="collapsed" desc="Properties">
+    
     public $CompoundId;
     public $CompoundName;
+    
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Yii related methods">
     
     public function attributeNames()
     {
@@ -15,17 +20,27 @@ class KEGGCompound extends CModel
         );
     }
     
+    public function rules()
+    {
+        return array (
+            array('CompoundName, CompoundId', 'required'),
+        );          
+    }
+    
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
     }
     
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapse" desc="Class Methods">
+    
     /**
      * Searches through compound database in KEGG.
-     * Also looks for links in pathway database to show all
-     * related pathways.
-     * @return \CArrayDataProvider with data to be displayed in a
-     * CListView
+     * Also looks  for links in pathway database
+     * to show all related pathways.
+     * @return \CArrayDataProvider with data to be displayed in a CListView
      */
     public function search()
     {
@@ -62,14 +77,14 @@ class KEGGCompound extends CModel
     }
     
     /**
-     * Returns an array with all compounds matching 
-     * the specified compound in $pCompounds.
+     * Returns an array with all compounds matching the specified
+     * compound in $pCompounds.
      * @param type $pCompounds
      * @return array with compounds and its related pathways
      */
     private function searchCompound($pCompounds) {
         $keywords = str_replace(" ", "+", $pCompounds);
-        $kegg_url = "http://rest.kegg.jp/find/compound/".$keywords;
+        $kegg_url = KEGGCompound::$FIND_KEGG . $keywords;
         $curl = $this->openCURLConnection($kegg_url);
         $result = curl_exec($curl);
         curl_close($curl);
@@ -100,7 +115,7 @@ class KEGGCompound extends CModel
      */
     private function linkPathwaysByCompound($pCompound)
     {
-        $kegg_url = "http://rest.kegg.jp/link/pathway/".$pCompound;
+        $kegg_url = KEGGCompound::$LINK_KEGG .$pCompound;
         $curl = $this->openCURLConnection($kegg_url);
         $result = curl_exec($curl);
         curl_close($curl);
@@ -123,6 +138,14 @@ class KEGGCompound extends CModel
         
         return $curl;
     }
+    
+    // <editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Constants">
+    private static $FIND_KEGG = "http://rest.kegg.jp/find/compound/";
+    private static $LINK_KEGG = "http://rest.kegg.jp/link/pathway/";
+    
+    // </editor-fold>
 }
 
 ?>

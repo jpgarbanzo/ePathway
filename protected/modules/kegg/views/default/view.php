@@ -42,9 +42,9 @@
     
     foreach($model->searchOtherInfo() as $key => $value) {
         echo "<b>";
-            echo CHtml::encode($key);
-            echo "<br /></b><br />";
-            echo $value."<br />";
+        echo CHtml::encode($key);
+        echo "<br /></b><br />";
+        echo $value."<br />";
     }
 ?>
 </div>

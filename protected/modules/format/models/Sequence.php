@@ -2,11 +2,13 @@
 
 class Sequence extends CModel {
     public $Sequence;
+    public $Format;
     
     public function attributeNames()
     {
         return array(
-            'CompoundId'=>'Sequence',
+            'Sequence'=>'Sequence',
+            'Format'=>'Format'
         );
     }
     

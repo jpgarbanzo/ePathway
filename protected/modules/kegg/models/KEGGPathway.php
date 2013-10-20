@@ -1,6 +1,8 @@
 <?php
 
-class KEGGPathway extends CModel{
+class KEGGPathway extends CModel
+{
+    // <editor-fold defaultstate="collapsed" desc="Properties">
     
     public $Id;
     public $Entry;
@@ -10,7 +12,10 @@ class KEGGPathway extends CModel{
     public $Compound;
     public $Enzyme;
     public $Orthology;
-    private $Result;
+    
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Yii related methods">
     
     public function attributeNames()
     {
@@ -31,10 +36,19 @@ class KEGGPathway extends CModel{
         return parent::model($className);
     }
     
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Class Methods">
+    
+    /**
+     * Gets all information related to a metabolic 
+     * pathway by its id.
+     * @return \KEGGPathway model to be displayed in a CDetailView
+     */
     public function search()
     {
         $model =  new KEGGPathway;
-        $result = $this->getPathway($this->Id);
+        $result = $this->getPathway($this->Id);     // gets all info
         
         $model->Entry = $result['important']['ENTRY'];
         $model->Name = $result['important']['NAME'];
@@ -52,43 +66,52 @@ class KEGGPathway extends CModel{
             $model->Orthology = $result['important']['ORTHOLOGY'];
         }
         
+        // saves other information in a session variable
         Yii::app()->session['pathway_info'] = $result['other'];
         
         return $model;
     }
     
+    /**
+     * Access session variable 'pathway_info' to 
+     * retrieve irrelevant information related to a pathway
+     * @return array with other irrelevant info
+     */
     public function searchOtherInfo() {
         return Yii::app()->session['pathway_info'];
     }
     
     /**
-     * Searchs for a specific pathway and retrieves all information
+     * Searchs for a specific pathway and retrieves 
+     * all information
      * @param type $pPathwayId
      * @return array with all details of such pathway
      */
     private function getPathway($pPathwayId) {
         $curl = $this->openCURLConnection(KEGGPathway::$KEGG_GET . $pPathwayId);
-        $result = curl_exec($curl);
-        $result = preg_replace('/\n/', '<br />', $result);
+        $curl_result = curl_exec($curl);
+        $result = preg_replace('/\n/', '<br />', $curl_result);
         curl_close($curl);
         
         $pattern = '/' . KEGGPathway::$RELEVANT_INFO . KEGGPathway::$OTHER_INFO . '/';
-        $result = preg_split($pattern, $result, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $array_info = preg_split($pattern, $result, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
         
-        $data['important'] = array();
-        $data['other'] = array();
-        for ($index = 0; $index < count($result); $index = $index + 2) {
+        $data['important'] = array();   // stores relevant information in array_info
+        $data['other'] = array();       // stores other information
+        for ($index = 0; $index < count($array_info); $index = $index + 2) {
+            // checks if token is relevant
             if (strpos(KEGGPathway::$RELEVANT_INFO, $result[$index]) !== false) {
                 if ($result[$index] == 'ENTRY') {
-                    $map = preg_split('/\s+/', $result[$index + 1]);
+                    // extracts id for the pathway image
+                    $map = preg_split('/\s+/', $array_info[$index + 1]);
                     
-                    $data['important'][$result[$index]] = 
+                    $data['important'][$array_info[$index]] = 
                             "<a href=\"http://rest.kegg.jp/get/".$map[1]."/image"."\">Go to Image</a><br />";
                 } else {
-                    $data['important'][$result[$index]] = $result[$index + 1];       
+                    $data['important'][$array_info[$index]] = $array_info[$index + 1];       
                 }
             } else {
-                $data['other'][$result[$index]] = $result[$index + 1];
+                $data['other'][$array_info[$index]] = $array_info[$index + 1];
             }
         }
         
@@ -108,9 +131,15 @@ class KEGGPathway extends CModel{
         return $curl;
     }
     
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Constants">
+    
     private static $KEGG_GET = "http://rest.kegg.jp/get/";
     private static $RELEVANT_INFO = '(DESCRIPTION)|(ENTRY)|(NAME)|(ENZYME)|(COMPOUND)|(CLASS)|(ORTHOLOGY)|';
     private static $OTHER_INFO = '(PATHWAY_MAP)|(REFERENCE)|(DBLINKS)|(KO_PATHWAY)|(MODULE)|(DISEASE)';
+    
+    // </editor-fold>
 }
     
 ?> 
