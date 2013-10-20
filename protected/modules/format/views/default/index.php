@@ -3,32 +3,42 @@
     /* @var $model Sequence */
 
     $this->breadcrumbs = array('Format Sequence');
+    
+    Yii::app()->clientScript->registerScript('search', "
+    $('#format form').submit(function(){
+            $('#format-detail').yiiDetailView('update', {
+                    data: $(this).serialize()
+            });
+            return false;
+    });
+    ");
 ?>
 
 <h2>Format Sequence</h2>
 
-<div class="wide form">
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
-    
-    <?php
-        $form = $this->beginWidget(
-            'CActiveForm',
-            array(
-                'id' => 'upload-form',
-                'enableClientValidation' => true,
-                'clientOptions' => array(
-                    'validateOnSubmit' => true),
-                'method'=>'get',
-            )
-        );
-    ?>
-    
-    <div class="row">
-        <?php echo $form->labelEx($model, "Sequence"); ?>
-        <?php echo $form->textArea($model, "Sequence"); ?>
-        <?php echo $form->error($model, "Sequence");  ?>
-    </div>
-    
+<div class="search-form">
+    <div class="wide form" id="format">
+        <p class="note">Fields with <span class="required">*</span> are required.</p>
+
+        <?php
+            $form = $this->beginWidget(
+                'CActiveForm',
+                array(
+                    'id' => 'upload-form',
+                    'enableClientValidation' => true,
+                    'clientOptions' => array(
+                        'validateOnSubmit' => true),
+                    'method'=>'get',
+                )
+            );
+        ?>
+
+        <div class="row">
+            <?php echo $form->labelEx($model, "Sequence"); ?>
+            <?php echo $form->textArea($model, "Sequence", array('class'=>'dna')); ?>
+            <?php echo $form->error($model, "Sequence");  ?>
+        </div>
+
         <div class="row">
             <?php echo $form->labelEx($model,'Format'); ?>
             <?php
@@ -38,32 +48,35 @@
                 ));
             ?>
             <?php echo $form->error($model,'Format'); ?>
-	</div>
+        </div>
 
-    <div class="row buttons">
-        <?php echo CHtml::submitButton('Format Sequence'); ?>
+        <div class="row">
+            <?php echo $form->labelEx($model, "Description"); ?>
+            <?php echo $form->textField($model, "Description"); ?>
+            <?php echo $form->error($model, "Description");  ?>
+        </div>
+
+        <div class="row buttons">
+            <?php echo CHtml::submitButton('Format Sequence'); ?>
+        </div>
+
+        <?php $this->endWidget(); ?>
     </div>
-    
-    <?php $this->endWidget(); ?>
 </div>
 
 <h3>Resulting Sequence</h3>
 
-<div class="wide form">
-    
+<div class="extended-grid">
+
 <?php
     $this->widget('zii.widgets.CDetailView', array(
+        'id'=>'format-detail',
         'data'=>$model->format(),
         'attributes'=>array(
             'Format',
-            array(
-                'label'=>'Sequence',
-                'type'=>'raw',
-                'value'=>"<textarea id=\"Sequence\" readonly=\"readonly\">" . $model->Sequence ."</textarea>",
-                )
-            ),
-        )
-    );
+            'Sequence:raw',
+        ),
+    ));
 ?>
     
 </div>

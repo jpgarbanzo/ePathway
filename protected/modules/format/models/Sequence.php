@@ -6,6 +6,7 @@ class Sequence extends CModel
     
     public $Sequence;
     public $Format;
+    public $Description;
     
     // </editor-fold>
     
@@ -15,7 +16,8 @@ class Sequence extends CModel
     {
         return array(
             'Sequence'=>'Sequence',
-            'Format'=>'Format'
+            'Format'=>'Format',
+            'Comment'=>'Description',
         );
     }
 
@@ -54,6 +56,8 @@ class Sequence extends CModel
     {
         $model = new Sequence;
         $model->Format = $pModel->Format;
+        
+        
         return $model;
     }
     
@@ -61,6 +65,13 @@ class Sequence extends CModel
     {
         $model = new Sequence;
         $model->Format = $pModel->Format;
+        
+        $lines = preg_split("/\n/", $pModel->Sequence);
+        array_shift($lines);
+        $sequence = implode("", $lines);
+        $new_sequence = preg_replace("/\s*/", "", $sequence);
+        
+        $model->Sequence = '<textarea id="sequence" class="dna" readonly="readonly">' . $new_sequence . '</textarea>';
         return $model;
     }
 }
