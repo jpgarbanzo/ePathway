@@ -46,7 +46,7 @@ class DefaultController extends Controller {
      */
     public function actionBLASTSearch() {
         $model = new BLASTGene();
-
+        $model->setscenario('blastsearch');
         if (isset($_POST['BLASTGene'])) {
             $model->attributes = $_POST['BLASTGene'];
             if ($model->validate()) {

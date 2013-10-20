@@ -1,13 +1,29 @@
 <?php
 
-class BLASTGene extends CModel {
+class BLASTGene extends CActiveRecord {
 
-    /**
-     *
-     * @property string $Email
-     * @property string $JobTitle
-     * 
-     */
+/**
+ * This model is used to manage parameters for searches in the EBI NCBI BLAST service
+ * 
+ * also is the model class for table "tbl_blastuserconfiguration", but the persistence actions
+ * should be done 'manually', via stored procedures
+ * 
+ * The followings are the available columns in table 'tbl_blastuserconfiguration':
+ * @property string $idtbl_blastuserconfiguration
+ * @property string $jobtitle
+ * @property string $sequencetype
+ * @property string $program
+ * @property integer $scores
+ * @property string $alignments
+ * @property string $expectvalthreshold
+ * @property string $idtbl_user
+ * @property integer $idtbl_ebidatabases
+ *
+ * The followings are the available model relations:
+ * @property TblUser $idtblUser
+ * @property TblEbidatabases $idtblEbidatabases
+ */
+    
     public $Email;
     public $JobTitle;
     public $SequenceType;
@@ -18,7 +34,6 @@ class BLASTGene extends CModel {
     public $Alignments;
     public $ExpectValThreshold;
     
-
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -26,6 +41,14 @@ class BLASTGene extends CModel {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+    
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'tbl_blastuserconfiguration';
     }
 
     /**
@@ -35,11 +58,28 @@ class BLASTGene extends CModel {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('Email,SequenceType,Sequence,Program,Database', 'required'),
+            array('Email,Sequence', 'required', 'on' => 'blastsearch'),
+            array('SequenceType,Program,Database', 'required'),
             array('Email', 'length', 'max' => 500),
+            array('Scores', 'numerical', 'integerOnly'=>true),
+            array('JobTitle', 'length', 'max'=>500),
+            array('SequenceType, Program, Alignments, ExpectValThreshold', 'length', 'max'=>50),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('Email,SequenceType,Sequence,Program,Database', 'safe', 'on' => 'search'),
+        );
+    }
+    
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            //'idtblUser' => array(self::BELONGS_TO, 'TblUser', 'idtbl_user'),
+            //'idtblEbidatabases' => array(self::BELONGS_TO, 'TblEbidatabases', 'idtbl_ebidatabases'),
         );
     }
 
@@ -57,6 +97,11 @@ class BLASTGene extends CModel {
             'Scores' => 'Scores',
             'Alignments' => 'Alignments',
             'ExpectValThreshold' => 'Expectation Value Threshold',
+            
+            
+            'idtbl_blastuserconfiguration' => 'Idtbl Blastuserconfiguration',
+            'idtbl_user' => 'Idtbl User',
+            'idtbl_ebidatabases' => 'Idtbl Ebidatabases',
         );
     }
 
@@ -92,7 +137,7 @@ class BLASTGene extends CModel {
 //        }
 //        return $data_provider;
 //    }
-
+    
     // <editor-fold defaultstate="collapsed" desc="EBI API interaction functions">
     /**
      * Requests a BLAST search from the EBI service
@@ -187,7 +232,17 @@ class BLASTGene extends CModel {
     }
     
     // </editor-fold>
+
     
+    public function fetchDBAttributes(){
+        $this->jobtitle = $this->JobTitle;
+        $this->sequencetype = $this->SequenceType;
+        $this->program = $this->Program;
+        $this->scores = $this->Scores;
+        $this->alignments = $this->Alignments;
+        $this->expectvalthreshold = $this->ExpectValThreshold;
+        $this->idtbl_ebidatabases = $this->Database;
+    }
     
     // <editor-fold defaultstate="collapsed" desc="Constants (service URLs, parameter names...)">
     public static $REQUEST_TYPE_XML = 'xml';
