@@ -52,10 +52,10 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'idtbl_ebidatabases'); ?>
-		<?php echo $form->ListBox($model,'idtbl_ebidatabases', 
-                    array('1' => 'em_rel_pln')); ?>
-		<?php echo $form->error($model,'idtbl_ebidatabases'); ?>
+		<?php echo $form->labelEx($model,'tblEbidatabasesxblastuserconfigurations'); ?>
+		<?php echo $form->ListBox($model,'tblEbidatabasesxblastuserconfigurations', 
+                    array('1' => 'em_rel_pln','2' => 'em_rel_pln'), array('multiple'=>'multiple')); ?>
+		<?php echo $form->error($model,'tblEbidatabasesxblastuserconfigurations'); ?>
 	</div>
 
 	<div class="row buttons">

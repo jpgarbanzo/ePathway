@@ -21,7 +21,7 @@ class BLASTGene extends CActiveRecord {
  *
  * The followings are the available model relations:
  * @property TblUser $idtblUser
- * @property TblEbidatabases $idtblEbidatabases
+ * @property TblEbidatabasesxblastuserconfiguration[] $tblEbidatabasesxblastuserconfigurations
  */
     
     public $Email;
@@ -78,8 +78,8 @@ class BLASTGene extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            //'idtblUser' => array(self::BELONGS_TO, 'TblUser', 'idtbl_user'),
-            //'idtblEbidatabases' => array(self::BELONGS_TO, 'TblEbidatabases', 'idtbl_ebidatabases'),
+            'idtblUser' => array(self::BELONGS_TO, 'User', 'idtbl_user'),
+            'EBIDatabases' => array(self::MANY_MANY, 'EBIDatabase', 'tbl_ebidatabasesxblastuserconfiguration(idtbl_ebidatabases, idtbl_blastuserconfiguration)'),
         );
     }
 
