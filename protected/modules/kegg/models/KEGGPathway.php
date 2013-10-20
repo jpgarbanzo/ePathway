@@ -55,7 +55,9 @@ class KEGGPathway extends CModel
         if (isset($result['important']['DESCRIPTION'])) {
             $model->Description = $result['important']['DESCRIPTION'];
         }
-        $model->Class = $result['important']['CLASS'];
+        if (isset($result['important']['CLASS'])) {
+            $model->Class = $result['important']['CLASS'];
+        }
         if (isset($result['important']['COMPOUND'])) {
             $model->Compound = $result['important']['COMPOUND'];
         }
