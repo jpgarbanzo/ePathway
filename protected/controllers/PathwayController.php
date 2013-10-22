@@ -32,7 +32,7 @@ class PathwayController extends Controller
 //				'users'=>array('*'),
 //			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update', 'admin', 'filter'),
+				'actions'=>array('index','view','create','update', 'admin', 'filter','exportFile'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -49,8 +49,7 @@ class PathwayController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
-	{
+	public function actionView($id) {
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -60,8 +59,7 @@ class PathwayController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
-	{
+	public function actionCreate()  {
 		$model=new Pathway;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -84,8 +82,7 @@ class PathwayController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
-	{
+	public function actionUpdate($id) {
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -108,8 +105,7 @@ class PathwayController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
-	{
+	public function actionDelete($id) {
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -120,18 +116,52 @@ class PathwayController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Pathway', array(
-                    'criteria'=>array(
-                        'order'=>'idtbl_rutametabolica DESC',
+	public function actionIndex() {
+            if(Yii::app()->request->getParam('export')) {
+                $this->actionExport();
+                Yii::app()->end();
+            }
+            $dataProvider=new CActiveDataProvider('Pathway', array(
+                'criteria'=>array(
+                    'order'=>'idtbl_rutametabolica DESC',
                     )
                 ));
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+            $this->render('index',array(
+                'dataProvider'=>$dataProvider,
+                ));
 	}
 
+        
+        public function actionExport() {
+            $fp = fopen('php://temp', 'w');
+            $headers = array(
+                'nombreruta',
+                'urlruta',
+            );
+            $row = array();
+            foreach($headers as $header) {
+                $row[] = Pathway::model()->getAttributeLabel($header);
+            }
+            fputcsv($fp,$row);
+            $model=new Pathway('search');
+            $model->unsetAttributes();  // clear any default values
+            foreach ($model->findAll() as $data) {
+                $row = array();
+                foreach($headers as $head) {
+                    $row[] = CHtml::value($data,$head);
+                }
+                fputcsv($fp,$row);        
+            }
+            rewind($fp);
+            Yii::app()->user->setState('export',stream_get_contents($fp));
+            fclose($fp);
+	}
+        
+        public function actionExportFile() {
+            Yii::app()->request->sendFile('pathway.csv',Yii::app()->user->getState('export'));
+            Yii::app()->user->clearState('export');
+        }
+        
 	/**
 	 * Manages all models.
 	 */

@@ -79,14 +79,16 @@ class KEGGCompound extends CModel
         
         $array_provider = array();
         
-        for ($index = 0; $index < count($result); $index = $index + 2) {
-            $pathways = $this->linkPathwaysByCompound($result[$index]);
-            
-            array_push($array_provider, array(
-                'id' => $result[$index],
-                'name' => $result[$index + 1],
-                'pathways' => $pathways,
-            ));
+        if (count($result) > 1) {
+            for ($index = 0; $index < count($result); $index = $index + 2) {
+                $pathways = $this->linkPathwaysByCompound($result[$index]);
+
+                array_push($array_provider, array(
+                    'id' => $result[$index],
+                    'name' => $result[$index + 1],
+                    'pathways' => $pathways,
+                ));
+            }
         }
         return $array_provider;
     }
@@ -118,10 +120,11 @@ class KEGGCompound extends CModel
         $kegg_url = "http://rest.kegg.jp/get/".$pPathwayId;
         $curl = $this->openCURLConnection($kegg_url);
         $result = curl_exec($curl);
+        $result = preg_replace('/\n/', '<br />&nbsp&nbsp&nbsp&nbsp', $result);
         curl_close($curl);
         
-        $relevant_info = '(DESCRIPTION)|(ENTRY)|(NAME)|(PATHWAY_MAP)|';
-        $other_info = '(CLASS)|(REFERENCE)|(DBLINKS)|(KO_PATHWAY)|(COMPOUNDS)|(MODULE)|(DISEASE)';
+        $relevant_info = '(DESCRIPTION)|(ENTRY)|(NAME)|(PATHWAY_MAP)|(COMPOUND)|(ORTHOLOGY)|';
+        $other_info = '(CLASS)|(REFERENCE)|(DBLINKS)|(KO_PATHWAY)|(MODULE)|(DISEASE)';
         $pattern = '/'.$relevant_info.$other_info.'/';
         $result = preg_split($pattern, $result, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
         
@@ -133,7 +136,8 @@ class KEGGCompound extends CModel
                     $map = preg_split('/\s+/', $result[$index + 1]);
                     
                     array_push($data['important'], array(
-                        $result[$index] => "<a href=\"http://rest.kegg.jp/get/".$map[1]."/image"."\">Image</a>",
+                        $result[$index] => 
+                            "<a href=\"http://rest.kegg.jp/get/".$map[1]."/image"."\">Go to Image</a><br />",
                     ));
                 } else {
                     array_push($data['important'], array(

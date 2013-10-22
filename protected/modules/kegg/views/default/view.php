@@ -24,15 +24,12 @@
         foreach ($entry as $key => $value) {
             echo "<b>";
             echo CHtml::encode($key);
-            echo "</b>";
-            echo "<br />";
-            echo "&nbsp&nbsp&nbsp&nbsp";
+            echo "</b><br /><br />&nbsp&nbsp&nbsp&nbsp";
             if ($key == 'ENTRY') {
-                echo $value;
+                echo $value."<br />";
             } else {
-                echo CHtml::encode($value);
+                echo $value."<br />";
             }
-            echo "<br />";
         }
     }
 ?>
@@ -40,16 +37,15 @@
 <?php echo CHtml::link('See More Information','#', array('class'=>'info-button')); ?>
 
 <div class="other-info" style="display:none">
-<?php 
+<?php
+    echo "<br />";
+    
     foreach($pathway['other'] as $entry) {
         foreach ($entry as $key => $value) {
             echo "<b>";
             echo CHtml::encode($key);
-            echo "</b>";
-            echo "<br />";
-            echo "&nbsp&nbsp&nbsp&nbsp";
-            echo CHtml::encode($value);
-            echo "<br />";
+            echo "</b><br />&nbsp&nbsp&nbsp&nbsp";
+            echo $value."<br />";
         }
     }
 ?>
