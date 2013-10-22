@@ -59,7 +59,7 @@ class DefaultController extends Controller {
     
     
     public function actionAutomaticBLAST(){
-        
+        //$this->redirect($this->createUrl('processing'));
         //this section should be loaded automatically from the DB, using the user name
         $bgene = new BLASTGene();
         $bgene->Email = 'correo@mail.com';
