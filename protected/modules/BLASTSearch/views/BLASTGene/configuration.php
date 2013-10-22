@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'View Stored Configuration', 'url'=>array('view', 'id'=>$model->idtbl_blastuserconfiguration)),
+	//array('label'=>'View Stored Configuration', 'url'=>array('view', 'id'=>$model->idtbl_blastuserconfiguration)),
 );
 ?>
 

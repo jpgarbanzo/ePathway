@@ -91,8 +91,11 @@ class BLASTGeneController extends Controller
 		{
 			$model->attributes=$_POST['BLASTGene'];
                         if($model->validate()){
-                            if($model->saveBLASTConfiguration(Yii::app()->user->id, $model) > 0)
-				$this->redirect(array('BLASTGene/view','id'=>$model->idtbl_blastuserconfiguration));
+                            
+                            $configuration_id = $model->saveBLASTConfiguration(Yii::app()->user->id, $model);
+                            
+                            if($configuration_id > 0)
+				$this->redirect(array('BLASTGene/view','id'=>$configuration_id));
                         }
 		}
 
