@@ -40,6 +40,7 @@ class Sequence extends CModel
         $model = new Sequence;
         
         if (isset($_POST['Sequence'])) {
+            Yii::log(print_r($_POST['Sequence'], true), 'info', 'System.web');
             $model->attributes = $_POST['Sequence'];
 
             if ($model->Format == "FASTA") {
@@ -58,7 +59,7 @@ class Sequence extends CModel
         $model->Format = $pModel->Format;
         $description = "";
         $line_lenght = 50;
-        Yii::log(print_r($pModel, true), 'info', 'System.web');
+        
         if (isset($pModel->Description)) {
             $description = ">" . $pModel->Description;
             $line_lenght = len($description);
@@ -82,10 +83,14 @@ class Sequence extends CModel
         $model->Format = $pModel->Format;
         
         $lines = preg_split("/\n/", $pModel->Sequence);
-        if (strpos($lines[0], ">") !== false ||
-            (strpos($lines[0], ";")) !== false) {
-            array_shift($lines);
+        
+        for ($index = 0; $index < count($lines); $index++) {
+            if (strpos($lines[$index][0], ">") !== false ||
+                (strpos($lines[$index][0], ";")) !== false) {
+                unset($lines[$index]);
+            }
         }
+        
         $sequence = implode("", $lines);
         $new_sequence = preg_replace("/\s*/", "", $sequence);
         
