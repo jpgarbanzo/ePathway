@@ -38,13 +38,12 @@ class BLASTGeneController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
+	 * Displays the BLAST configuration for the current user
 	 */
-	public function actionView($id)
+	public function actionView()
 	{
 		$this->render('/BLASTGene/view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadConfiguration(),
 		));
 	}
 
@@ -118,6 +117,18 @@ class BLASTGeneController extends Controller
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
+        
+        /**
+         * Returns the model based on the username, (as the configuration is associated to each user)
+         * @return BLASTGene the complete configuration
+         * @throws CHttpException
+         */
+        public function loadConfiguration(){
+            $model = BLASTGene::model()->getStoredConfiguration(Yii::app()->user->id);
+            if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+        }
 
 	/**
 	 * Performs the AJAX validation.

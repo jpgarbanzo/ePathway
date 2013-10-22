@@ -12,19 +12,17 @@ $this->menu=array(
 );
 ?>
 
-<h1>BLAST configuration</h1>
+<h1>Stored BLAST configuration</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'idtbl_blastuserconfiguration',
-		'jobtitle',
-		'sequencetype',
-		'program',
-		'scores',
-		'alignments',
-		'expectvalthreshold',
-		'idtbl_user',
-		'idtbl_ebidatabases',
+		'Email',
+                'JobTitle',
+		'SequenceType',
+		'Program',
+		'Scores',
+		'Alignments',
+		'ExpectValThreshold',
 	),
 )); ?>

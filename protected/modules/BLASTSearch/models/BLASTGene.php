@@ -32,6 +32,8 @@ class BLASTGene extends CActiveRecord {
     public $Scores;
     public $Alignments;
     public $ExpectValThreshold;
+    
+    public $ConfigurationId;
 
     /**
      * Returns the static model of the specified AR class.
@@ -284,9 +286,25 @@ class BLASTGene extends CActiveRecord {
      * @param type $pUserNane
      * @return \BLASTGene
      */
-    public function getStoredConfiguration($pUserNane){
-        $bg = new BLASTGene();
-        return $bg;
+    public function getStoredConfiguration($pUserName){
+        $connection = Yii::app()->db;
+        $call = 'SELECT * FROM getUserBLASTConfiguration(:pUserName)';
+        $command = $connection->createCommand($call);
+        $command->bindParam(':pUserName', $pUserName);
+        $result_set = $command->queryRow();
+        
+        
+        $blast_gene = new BLASTGene();
+        $blast_gene->Email = $result_set['email'];
+        $blast_gene->JobTitle = $result_set['jobtitle'];
+        $blast_gene->SequenceType = $result_set['sequencetype'];
+        $blast_gene->Program = $result_set['program'];
+        $blast_gene->Scores = $result_set['scores'];
+        $blast_gene->Alignments = $result_set['alignments'];
+        $blast_gene->ExpectValThreshold = $result_set['expectvalthreshold'];
+        $blast_gene->ConfigurationId = $result_set['idtbl_blastuserconfiguration'];
+        
+        return $blast_gene;
     }
     
     
