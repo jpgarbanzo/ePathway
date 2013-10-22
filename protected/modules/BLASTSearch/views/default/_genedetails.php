@@ -14,7 +14,6 @@ $this->widget('zii.widgets.CDetailView', array(
         'Title',
         'Author',
         'OrganismLink:html',
-        'Organism',
         'TaxonLineageLinks:html',
         'CDS',
         array(
