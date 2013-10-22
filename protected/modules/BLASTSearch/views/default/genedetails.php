@@ -18,7 +18,7 @@ $this->breadcrumbs=array(
 
 <?php
 if($gene_details != NULL){
-    $this->renderPartial('_genedetails',array('gene_details'=>$gene_details));
+    $this->renderPartial('_genedetails',array('gene_details'=>$gene_details, 'access_code'=>$access_code));
 }
 else{
     echo '<h3>Gene not found. You may want to search using the buttons below:</h3>';

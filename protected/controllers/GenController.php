@@ -32,7 +32,7 @@ class GenController extends Controller
 //				'users'=>array('*'),
 //			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update', 'admin', 'filter'),
+				'actions'=>array('index','view','create','update', 'admin', 'filter','AutomaticCreate'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -78,6 +78,24 @@ class GenController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
+	}
+        
+        
+        /**
+         * This actions allow the user to create a new gen from a link
+         * e.g. the one in the details when doing an EBI BLAST search
+         */
+        public function actionAutomaticCreate()
+	{
+//            print_r($_POST);
+		$model=new Gen;
+		if(isset($_POST))
+		{
+			$model->attributes=$_POST;
+  //                      print_r($model);
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->idtbl_gen));
+		}
 	}
 
 	/**
