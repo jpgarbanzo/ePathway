@@ -16,50 +16,52 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'jobtitle'); ?>
-		<?php echo $form->textField($model,'jobtitle',array('size'=>60,'maxlength'=>500)); ?>
-		<?php echo $form->error($model,'jobtitle'); ?>
+		<?php echo $form->labelEx($model,'JobTitle'); ?>
+		<?php echo $form->textField($model,'JobTitle',array('size'=>50,'maxlength'=>500)); ?>
+		<?php echo $form->error($model,'JobTitle'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'sequencetype'); ?>
-		<?php echo $form->textField($model,'sequencetype',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'sequencetype'); ?>
+		<?php echo $form->labelEx($model,'SequenceType'); ?>
+                <?php echo $form->ListBox($model,'SequenceType', 
+                    array('dna' => 'dna')); ?>
+		<?php echo $form->error($model,'SequenceType'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'program'); ?>
-		<?php echo $form->textField($model,'program',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'program'); ?>
+        
+        <div class="row">
+		<?php echo $form->labelEx($model,'Program'); ?>
+                <?php echo $form->ListBox($model,'Program', 
+                    array('blastn' => 'blastn')); ?>
+		<?php echo $form->error($model,'Program'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'scores'); ?>
-		<?php echo $form->textField($model,'scores'); ?>
-		<?php echo $form->error($model,'scores'); ?>
+    
+        <div class="row">
+		<?php echo $form->labelEx($model,'Database'); ?>
+                <?php echo $form->ListBox($model,'Database', 
+                    array('em_rel_pln' => 'em_rel_pln')); ?>
+		<?php echo $form->error($model,'Database'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'alignments'); ?>
-		<?php echo $form->textField($model,'alignments',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'alignments'); ?>
+    
+        <div class="row">
+		<?php echo $form->labelEx($model,'Scores'); ?>
+		<?php echo $form->textField($model,'Scores',array('size'=>60,'maxlength'=>5000)); ?>
+		<?php echo $form->error($model,'Scores'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'expectvalthreshold'); ?>
-		<?php echo $form->textField($model,'expectvalthreshold',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'expectvalthreshold'); ?>
+    
+        <div class="row">
+		<?php echo $form->labelEx($model,'Alignments'); ?>
+		<?php echo $form->textField($model,'Alignments',array('size'=>60,'maxlength'=>5000)); ?>
+		<?php echo $form->error($model,'Alignments'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'tblEbidatabasesxblastuserconfigurations'); ?>
-		<?php echo $form->ListBox($model,'tblEbidatabasesxblastuserconfigurations', 
-                    array('1' => 'em_rel_pln','2' => 'em_rel_pln'), array('multiple'=>'multiple')); ?>
-		<?php echo $form->error($model,'tblEbidatabasesxblastuserconfigurations'); ?>
+    
+        <div class="row">
+		<?php echo $form->labelEx($model,'ExpectValThreshold'); ?>
+		<?php echo $form->textField($model,'ExpectValThreshold',array('size'=>60,'maxlength'=>5000)); ?>
+		<?php echo $form->error($model,'ExpectValThreshold'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton('Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

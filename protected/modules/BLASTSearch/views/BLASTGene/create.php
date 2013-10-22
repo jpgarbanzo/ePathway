@@ -2,6 +2,8 @@
 /* @var $this BLASTGeneController */
 /* @var $model BLASTGene */
 
+/* http://localhost/ePathway/index.php/BLASTSearch/BLASTGene/create */
+
 $this->breadcrumbs=array(
 	'Blastgenes'=>array('..'),
 	'Create',

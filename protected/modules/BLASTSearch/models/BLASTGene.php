@@ -234,15 +234,15 @@ class BLASTGene extends CActiveRecord {
     // </editor-fold>
 
     
-    public function fetchDBAttributes(){
-        $this->jobtitle = $this->JobTitle;
-        $this->sequencetype = $this->SequenceType;
-        $this->program = $this->Program;
-        $this->scores = $this->Scores;
-        $this->alignments = $this->Alignments;
-        $this->expectvalthreshold = $this->ExpectValThreshold;
-        $this->idtbl_ebidatabases = $this->Database;
-    }
+//    public function fetchDBAttributes(){
+//        $this->jobtitle = $this->JobTitle;
+//        $this->sequencetype = $this->SequenceType;
+//        $this->program = $this->Program;
+//        $this->scores = $this->Scores;
+//        $this->alignments = $this->Alignments;
+//        $this->expectvalthreshold = $this->ExpectValThreshold;
+//        $this->idtbl_ebidatabases = $this->Database;
+//    }
     
     // <editor-fold defaultstate="collapsed" desc="Constants (service URLs, parameter names...)">
     public static $REQUEST_TYPE_XML = 'xml';
