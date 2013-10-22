@@ -246,23 +246,15 @@ class BLASTGene extends CActiveRecord {
 //        $this->idtbl_ebidatabases = $this->Database;
 //    }
 
-    /*
-     *     public $JobTitle;
-      public $SequenceType;
-      public $Sequence;
-      public $Program;
-      public $Database;
-      public $Scores;
-      public $Alignments;
-      public $ExpectValThreshold;
-     */
 
     // <editor-fold defaultstate="collapsed" desc="Data access functions">
+    /**
+     * Stores or updates a BLAST configuration (only in the table tbl_blastuserconfiguration)
+     * @param type $pUserName
+     * @param type $pBLASTGene
+     * @return int the id of the configuration inserted or updated
+     */
     public function saveBLASTConfiguration($pUserName, $pBLASTGene) {
-//        if (strlen($pBLASTGene->Scores) == 0) {
-//            $pBLASTGene->Scores = null;
-//        }
-
         $connection = Yii::app()->db;
         $call = 'SELECT * FROM saveBLASTConfiguration(:pUserName, :pJobTitle, :pSequenceType, :pProgram, :pScores, :pAlignments, :pExpectValThreshold)';
         $transaction = Yii::app()->db->beginTransaction();
@@ -284,6 +276,31 @@ class BLASTGene extends CActiveRecord {
             $transaction->rollback();
             return 0;
         }
+    }
+    
+    /**
+     * Obtains the complete configuration to perform a BLAST search, from the database
+     * and corresponding to the current user
+     * @param type $pUserNane
+     * @return \BLASTGene
+     */
+    public function getStoredConfiguration($pUserNane){
+        $bg = new BLASTGene();
+        return $bg;
+    }
+    
+    
+    /**
+     * Deletes all the databases associations to the parameter Database in the default
+     * BLAST search configuration for this user, using the configuration ID (the one in the database)
+     * @param type $pUserName
+     */
+    public function deleteAllAssociatedDatabases($pConfigurationId){
+        
+    }
+    
+    public function saveDatabaseAssociation($pConfigurationId, $pDatabaseName){
+        
     }
 
     // </editor-fold>
