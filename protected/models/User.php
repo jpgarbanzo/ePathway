@@ -40,7 +40,7 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, PasswordCheck', 'required'),
+			array('username, email, password, PasswordCheck', 'required'),
 			array('username, email', 'length', 'max'=>255),
 			array('password', 'length', 'max'=>64),
                         array('username', 'unique', 'className'=>'User', 'message'=>'The {attribute} is already in use, please pick another one.'),

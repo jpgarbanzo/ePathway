@@ -32,7 +32,6 @@ class BLASTGene extends CActiveRecord {
     public $Scores;
     public $Alignments;
     public $ExpectValThreshold;
-    
     public $ConfigurationId;
 
     /**
@@ -247,8 +246,6 @@ class BLASTGene extends CActiveRecord {
 //        $this->expectvalthreshold = $this->ExpectValThreshold;
 //        $this->idtbl_ebidatabases = $this->Database;
 //    }
-
-
     // <editor-fold defaultstate="collapsed" desc="Data access functions">
     /**
      * Stores or updates a BLAST configuration (only in the table tbl_blastuserconfiguration)
@@ -279,45 +276,47 @@ class BLASTGene extends CActiveRecord {
             return 0;
         }
     }
-    
+
     /**
      * Obtains the complete configuration to perform a BLAST search, from the database
      * and corresponding to the current user
      * @param type $pUserNane
-     * @return \BLASTGene
+     * @return \BLASTGene or null if not found
      */
-    public function getStoredConfiguration($pUserName){
+    public function getStoredConfiguration($pUserName) {
         $connection = Yii::app()->db;
         $call = 'SELECT * FROM getUserBLASTConfiguration(:pUserName)';
         $command = $connection->createCommand($call);
         $command->bindParam(':pUserName', $pUserName);
         $result_set = $command->queryRow();
-        
-        
-        $blast_gene = new BLASTGene();
-        $blast_gene->Email = $result_set['email'];
-        $blast_gene->JobTitle = $result_set['jobtitle'];
-        $blast_gene->SequenceType = $result_set['sequencetype'];
-        $blast_gene->Program = $result_set['program'];
-        $blast_gene->Scores = $result_set['scores'];
-        $blast_gene->Alignments = $result_set['alignments'];
-        $blast_gene->ExpectValThreshold = $result_set['expectvalthreshold'];
-        $blast_gene->ConfigurationId = $result_set['idtbl_blastuserconfiguration'];
-        
-        return $blast_gene;
+                
+        if ($result_set) {
+            $blast_gene = new BLASTGene();
+            $blast_gene->Email = $result_set['email'];
+            $blast_gene->JobTitle = $result_set['jobtitle'];
+            $blast_gene->SequenceType = $result_set['sequencetype'];
+            $blast_gene->Program = $result_set['program'];
+            $blast_gene->Scores = $result_set['scores'];
+            $blast_gene->Alignments = $result_set['alignments'];
+            $blast_gene->ExpectValThreshold = $result_set['expectvalthreshold'];
+            $blast_gene->ConfigurationId = $result_set['idtbl_blastuserconfiguration'];
+
+            return $blast_gene;
+        }else{
+            return null;
+        }
     }
-    
-    
+
     /**
      * Deletes all the databases associations to the parameter Database in the default
      * BLAST search configuration for this user, using the configuration ID (the one in the database)
      * @param type $pUserName
      */
-    public function deleteAllAssociatedDatabases($pConfigurationId){
+    public function deleteAllAssociatedDatabases($pConfigurationId) {
         
     }
-    
-    public function saveDatabaseAssociation($pConfigurationId, $pDatabaseName){
+
+    public function saveDatabaseAssociation($pConfigurationId, $pDatabaseName) {
         
     }
 

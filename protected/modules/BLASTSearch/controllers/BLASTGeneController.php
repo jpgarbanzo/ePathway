@@ -126,8 +126,8 @@ class BLASTGeneController extends Controller
         public function loadConfiguration(){
             $model = BLASTGene::model()->getStoredConfiguration(Yii::app()->user->id);
             if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
+                throw new CHttpException(404,'Stored configuration not found');
+            return $model;
         }
 
 	/**
