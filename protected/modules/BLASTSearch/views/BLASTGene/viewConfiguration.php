@@ -8,7 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Modify configuration', 'url'=>array('configuration')),
+    array('label'=>'BLAST index', 'url'=>array('..')),
+    array('label'=>'Modify configuration', 'url'=>array('configuration')),
 );
 ?>
 

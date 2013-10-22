@@ -28,7 +28,7 @@ class BLASTGeneController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated users to perform 'admin' and 'delete' actions
-				'actions'=>array('configuration','view','create'),
+				'actions'=>array('configuration','viewConfiguration','create'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -40,9 +40,9 @@ class BLASTGeneController extends Controller
 	/**
 	 * Displays the BLAST configuration for the current user
 	 */
-	public function actionView()
+	public function actionViewConfiguration()
 	{
-		$this->render('/BLASTGene/view',array(
+		$this->render('/BLASTGene/viewConfiguration',array(
 			'model'=>$this->loadConfiguration(),
 		));
 	}
@@ -66,7 +66,7 @@ class BLASTGeneController extends Controller
                         $model->idtbl_user = 1;
                         
 			if($model->save())
-				$this->redirect(array('/BLASTGene/view','id'=>$model->idtbl_blastuserconfiguration));
+				$this->redirect(array('/BLASTGene/viewConfiguration','id'=>$model->idtbl_blastuserconfiguration));
 		}
 
 		$this->render('/BLASTGene/create',array(

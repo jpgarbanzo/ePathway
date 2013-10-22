@@ -7,7 +7,9 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
         array('label'=>'BLAST search', 'url'=>array('blastsearch')),
-        array('label'=>'Check Jobs', 'url'=>array('index'))
+        //array('label'=>'Check Jobs', 'url'=>array('index')),
+        array('label'=>'Modify configuration', 'url'=>array('BLASTGene/configuration')),
+        array('label'=>'View stored configuration', 'url'=>array('BLASTGene/viewConfiguration')),
     );
 
 ?>

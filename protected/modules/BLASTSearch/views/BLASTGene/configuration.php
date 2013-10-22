@@ -8,7 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'View Stored Configuration', 'url'=>array('view')),
+        array('label'=>'BLAST index', 'url'=>array('..')),
+	array('label'=>'View Stored Configuration', 'url'=>array('viewConfiguration')),
 );
 ?>
 
