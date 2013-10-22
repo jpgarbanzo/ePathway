@@ -27,34 +27,34 @@
                     array('dna' => 'dna')); ?>
 		<?php echo $form->error($model,'SequenceType'); ?>
 	</div>
-        
-        <div class="row">
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'Program'); ?>
                 <?php echo $form->ListBox($model,'Program', 
                     array('blastn' => 'blastn')); ?>
 		<?php echo $form->error($model,'Program'); ?>
 	</div>
-    
-        <div class="row">
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'Database'); ?>
                 <?php echo $form->ListBox($model,'Database', 
                     array('em_rel_pln' => 'em_rel_pln')); ?>
 		<?php echo $form->error($model,'Database'); ?>
 	</div>
-    
-        <div class="row">
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'Scores'); ?>
 		<?php echo $form->textField($model,'Scores',array('size'=>60,'maxlength'=>5000)); ?>
 		<?php echo $form->error($model,'Scores'); ?>
 	</div>
-    
-        <div class="row">
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'Alignments'); ?>
 		<?php echo $form->textField($model,'Alignments',array('size'=>60,'maxlength'=>5000)); ?>
 		<?php echo $form->error($model,'Alignments'); ?>
 	</div>
-    
-        <div class="row">
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'ExpectValThreshold'); ?>
 		<?php echo $form->textField($model,'ExpectValThreshold',array('size'=>60,'maxlength'=>5000)); ?>
 		<?php echo $form->error($model,'ExpectValThreshold'); ?>

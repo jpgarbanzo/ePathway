@@ -2,28 +2,27 @@
 
 class BLASTGene extends CActiveRecord {
 
-/**
- * This model is used to manage parameters for searches in the EBI NCBI BLAST service
- * 
- * also is the model class for table "tbl_blastuserconfiguration", but the persistence actions
- * should be done 'manually', via stored procedures
- * 
- * The followings are the available columns in table 'tbl_blastuserconfiguration':
- * @property string $idtbl_blastuserconfiguration
- * @property string $jobtitle
- * @property string $sequencetype
- * @property string $program
- * @property integer $scores
- * @property string $alignments
- * @property string $expectvalthreshold
- * @property string $idtbl_user
- * @property integer $idtbl_ebidatabases
- *
- * The followings are the available model relations:
- * @property TblUser $idtblUser
- * @property TblEbidatabasesxblastuserconfiguration[] $tblEbidatabasesxblastuserconfigurations
- */
-    
+    /**
+     * This model is used to manage parameters for searches in the EBI NCBI BLAST service
+     * 
+     * also is the model class for table "tbl_blastuserconfiguration", but the persistence actions
+     * should be done 'manually', via stored procedures
+     * 
+     * The followings are the available columns in table 'tbl_blastuserconfiguration':
+     * @property string $idtbl_blastuserconfiguration
+     * @property string $jobtitle
+     * @property string $sequencetype
+     * @property string $program
+     * @property integer $scores
+     * @property string $alignments
+     * @property string $expectvalthreshold
+     * @property string $idtbl_user
+     * @property integer $idtbl_ebidatabases
+     *
+     * The followings are the available model relations:
+     * @property TblUser $idtblUser
+     * @property TblEbidatabasesxblastuserconfiguration[] $tblEbidatabasesxblastuserconfigurations
+     */
     public $Email;
     public $JobTitle;
     public $SequenceType;
@@ -33,7 +32,7 @@ class BLASTGene extends CActiveRecord {
     public $Scores;
     public $Alignments;
     public $ExpectValThreshold;
-    
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -42,12 +41,11 @@ class BLASTGene extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
-    
+
     /**
      * @return string the associated database table name
      */
-    public function tableName()
-    {
+    public function tableName() {
         return 'tbl_blastuserconfiguration';
     }
 
@@ -61,20 +59,20 @@ class BLASTGene extends CActiveRecord {
             array('Email,Sequence', 'required', 'on' => 'blastsearch'),
             array('SequenceType,Program,Database', 'required'),
             array('Email', 'length', 'max' => 500),
-            array('Scores', 'numerical', 'integerOnly'=>true),
-            array('JobTitle', 'length', 'max'=>500),
-            array('SequenceType, Program, Alignments, ExpectValThreshold', 'length', 'max'=>50),
+            array('Scores', 'numerical', 'integerOnly' => true),
+            array('JobTitle', 'length', 'max' => 500),
+            array('SequenceType, Program, Alignments, ExpectValThreshold', 'length', 'max' => 50),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('Email,SequenceType,Sequence,Program,Database', 'safe', 'on' => 'search'),
+            array('Scores,Alignments,ExpectValThreshold,JobTitle', 'default', 'setOnEmpty' => true, 'value' => null),
         );
     }
-    
+
     /**
      * @return array relational rules.
      */
-    public function relations()
-    {
+    public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -97,8 +95,6 @@ class BLASTGene extends CActiveRecord {
             'Scores' => 'Scores',
             'Alignments' => 'Alignments',
             'ExpectValThreshold' => 'Expectation Value Threshold',
-            
-            
             'idtbl_blastuserconfiguration' => 'Idtbl Blastuserconfiguration',
             'idtbl_user' => 'Idtbl User',
             'idtbl_ebidatabases' => 'Idtbl Ebidatabases',
@@ -118,7 +114,16 @@ class BLASTGene extends CActiveRecord {
             'ExpectValThreshold' => 'Expectation Value Threshold',
         );
     }
-    
+
+    /**
+     * Changes empty fields to null values
+     * @param type $value
+     * @return type
+     */
+    public function empty2null($value) {
+        return $value === '' ? null : $value;
+    }
+
 //    public function search(){
 //        $data_provider = new CArrayDataProvider(array());
 //        $var = Yii::app()->getSession()->get('blast_result');
@@ -137,15 +142,14 @@ class BLASTGene extends CActiveRecord {
 //        }
 //        return $data_provider;
 //    }
-    
     // <editor-fold defaultstate="collapsed" desc="EBI API interaction functions">
     /**
      * Requests a BLAST search from the EBI service
      * @param BLASTGene $pBlastGene
      * @return String the job id if successful
      */
-    public function requestBLASTSearch($pBlastGene){
-        $service_url = BLASTGene::$BLAST_SEARCH_SERVICE_URL; 
+    public function requestBLASTSearch($pBlastGene) {
+        $service_url = BLASTGene::$BLAST_SEARCH_SERVICE_URL;
         $curl = curl_init($service_url);
         $curl_post_data = array(
             "email" => $pBlastGene->Email,
@@ -161,7 +165,7 @@ class BLASTGene extends CActiveRecord {
         curl_close($curl);
         return $ebi_response;
     }
-    
+
     public function getParameterDetails() {
         $service_url = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/run/';
         $curl = curl_init($service_url);
@@ -203,37 +207,35 @@ class BLASTGene extends CActiveRecord {
 
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_HTTPGET, true);
-            
+
             $curl_response = curl_exec($curl);
             curl_close($curl);
 
             $xml = new SimpleXMLElement($curl_response);
             return $xml;
-        }else{
+        } else {
             return null;
         }
     }
-    
-    public function getPNGJobResult($pJobId){
+
+    public function getPNGJobResult($pJobId) {
         if ($this->getJobStatus($pJobId) === BLASTGene::$JOB_STATUS_FINISHED) {
             $service_url = BLASTGene::$BLAST_SEARCH_RESULT_URL . $pJobId . '/complete-visual-svg';
             $curl = curl_init($service_url);
 
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_HTTPGET, true);
-            
+
             $curl_response = curl_exec($curl);
             curl_close($curl);
-            
+
             return $curl_response;
-        }else{
+        } else {
             return null;
         }
     }
-    
-    // </editor-fold>
 
-    
+    // </editor-fold>
 //    public function fetchDBAttributes(){
 //        $this->jobtitle = $this->JobTitle;
 //        $this->sequencetype = $this->SequenceType;
@@ -243,14 +245,55 @@ class BLASTGene extends CActiveRecord {
 //        $this->expectvalthreshold = $this->ExpectValThreshold;
 //        $this->idtbl_ebidatabases = $this->Database;
 //    }
-    
+
+    /*
+     *     public $JobTitle;
+      public $SequenceType;
+      public $Sequence;
+      public $Program;
+      public $Database;
+      public $Scores;
+      public $Alignments;
+      public $ExpectValThreshold;
+     */
+
+    // <editor-fold defaultstate="collapsed" desc="Data access functions">
+    public function saveBLASTConfiguration($pUserName, $pBLASTGene) {
+//        if (strlen($pBLASTGene->Scores) == 0) {
+//            $pBLASTGene->Scores = null;
+//        }
+
+        $connection = Yii::app()->db;
+        $call = 'SELECT * FROM saveBLASTConfiguration(:pUserName, :pJobTitle, :pSequenceType, :pProgram, :pScores, :pAlignments, :pExpectValThreshold)';
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $command = $connection->createCommand($call);
+            $command->bindParam(':pUserName', $pUserName);
+            $command->bindParam(':pJobTitle', $pBLASTGene->JobTitle);
+            $command->bindParam(':pSequenceType', $pBLASTGene->SequenceType);
+            $command->bindParam(':pProgram', $pBLASTGene->Program);
+            $command->bindParam(':pScores', $pBLASTGene->Scores);
+            $command->bindParam(':pAlignments', $pBLASTGene->Alignments);
+            $command->bindParam(':pExpectValThreshold', $pBLASTGene->ExpectValThreshold);
+            $result = $command->queryScalar();
+            $transaction->commit();
+
+            return $result;
+        } catch (Exception $e) {
+            Yii::log("Error when storing configuration: " . $e->getMessage(), "error", "application.modules.BLASTSearch.models.BLASTGene");
+            $transaction->rollback();
+            return 0;
+        }
+    }
+
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Constants (service URLs, parameter names...)">
     public static $REQUEST_TYPE_XML = 'xml';
     public static $JOB_STATUS_FINISHED = 'FINISHED';
-    
     private static $BLAST_SEARCH_SERVICE_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/run/';
     private static $BLAST_SEARCH_RESULT_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/';
     private static $BLAST_SEARCH_JOB_STATUS_URL = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast/status/';
+
     // </editor-fold>
 }
 
