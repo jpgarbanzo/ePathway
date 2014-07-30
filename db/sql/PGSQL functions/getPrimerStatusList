@@ -1,0 +1,3 @@
+﻿CREATE OR REPLACE FUNCTION getPrimerStatusList() RETURNS SETOF tbl_EstadoPrimer AS $$
+SELECT idtbl_EstadoPrimer, Estado FROM tbl_EstadoPrimer;
+$$ LANGUAGE sql;

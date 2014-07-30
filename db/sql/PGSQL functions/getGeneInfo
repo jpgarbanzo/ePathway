@@ -1,0 +1,11 @@
+﻿CREATE OR REPLACE FUNCTION getGeneInfo(IN pGeneId BIGINT)
+  RETURNS TABLE(AccessCode text, Organism text, CompleteSequence text) AS
+$BODY$
+SELECT codigoaccesion AccessCode, organismoorigen Organism, secuenciacompleta CompleteSequence 
+	FROM tbl_Gen
+	WHERE idtbl_gen = pGeneId;
+$BODY$
+  LANGUAGE sql VOLATILE
+  COST 100;
+ALTER FUNCTION getGeneInfo(IN pGeneId BIGINT)
+  OWNER TO "ePathway";
