@@ -1,24 +1,28 @@
 <?php
 /* @var $this DefaultController */
-/* @var $data Prosite */
+/* @var $data PrositeResultItem */
 ?>
 
 <div class="view">
 
     <b><?php echo CHtml::encode('Start'); ?>:</b>
-        <?php echo CHtml::encode($data->start); ?>
+        <?php echo CHtml::encode($data->Start); ?>
     <br />
     
     <b><?php echo CHtml::encode('Stop'); ?>:</b>
-        <?php echo CHtml::encode($data->stop); ?>
+        <?php echo CHtml::encode($data->Stop); ?>
     <br />
     
     <b><?php echo CHtml::encode('Signature_ac'); ?>:</b>
-        <?php echo CHtml::link($data->signature_ac,'http://prosite.expasy.org/cgi-bin/prosite/nicedoc.pl?'.$data->signature_ac ,array('target'=>'_blank')) ?>
+        <?php echo CHtml::link($data->SignatureAC,$data->Link ,array('target'=>'_blank')) ?>
     <br />    
     
     <b><?php echo CHtml::encode('Score'); ?>:</b>
-        <?php echo CHtml::encode($data->score); ?>
+        <?php echo CHtml::encode($data->Score); ?>
     <br />    
-                  
+              
+    <b><?php echo CHtml::encode('Sequence'); ?>:</b>
+        <?php echo CHtml::encode($data->Sequence); ?>
+    <br />
+
 </div>

@@ -20,12 +20,13 @@ return array(
         'BLASTSearch',
         'prosite',
         'kegg',
-        /*'gii'=>array(
+        'format',
+        'gii'=>array(
             'class'=>'system.gii.GiiModule',
-            'password'=>'CIC',
+            'password'=>'FQXD3pgUec',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
             'ipFilters'=>array('127.0.0.1','::1'),
-        ),*/
+        ),
     ),
     
     

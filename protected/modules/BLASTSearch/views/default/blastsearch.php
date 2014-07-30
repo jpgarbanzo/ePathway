@@ -2,7 +2,9 @@
 /* @var $this DefaultController */
 $this->menu=array(
         array('label'=>'BLAST index', 'url'=>array('index')),
-        array('label'=>'Check Jobs', 'url'=>array('index'))
+        //array('label'=>'Check Jobs', 'url'=>array('index'))
+        array('label'=>'Modify configuration', 'url'=>array('BLASTGene/configuration')),
+        array('label'=>'View stored configuration', 'url'=>array('BLASTGene/viewConfiguration')),
     );
 
 $this->breadcrumbs=array(

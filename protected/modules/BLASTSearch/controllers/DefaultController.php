@@ -4,7 +4,7 @@ class DefaultController extends Controller {
 
     public $layout = '//layouts/column2';
     
-    // <editor-fold defaultstate="collapsed" desc="Framework related functions">
+    // <editor-fold defaultstate="collapsed" desc="Framework related functions: accessRules, etc">
         /**
          * @return array action filters
          */
@@ -23,7 +23,7 @@ class DefaultController extends Controller {
         {
                 return array(
                         array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                                'actions'=>array('index','BLASTSearch','ViewGeneDetails','ViewJob'),
+                                'actions'=>array('index','BLASTSearch','ViewGeneDetails','ViewJob','AutomaticBLAST'),
                                 'users'=>array('@'),
                         ),
                         array('deny',  // deny all users
@@ -46,7 +46,7 @@ class DefaultController extends Controller {
      */
     public function actionBLASTSearch() {
         $model = new BLASTGene();
-
+        $model->setscenario('blastsearch');
         if (isset($_POST['BLASTGene'])) {
             $model->attributes = $_POST['BLASTGene'];
             if ($model->validate()) {
@@ -56,6 +56,29 @@ class DefaultController extends Controller {
         }
         $this->render('blastsearch', array('model' => $model));
     }
+    
+    
+    public function actionAutomaticBLAST(){
+        //$this->redirect($this->createUrl('processing'));
+        //this section should be loaded automatically from the DB, using the user name
+        $bgene = new BLASTGene();
+        $bgene->Email = 'correo@mail.com';
+        $bgene->Program ='blastn';
+        $bgene->Database = 'em_rel_pln';
+//        $bgene->Sequence = "AATCGATCGATGCTAGCTAGCTGACCACACACTGTTGCTGATCGATCGTAGCTAGCTGTGTGTACTACACCACACTGACTATCG";
+        $bgene->SequenceType = 'dna';
+        Yii::app()->getSession()->add('BLAST_Configuration', $bgene);
+        //end
+        
+        
+        if(isset($_POST['Sequence'])){
+            $BLASTGene = Yii::app()->getSession()->get('BLAST_Configuration');
+            $BLASTGene->Sequence = $_POST['Sequence'];
+            $blast_job_result = $BLASTGene->requestBLASTSearch($BLASTGene);
+            $this->redirect($this->createUrl('ViewJob', array('pJobId' => $blast_job_result)));
+        }
+    }
+    
 
     public function actionViewJob($pJobId) {
         $model = new BLASTGene();
@@ -67,15 +90,14 @@ class DefaultController extends Controller {
             $job_xml_result = $model->getXMLJobResult($pJobId);
             $BLASTResult_items = BLASTResultItem::getInstance()->getBLASTResultItemFromXMLRawResult($job_xml_result);
             
-            $blast_data_provider = new CArrayDataProvider('BLASTResultItems', array(
-                'data' => $BLASTResult_items,
+            $blast_data_provider = new CArrayDataProvider($BLASTResult_items, array(
                 'id' => 'blast-search-result',
                 'keyField' => 'ID',
                 'pagination' => array(
-                    'pageSize' => 10,
+                    'pageSize' => 500,
                 ),
-                //'sort'=>array(
-                //    'attributes'=> BLASTResultItem::getInstance()->getAttributes()),
+                'sort'=>array(
+                    'attributes'=> BLASTResultItem::getInstance()->getAttributes()),
             ));
         }else{
             $blast_data_provider = null;

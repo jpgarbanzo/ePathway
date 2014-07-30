@@ -1,0 +1,14 @@
+ 
+CREATE OR REPLACE FUNCTION getuser(pusername character)
+  RETURNS SETOF tbl_user AS
+$BODY$
+SELECT idtbl_user, username, password, email
+        FROM tbl_User
+        WHERE username = pUserName
+        LIMIT 1;
+$BODY$
+  LANGUAGE sql VOLATILE
+  COST 100
+  ROWS 1000;
+ALTER FUNCTION getuser(character)
+  OWNER TO "ePathway";

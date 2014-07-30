@@ -1,11 +1,16 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 
 class KEGGCompound extends CModel 
 {
+    
+    // <editor-fold defaultstate="collapsed" desc="Properties">
+    
     public $CompoundId;
     public $CompoundName;
+    
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Yii related methods">
     
     public function attributeNames()
     {
@@ -15,17 +20,27 @@ class KEGGCompound extends CModel
         );
     }
     
+    public function rules()
+    {
+        return array (
+            array('CompoundName, CompoundId', 'required'),
+        );          
+    }
+    
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
     }
     
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapse" desc="Class Methods">
+    
     /**
      * Searches through compound database in KEGG.
-     * Also looks for links in pathway database to show all
-     * related pathways.
-     * @return \CArrayDataProvider with data to be displayed in a
-     * CListView
+     * Also looks  for links in pathway database
+     * to show all related pathways.
+     * @return \CArrayDataProvider with data to be displayed in a CListView
      */
     public function search()
     {
@@ -62,14 +77,14 @@ class KEGGCompound extends CModel
     }
     
     /**
-     * Returns an array with all compounds matching 
-     * the specified compound in $pCompounds.
+     * Returns an array with all compounds matching the specified
+     * compound in $pCompounds.
      * @param type $pCompounds
      * @return array with compounds and its related pathways
      */
     private function searchCompound($pCompounds) {
         $keywords = str_replace(" ", "+", $pCompounds);
-        $kegg_url = "http://rest.kegg.jp/find/compound/".$keywords;
+        $kegg_url = KEGGCompound::$FIND_KEGG . $keywords;
         $curl = $this->openCURLConnection($kegg_url);
         $result = curl_exec($curl);
         curl_close($curl);
@@ -79,14 +94,16 @@ class KEGGCompound extends CModel
         
         $array_provider = array();
         
-        for ($index = 0; $index < count($result); $index = $index + 2) {
-            $pathways = $this->linkPathwaysByCompound($result[$index]);
-            
-            array_push($array_provider, array(
-                'id' => $result[$index],
-                'name' => $result[$index + 1],
-                'pathways' => $pathways,
-            ));
+        if (count($result) > 1) {
+            for ($index = 0; $index < count($result); $index = $index + 2) {
+                $pathways = $this->linkPathwaysByCompound($result[$index]);
+
+                array_push($array_provider, array(
+                    'id' => $result[$index],
+                    'name' => $result[$index + 1],
+                    'pathways' => $pathways,
+                ));
+            }
         }
         return $array_provider;
     }
@@ -98,7 +115,7 @@ class KEGGCompound extends CModel
      */
     private function linkPathwaysByCompound($pCompound)
     {
-        $kegg_url = "http://rest.kegg.jp/link/pathway/".$pCompound;
+        $kegg_url = KEGGCompound::$LINK_KEGG .$pCompound;
         $curl = $this->openCURLConnection($kegg_url);
         $result = curl_exec($curl);
         curl_close($curl);
@@ -107,47 +124,6 @@ class KEGGCompound extends CModel
         $result = preg_split($pattern, $result);
         
         return $result;
-    }
-    
-    /**
-     * Searchs for a specific pathway and retrieves all information
-     * @param type $pPathwayId
-     * @return array with all details of such pathway
-     */
-    public function getPathway($pPathwayId) {
-        $kegg_url = "http://rest.kegg.jp/get/".$pPathwayId;
-        $curl = $this->openCURLConnection($kegg_url);
-        $result = curl_exec($curl);
-        curl_close($curl);
-        
-        $relevant_info = '(DESCRIPTION)|(ENTRY)|(NAME)|(PATHWAY_MAP)|';
-        $other_info = '(CLASS)|(REFERENCE)|(DBLINKS)|(KO_PATHWAY)|(COMPOUNDS)|(MODULE)|(DISEASE)';
-        $pattern = '/'.$relevant_info.$other_info.'/';
-        $result = preg_split($pattern, $result, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-        
-        $data['important'] = array();
-        $data['other'] = array();
-        for ($index = 0; $index < count($result); $index = $index + 2) {
-            if (strpos( $relevant_info, $result[$index]) !== false) {
-                if ($result[$index] == 'ENTRY') {
-                    $map = preg_split('/\s+/', $result[$index + 1]);
-                    
-                    array_push($data['important'], array(
-                        $result[$index] => "<a href=\"http://rest.kegg.jp/get/".$map[1]."/image"."\">Image</a>",
-                    ));
-                } else {
-                    array_push($data['important'], array(
-                        $result[$index] => $result[$index + 1],
-                    ));       
-                }
-            } else {
-                array_push($data['other'], array(
-                    $result[$index] => $result[$index + 1],
-                ));
-            }
-        }
-        
-        return $data;
     }
     
     /**
@@ -162,6 +138,14 @@ class KEGGCompound extends CModel
         
         return $curl;
     }
+    
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Constants">
+    private static $FIND_KEGG = "http://rest.kegg.jp/find/compound/";
+    private static $LINK_KEGG = "http://rest.kegg.jp/link/pathway/";
+    
+    // </editor-fold>
 }
 
 ?>

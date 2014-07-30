@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 
 class DefaultController extends Controller 
 {
@@ -10,36 +8,40 @@ class DefaultController extends Controller
      */
     public $layout='//layouts/column2';
     
-        // <editor-fold defaultstate="collapsed" desc="Framework related functions">
-    	/**
-         * @return array action filters
-         */
-        public function filters()
-        {
-                return array(
-                        'accessControl', // perform access control for CRUD operations
-                );
-        }
-        /**
-         * Specifies the access control rules.
-         * This method is used by the 'accessControl' filter.
-         * @return array access control rules
-         */
-        public function accessRules()
-        {
-                return array(
-                        array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                                'actions'=>array('index','view'),
-                                'users'=>array('@'),
-                        ),
-                        array('deny',  // deny all users
-                                'users'=>array('*'),
-                        ),
-                );
-        }
+    // <editor-fold defaultstate="collapsed" desc="Framework related functions">
+    
+    /**
+     * @return array action filters
+     */
+    public function filters()
+    {
+        return array(
+            'accessControl', // perform access control for CRUD operations
+        );
+    }
+    
+    /**
+     * Specifies the access control rules.
+     * This method is used by the 'accessControl' filter.
+     * @return array access control rules
+     */
+    public function accessRules()
+    {
+        return array(
+            array('allow', // allow admin user to perform 'admin' and 'delete' actions
+                'actions'=>array('index','view'),
+                'users'=>array('@'),
+            ),
+            array('deny',  // deny all users
+                'users'=>array('*'),
+            ),
+        );
+    }
+    
     // </editor-fold>
     
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $model = new KEGGCompound;
         
         $this->render('index', array(
@@ -47,12 +49,13 @@ class DefaultController extends Controller
         ));
     }
     
-    public function actionView($id) {
-        $model = new KEGGCompound;
-        
-        $pathway = $model->getPathway($id);
+    public function actionView($id)
+    {
+        $model = new KEGGPathway;
+        $model->Id = $id;
+
         $this->render('view', array(
-            'pathway' => $pathway,
+            'model'=>$model,
         ));
     }
 }

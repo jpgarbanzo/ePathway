@@ -4,7 +4,9 @@
  */
 $this->menu=array(
         array('label'=>'BLAST index', 'url'=>array('index')),
-        array('label'=>'BLAST search', 'url'=>array('blastsearch'))
+        array('label'=>'BLAST search', 'url'=>array('blastsearch')),
+        array('label'=>'Modify configuration', 'url'=>array('BLASTGene/configuration')),
+        array('label'=>'View stored configuration', 'url'=>array('BLASTGene/viewConfiguration')),
     );
 
 $this->breadcrumbs=array(
@@ -16,7 +18,7 @@ $this->breadcrumbs=array(
 
 <?php
 if($gene_details != NULL){
-    $this->renderPartial('_genedetails',array('gene_details'=>$gene_details));
+    $this->renderPartial('_genedetails',array('gene_details'=>$gene_details, 'access_code'=>$access_code));
 }
 else{
     echo '<h3>Gene not found. You may want to search using the buttons below:</h3>';

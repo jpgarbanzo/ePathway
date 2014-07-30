@@ -26,7 +26,7 @@ $this->widget('zii.widgets.CDetailView', array(
         array(
             'label'=>$model->getAttributeLabel('sequence'),
             'type'=>'raw',
-            'value'=>'<textarea readonly="readonly" class="dna" id="sequence">' . $model->sequence . '</textarea>',
+            'value'=>'<textarea readonly="readonly" class="dna" id="sequence">' . $model->Sequence . '</textarea>',
         ),
     ),
 ));

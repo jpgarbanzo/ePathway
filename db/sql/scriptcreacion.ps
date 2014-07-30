@@ -1,0 +1,68 @@
+CREATE TABLE tbl_Usuario ( 
+	idtbl_Usuario BIGSERIAL NOT NULL, 
+	Username character varying (50) NOT NULL,
+	Password character varying (25) NOT NULL,
+	PRIMARY KEY (idtbl_Usuario)
+);
+
+CREATE TABLE tbl_Gen(
+	idtbl_Gen BIGSERIAL NOT NULL,
+	CodigoAccesion character varying(50) NOT NULL,
+	OrganismoOrigen character varying(300) NOT NULL,
+	SecuenciaCompleta character varying(5000),
+	CDS character varying(1500),
+	Identificador character varying(500),
+	primary key(idtbl_Gen)
+);
+
+CREATE TABLE tbl_AreaInteres (
+	idtbl_AreaInteres BIGSERIAL NOT NULL,
+	SecuenciaInteres character varying(1500) NOT NULL,
+	primary key(idtbl_AreaInteres),
+	idtbl_Gen BIGINT NOT NULL,
+	Identificador character varying(500) default 'Not Defined' NOT NULL,
+	CONSTRAINT "FK_tbl_AreaInteres_tbl_Gen" FOREIGN KEY(idtbl_Gen) REFERENCES tbl_Gen(idtbl_Gen)
+);
+
+CREATE TABLE tbl_EstadoPrimer (
+	idtbl_EstadoPrimer BIGSERIAL NOT NULL,
+	Estado character varying(250) NOT NULL,
+	primary key(idtbl_EstadoPrimer)	
+);
+
+CREATE TABLE tbl_Primer (
+	idtbl_Primer BIGSERIAL NOT NULL,
+	PrimerRInicio integer NOT NULL,
+	PrimerRLongitud integer NOT NULL,
+	PrimerFInicio integer NOT NULL,
+	PrimerFLongitud integer NOT NULL,
+	Observaciones character varying(500),
+	primary key(idtbl_Primer),
+	idtbl_Gen BIGINT NOT NULL,
+	idtbl_EstadoPrimer BIGINT NOT NULL,
+	CONSTRAINT "FK_tbl_Primer_tbl_Gen" FOREIGN KEY(idtbl_Gen) REFERENCES tbl_Gen(idtbl_Gen),
+	CONSTRAINT "FK_tbl_Primer_tbl_EstadoPrimer" FOREIGN KEY(idtbl_EstadoPrimer) REFERENCES tbl_EstadoPrimer(idtbl_EstadoPrimer)
+);
+
+CREATE TABLE tbl_RutaMetabolica (
+	idtbl_RutaMetabolica BIGSERIAL NOT NULL,
+	NombreRuta character varying(500) NOT NULL,
+	-- URLImagen character varying(1000),
+	URLRuta character varying(500),
+	primary key(idtbl_RutaMetabolica)
+);
+
+CREATE TABLE tbl_GenPorRutaMetabolica (
+	idtbl_GenPorRutaMetabolica BIGSERIAL NOT NULL,
+	primary key(idtbl_GenPorRutaMetabolica),
+	idtbl_Gen BIGINT NOT NULL,
+	idtbl_RutaMetabolica BIGINT NOT NULL,
+	CONSTRAINT "FK_tbl_GenPorRutaMetabolica_tbl_Gen" FOREIGN KEY(idtbl_Gen) REFERENCES tbl_Gen(idtbl_Gen),
+	CONSTRAINT "FK_tbl_GenPorRutaMetabolica_tbl_RutaMetabolica" FOREIGN KEY(idtbl_RutaMetabolica) REFERENCES tbl_RutaMetabolica(idtbl_RutaMetabolica)
+);
+
+
+
+
+
+

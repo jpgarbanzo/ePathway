@@ -45,5 +45,24 @@ $this->menu=array(
                     'value' => CHtml::encode($model->getPrimerStatusText()),
                 ),
                 'observaciones',    
+                array(
+                'label' => 'BLAST Search',
+                'type' => 'raw',
+                'value' => CHtml::link(
+                    "BLAST Primer R",
+                    $this->createUrl("//BLASTSearch/default/AutomaticBLAST"),
+                    array(
+                        "submit" => $this->createUrl("//BLASTSearch/default/AutomaticBLAST"),
+                        "params" => array("Sequence" => $model->SequenceR)
+                        )
+                    ) . '<br/><br/>' . CHtml::link(
+                    "BLAST Primer F",
+                    $this->createUrl("//BLASTSearch/default/AutomaticBLAST"),
+                    array(
+                        "submit" => $this->createUrl("//BLASTSearch/default/AutomaticBLAST"),
+                        "params" => array("Sequence" => $model->SequenceF)
+                        )
+                    ),
+        )
 	),
 )); ?>

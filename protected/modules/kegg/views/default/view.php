@@ -1,6 +1,6 @@
 <?php
     /* @var $this DefaultController */
-    /* @var $pathway array*/
+    /* @var $model KEGGPathway*/
 
     $this->breadcrumbs = array('Pathway Information');
     
@@ -20,37 +20,31 @@
 ?>
 
 <?php
-    foreach($pathway['important'] as $entry) {
-        foreach ($entry as $key => $value) {
-            echo "<b>";
-            echo CHtml::encode($key);
-            echo "</b>";
-            echo "<br />";
-            echo "&nbsp&nbsp&nbsp&nbsp";
-            if ($key == 'ENTRY') {
-                echo $value;
-            } else {
-                echo CHtml::encode($value);
-            }
-            echo "<br />";
-        }
-    }
+    $this->widget('zii.widgets.CDetailView', array(
+        'data'=>$model->search(),
+        'attributes'=>array(
+            'Entry:html',
+            'Name:html',
+            'Description',
+            'Class:html',
+            'Compound:html',
+            'Enzyme:html',
+            'Orthology:html',
+        ),
+    ));
 ?>
 
 <?php echo CHtml::link('See More Information','#', array('class'=>'info-button')); ?>
-
+<br />
 <div class="other-info" style="display:none">
-<?php 
-    foreach($pathway['other'] as $entry) {
-        foreach ($entry as $key => $value) {
-            echo "<b>";
-            echo CHtml::encode($key);
-            echo "</b>";
-            echo "<br />";
-            echo "&nbsp&nbsp&nbsp&nbsp";
-            echo CHtml::encode($value);
-            echo "<br />";
-        }
+<?php
+    echo "<br />";
+    
+    foreach($model->searchOtherInfo() as $key => $value) {
+        echo "<b>";
+        echo CHtml::encode($key);
+        echo "<br /></b><br />";
+        echo $value."<br />";
     }
 ?>
 </div>

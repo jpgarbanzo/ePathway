@@ -5,7 +5,7 @@
 ?>
 
 <div class="form">
-
+    <a href="http://primer3.ut.ee/" target="blank">Go to Primer3 website</a><br><br>
     <?php
     $form = $this->beginWidget('CActiveForm', array(
         'id' => 'primer-form',

@@ -24,15 +24,14 @@ class AreainteresController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	public function accessRules()
-	{
+	public function accessRules() {
 		return array(
 //			array('allow',  // allow all users to perform 'index' and 'view' actions
 //				'actions'=>array(),
 //				'users'=>array('*'),
 //			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update', 'admin', 'filter'),
+				'actions'=>array('index','view','create','update', 'admin', 'filter','exportFile'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -122,18 +121,57 @@ class AreainteresController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Areainteres', array(
-                    'criteria'=>array(
-                        'order'=>'idtbl_areainteres DESC',
+	public function actionIndex() {
+            if(Yii::app()->request->getParam('export')) {
+                $this->actionExport();
+                Yii::app()->end();
+            }
+            $dataProvider=new CActiveDataProvider('Areainteres', array(
+                'criteria'=>array(
+                    'order'=>'idtbl_areainteres DESC',
                     )
                 ));
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+            $this->render('index',array(
+                'dataProvider'=>$dataProvider,
+                ));
 	}
-
+        
+        public function actionExport() {
+            $fp = fopen('php://temp', 'w');
+            $headers = array(
+                'idtbl_gen',
+                'secuenciainteres',
+                'identificador',
+            );
+            $row = array();
+            foreach($headers as $header) {
+                $row[] = Areainteres::model()->getAttributeLabel($header);
+            }
+            fputcsv($fp,$row);
+            $model=new Areainteres('search');
+            foreach ($model->findAll() as $data) {
+                $row = array();
+                $model_keys = new Areainteres();
+                foreach($headers as $head) {
+                    if($head == 'idtbl_gen') {
+                        $model_keys->idtbl_gen = CHtml::value($data,$head);
+                        $row[] = $model_keys->getAccessCode();
+                    }
+                    else
+                        $row[] = CHtml::value($data,$head);
+                }
+                fputcsv($fp,$row);        
+            }
+            rewind($fp);
+            Yii::app()->user->setState('export',stream_get_contents($fp));
+            fclose($fp);
+	}
+        
+        public function actionExportFile() {
+            Yii::app()->request->sendFile('relevantareas.csv',Yii::app()->user->getState('export'));
+            Yii::app()->user->clearState('export');
+        }      
+                
 	/**
 	 * Manages all models.
 	 */

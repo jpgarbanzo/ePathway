@@ -38,6 +38,25 @@ $this->widget('zii.widgets.CDetailView', array(
             'type'=>'raw',
             'value'=>'<textarea readonly="readonly" class="dna" id="cds">' . $model->cds . '</textarea>',
         ),
+        array(
+            'label' => 'BLAST Search',
+            'type' => 'raw',
+            'value' => CHtml::link(
+                    "BLAST Complete Sequence",
+                    $this->createUrl("//BLASTSearch/default/AutomaticBLAST"),
+                    array(
+                        "submit" => $this->createUrl("//BLASTSearch/default/AutomaticBLAST"),
+                        "params" => array("Sequence" => $model->secuenciacompleta)
+                        )
+                    ) . '<br/><br/>' . CHtml::link(
+                    "BLAST CDS only",
+                    $this->createUrl("//BLASTSearch/default/AutomaticBLAST"),
+                    array(
+                        "submit" => $this->createUrl("//BLASTSearch/default/AutomaticBLAST"),
+                        "params" => array("Sequence" => $model->cds)
+                        )
+                    ),
+        )
     ),
 ));
 ?>

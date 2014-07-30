@@ -1,0 +1,11 @@
+﻿CREATE OR REPLACE FUNCTION getPrimerStatus(IN pPrimerId BIGINT)
+  RETURNS VARCHAR AS
+$BODY$
+SELECT Estado 
+	FROM tbl_EstadoPrimer INNER JOIN tbl_Primer USING(idtbl_estadoprimer)
+	WHERE idtbl_primer = pPrimerId;
+$BODY$
+  LANGUAGE sql VOLATILE
+  COST 100;
+ALTER FUNCTION getPrimerStatus(IN pPrimerId BIGINT)
+  OWNER TO "ePathway";

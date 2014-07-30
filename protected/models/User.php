@@ -11,6 +11,9 @@
  */
 class User extends CActiveRecord
 {
+    public $PasswordCheck;
+    
+    
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -37,9 +40,12 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password', 'required'),
+			array('username, email, password, PasswordCheck', 'required'),
 			array('username, email', 'length', 'max'=>255),
 			array('password', 'length', 'max'=>64),
+                        array('username', 'unique', 'className'=>'User', 'message'=>'The {attribute} is already in use, please pick another one.'),
+                        array('PasswordCheck', 'validatePasswordMatch', 'message' => 'The passwords provided don\'t match'),
+                        array('email','email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('idtbl_user, username, password, email', 'safe', 'on'=>'search'),
@@ -67,6 +73,7 @@ class User extends CActiveRecord
 			'username' => 'Username',
 			'password' => 'Password',
 			'email' => 'Email',
+                        'PasswordCheck' => 'Confirm Password',
 		);
 	}
 
@@ -81,7 +88,6 @@ class User extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('idtbl_user',$this->idtbl_user,true);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
@@ -91,6 +97,11 @@ class User extends CActiveRecord
 		));
 	}
         
+        /**
+         * Obtains the user from the database, if the username provided exists
+         * @param type $pUserName
+         * @return null|User object
+         */
         public function getUserFromUserName($pUserName){
             $call = 'SELECT * FROM getUser(:pusername)';
             $connection = Yii::app()->db;
@@ -107,5 +118,10 @@ class User extends CActiveRecord
                   $user->email = $result['email'];
                  return $result;
               }             
+        }
+        
+        public function validatePasswordMatch($attribute){
+            if(!($this->PasswordCheck == $this->password))
+                $this->addError($attribute, 'The passwords provided don\'t match');
         }
 }
